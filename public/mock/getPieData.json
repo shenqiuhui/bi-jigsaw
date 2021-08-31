@@ -1,0 +1,43 @@
+{
+  "code": 200,
+  "data": {
+    "legend": {
+      "left": "left",
+      "orient": "vertical",
+      "type": "scroll"
+    },
+    "series": [{
+      "data": [{
+        "name": "20170820",
+        "value": 496358520
+      }, {
+        "name": "20170819",
+        "value": 82723004
+      }, {
+        "name": "20170809",
+        "value": 82721352
+      }, {
+        "name": "20170818",
+        "value": 165444636
+      }],
+      "emphasis": {
+        "shadowBlur": 10,
+        "shadowColor": "rgba(0, 0, 0, 0.5)",
+        "shadowOffsetX": 0
+      },
+      "name": "",
+      "radius": "50%",
+      "type": "pie"
+    }],
+    "title": {
+      "left": "center",
+      "subtext": "",
+      "text": ""
+    },
+    "tooltip": {
+      "formatter": "{b}<br/> {c} ({d}%)",
+      "trigger": "item"
+    }
+  },
+  "message": "OK"
+}

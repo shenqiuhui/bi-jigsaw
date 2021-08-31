@@ -1,0 +1,47 @@
+{
+  "code": 200,
+  "data": {
+    "tooltip": {
+      "trigger": "axis",
+      "axisPointer": {
+        "type": "cross"
+      }
+    },
+    "legend": {
+      "data": ["user_id(sum)", "bike_id(sum)", "order_id(sum)"],
+      "top": "0",
+      "left": "center"
+    },
+    "xAxis": {
+      "boundaryGap": "true",
+      "data": ["20170820", "20170819", "20170809", "20170818"],
+      "type": "category"
+    },
+    "yAxis": {
+      "type": "value",
+      "position": "left",
+      "axisLine": {
+        "lineStyle": {
+          "color": "#EE6666"
+        },
+        "show": true
+      },
+      "formatter": "{value}"
+    },
+    "series": [{
+      "name": "user_id(sum)",
+      "type": "bar",
+      "data": [152536608, 25411092, 25411400, 50830976]
+    }, {
+      "name": "bike_id(sum)",
+      "type": "line",
+      "data": [4590320, 764400, 764288, 1528800]
+    }, {
+      "name": "order_id(sum)",
+      "type": "line",
+      "areaStyle": [],
+      "data": [496358520, 82723004, 82721352, 165444636]
+    }]
+  },
+  "message": "OK"
+}

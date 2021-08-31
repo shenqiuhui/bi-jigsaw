@@ -1,0 +1,17 @@
+.table-widget-container {
+  height: 100%;
+
+  .table-widget-auto-size {
+    height: 100% !important;
+  }
+
+  .ant-table-container {
+    &::before, &::after {
+      z-index: -2;
+    }
+  }
+
+  .total-text {
+    color: #808080;
+  }
+}

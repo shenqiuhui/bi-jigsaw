@@ -1,0 +1,19 @@
+{
+  "code": 200,
+  "data": [{
+    "autoUpdate": "",
+    "createTime": "",
+    "deleted": "",
+    "model": "",
+    "modelFieldType": "",
+    "planDesc": "",
+    "planId": 54,
+    "planName": "测试查询",
+    "updateConfig": "",
+    "updateTime": "",
+    "username": "",
+    "versionId": "",
+    "windowId": ""
+  }],
+  "message": "OK"
+}

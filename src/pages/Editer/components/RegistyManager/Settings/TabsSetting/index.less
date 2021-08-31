@@ -1,0 +1,74 @@
+.tabs-setting-container {
+  height: 100%;
+  padding: 15px 20px;
+  overflow: auto;
+
+  .item-color {
+    color: #C4C7CE;
+  }
+
+  .item-title {
+    margin-bottom: 10px;
+  }
+
+  .ant-radio-wrapper {
+    color: #787F8F;
+
+    .ant-radio-inner {
+      background-color: #3E4860;
+      border-color: #D9D9D9;
+
+      &::after {
+        width: 10px;
+        height: 10px;
+        top: 2px;
+        left: 2px;
+        background-color: #1990FF;
+      }
+    }
+
+    .ant-radio-checked {
+      .ant-radio-inner {
+        border-color: #1990FF;
+      }
+    }
+  }
+}
+
+.tabs-input-container-wrapper {
+  .tabs-input-container {
+    margin-bottom: 16px;
+
+    .tab-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .delete-icon {
+        color: #D9D9D9;
+        margin-left: 14px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .add-tab-button {
+    width: 350px;
+    height: 24px;
+    line-height: 24px;
+    background-color: #2C3551;
+    text-align: center;
+    color: #C4C7CE;
+    border-radius: 3px;
+    cursor: pointer;
+
+    .add-icon {
+      margin-right: 4px;
+    }
+  }
+}

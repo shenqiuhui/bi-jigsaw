@@ -1,0 +1,86 @@
+{
+  "code": 200,
+  "data": {
+    "columns": [{
+      "title": "end_time",
+      "dataIndex": "end_time",
+      "align": "center"
+    }, {
+      "title": "end_location(count)",
+      "dataIndex": "end_location(count)",
+      "align": "center"
+    }, {
+      "title": "status(sum)",
+      "dataIndex": "status(sum)",
+      "align": "center"
+    }, {
+      "title": "total_time(sum)",
+      "dataIndex": "total_time(sum)",
+      "align": "center"
+    }],
+    "dataSource": [{
+      "id": 1,
+      "end_time": "2017-08-20 10:26:45",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 26320
+    }, {
+      "id": 2,
+      "end_time": "2017-08-09 19:47:26",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 1456
+    }, {
+      "id": 3,
+      "end_time": "2017-08-20 10:14:53",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 15008
+    }, {
+      "id": 4,
+      "end_time": "2017-08-20 10:46:07",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 79548
+    }, {
+      "id": 5,
+      "end_time": "2017-08-20 19:49:10",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 1792
+    }, {
+      "id": 6,
+      "end_time": "2017-08-18 13:53:32",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 3892
+    }, {
+      "id": 7,
+      "end_time": "2017-08-20 20:08:11",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 32956
+    }, {
+      "id": 8,
+      "end_time": "2017-08-20 20:07:49",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 32116
+    }, {
+      "id": 9,
+      "end_time": "2017-08-18 13:42:41",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 252
+    }, {
+      "id": 10,
+      "end_time": "2017-08-19 19:42:14",
+      "end_location(count)": 28,
+      "status(sum)": 56,
+      "total_time(sum)": 272972
+    }],
+    "total": 10,
+    "exexSql": "select toString(`end_time`) as `end_time`,count(toFloat64OrZero(`end_location`)) as `end_location(count)`,sum(`status`) as `status(sum)`,sum(`total_time`) as `total_time(sum)` from mergeTreeTable54 group by `end_time`"
+  },
+  "message": "OK"
+}

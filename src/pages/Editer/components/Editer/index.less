@@ -1,0 +1,28 @@
+.editer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: calc(100vh - 80px);
+
+  .editer-board-container {
+    flex: 1;
+    height: calc(100vh - 90px);
+    margin-top: 10px;
+  }
+
+  .editer-setter-container {
+    width: 420px;
+    height: calc(100vh - 80px);
+    background-color: #3E4860;
+  }
+
+  .editer-setter-container-none {
+    display: none;
+  }
+}
+
+.editer-container-loading {
+  .ant-spin {
+    max-height: none !important;
+  }
+}

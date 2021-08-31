@@ -1,0 +1,591 @@
+{
+  "code": 200,
+  "data": {
+    "spaceId": "s_20398",
+    "name": "申秋辉测试",
+    "description": "测试",
+    "theme": "light",
+    "filters": {
+      "conditions": [{
+        "fieldName": "单选",
+        "checkedWidgets": ["69df62c7-3199-4498-a1d1-a8b15297a411", "85f1c33c-868d-4905-b6ad-814a6b7fa6a1"],
+        "widgetFieldList": [{
+          "field": "order_sn",
+          "widgetId": "69df62c7-3199-4498-a1d1-a8b15297a411",
+          "planId": 54
+        }, {
+          "field": "order_sn",
+          "widgetId": "85f1c33c-868d-4905-b6ad-814a6b7fa6a1",
+          "planId": 54
+        }],
+        "type": "select",
+        "fieldValue": "72c08a8d-1b2d-4708-aba3-71264560c814"
+      }, {
+        "fieldName": "多选",
+        "checkedWidgets": ["69df62c7-3199-4498-a1d1-a8b15297a411", "753bc39a-5bcc-4c93-9c93-71b6e231a6e9"],
+        "widgetFieldList": [{
+          "field": "order_id",
+          "widgetId": "69df62c7-3199-4498-a1d1-a8b15297a411",
+          "planId": 54
+        }, {
+          "field": "order_sn",
+          "widgetId": "753bc39a-5bcc-4c93-9c93-71b6e231a6e9",
+          "planId": 54
+        }],
+        "type": "select-multiple",
+        "fieldValue": "3e963447-502d-4f22-97ad-3d272faba3f6",
+        "initialValue": []
+      }, {
+        "fieldName": "日期",
+        "checkedWidgets": ["753bc39a-5bcc-4c93-9c93-71b6e231a6e9", "dc1d2f33-c68e-4a5c-a06a-29650122182e"],
+        "widgetFieldList": [{
+          "field": "user_id",
+          "widgetId": "753bc39a-5bcc-4c93-9c93-71b6e231a6e9",
+          "planId": 54
+        }, {
+          "field": "bike_sn",
+          "widgetId": "dc1d2f33-c68e-4a5c-a06a-29650122182e",
+          "planId": 54
+        }],
+        "type": "date",
+        "fieldValue": "977631dd-29fc-44ea-be14-9eb8cdb38f8d",
+        "initialValue": ""
+      }, {
+        "fieldName": "日期范围",
+        "checkedWidgets": ["69df62c7-3199-4498-a1d1-a8b15297a411", "85f1c33c-868d-4905-b6ad-814a6b7fa6a1", "dc1d2f33-c68e-4a5c-a06a-29650122182e"],
+        "widgetFieldList": [{
+          "field": "order_sn",
+          "widgetId": "69df62c7-3199-4498-a1d1-a8b15297a411",
+          "planId": 54
+        }, {
+          "field": "bike_id",
+          "widgetId": "dc1d2f33-c68e-4a5c-a06a-29650122182e",
+          "planId": 54
+        }, {
+          "field": "bike_sn",
+          "widgetId": "85f1c33c-868d-4905-b6ad-814a6b7fa6a1",
+          "planId": 54
+        }],
+        "dateRangeType": "static",
+        "type": "date-range",
+        "fieldValue": "cd4bf1df-d7c1-4ec3-a1b3-fd1b545b90a6"
+      }, {
+        "fieldName": "搜索输入",
+        "checkedWidgets": ["69df62c7-3199-4498-a1d1-a8b15297a411", "753bc39a-5bcc-4c93-9c93-71b6e231a6e9", "85f1c33c-868d-4905-b6ad-814a6b7fa6a1"],
+        "widgetFieldList": [{
+          "field": "order_sn",
+          "widgetId": "69df62c7-3199-4498-a1d1-a8b15297a411",
+          "planId": 54
+        }, {
+          "field": "order_id",
+          "widgetId": "753bc39a-5bcc-4c93-9c93-71b6e231a6e9",
+          "planId": 54
+        }, {
+          "field": "order_id",
+          "widgetId": "85f1c33c-868d-4905-b6ad-814a6b7fa6a1",
+          "planId": 54
+        }],
+        "type": "input",
+        "fieldValue": "e2a9372b-d23b-4b49-b5b5-fafc7584e059"
+      }, {
+        "fieldName": "数字输入",
+        "checkedWidgets": ["dc1d2f33-c68e-4a5c-a06a-29650122182e"],
+        "widgetFieldList": [{
+          "field": "user_id",
+          "widgetId": "dc1d2f33-c68e-4a5c-a06a-29650122182e",
+          "planId": 54
+        }],
+        "type": "input-number",
+        "fieldValue": "71e96b2e-b9e6-4077-bc03-2d0bd8bf2285"
+      }]
+    },
+    "pageId": 30,
+    "widgets": [{
+      "settings": {
+        "data": {
+          "planName": "测试查询",
+          "showType": "2",
+          "planId": 54,
+          "filters": [],
+          "indicators": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "end_location",
+            "rename": "",
+            "name": "end_location",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "status",
+            "rename": "",
+            "name": "status",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "total_time",
+            "rename": "",
+            "name": "total_time",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }],
+          "dimensions": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "end_time",
+            "rename": "",
+            "name": "end_time",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "TIMESTAMP",
+            "aggregatefunc": "count",
+            "order": "none"
+          }]
+        },
+        "style": {
+          "showTitle": true,
+          "pageSize": 10,
+          "title": "表格"
+        }
+      },
+      "coordinate": {
+        "static": false,
+        "minH": 12,
+        "minW": 4,
+        "w": 12,
+        "moved": false,
+        "h": 15,
+        "x": 0,
+        "y": 0,
+        "i": "69df62c7-3199-4498-a1d1-a8b15297a411"
+      },
+      "name": "表格",
+      "id": "69df62c7-3199-4498-a1d1-a8b15297a411",
+      "type": "table"
+    }, {
+      "settings": {
+        "data": {
+          "legends": [],
+          "planName": "测试查询",
+          "showType": "2",
+          "planId": 54,
+          "filters": [],
+          "indicators": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "user_id",
+            "rename": "",
+            "name": "user_id",
+            "showType": "2",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "bike_id",
+            "rename": "",
+            "name": "bike_id",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "order_id",
+            "rename": "",
+            "name": "order_id",
+            "showType": "3",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }],
+          "dimensions": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "event_day",
+            "rename": "",
+            "name": "event_day",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }]
+        },
+        "style": {
+          "yAxisAll": false,
+          "xAxis": {
+            "title": ""
+          },
+          "showTitle": true,
+          "legend": "top",
+          "yAxisRight": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": []
+          },
+          "yAxisLeft": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": []
+          },
+          "title": "组合图"
+        }
+      },
+      "coordinate": {
+        "static": false,
+        "minH": 12,
+        "minW": 3,
+        "w": 6,
+        "moved": false,
+        "h": 15,
+        "x": 0,
+        "y": 15,
+        "i": "753bc39a-5bcc-4c93-9c93-71b6e231a6e9"
+      },
+      "name": "组合图",
+      "id": "753bc39a-5bcc-4c93-9c93-71b6e231a6e9",
+      "type": "complex"
+    }, {
+      "settings": {
+        "data": {
+          "planName": "测试查询",
+          "showType": "2",
+          "planId": 54,
+          "filters": [],
+          "indicators": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "order_id",
+            "rename": "",
+            "name": "order_id",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }],
+          "dimensions": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "event_day",
+            "rename": "",
+            "name": "event_day",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }]
+        },
+        "style": {
+          "showTitle": true,
+          "showType": "1",
+          "radiusPercentage": 10,
+          "title": "饼图",
+          "labels": ["1", "2", "3"]
+        }
+      },
+      "coordinate": {
+        "static": false,
+        "minH": 12,
+        "minW": 3,
+        "w": 6,
+        "moved": false,
+        "h": 15,
+        "x": 6,
+        "y": 15,
+        "i": "85f1c33c-868d-4905-b6ad-814a6b7fa6a1"
+      },
+      "name": "饼图",
+      "id": "85f1c33c-868d-4905-b6ad-814a6b7fa6a1",
+      "type": "pie"
+    }, {
+      "settings": {
+        "data": {
+          "legends": [],
+          "planName": "测试查询",
+          "showType": "2",
+          "planId": 54,
+          "filters": [],
+          "indicators": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "order_sn",
+            "rename": "",
+            "name": "order_sn",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "order_id",
+            "rename": "",
+            "name": "order_id",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }],
+          "dimensions": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "event_day",
+            "rename": "",
+            "name": "event_day",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }]
+        },
+        "style": {
+          "yAxisAll": false,
+          "xAxis": {
+            "title": ""
+          },
+          "showTitle": true,
+          "legend": "top",
+          "yAxisRight": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": []
+          },
+          "yAxisLeft": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": []
+          },
+          "title": "折线图"
+        }
+      },
+      "coordinate": {
+        "static": false,
+        "minH": 12,
+        "minW": 3,
+        "w": 6,
+        "moved": false,
+        "h": 16,
+        "x": 0,
+        "y": 30,
+        "i": "2a7631c1-f582-46e0-bd0e-ea365e1ed96a"
+      },
+      "name": "折线图",
+      "id": "2a7631c1-f582-46e0-bd0e-ea365e1ed96a",
+      "type": "line"
+    }, {
+      "settings": {
+        "data": {
+          "legends": [],
+          "planName": "测试查询",
+          "showType": "2",
+          "planId": 54,
+          "filters": [],
+          "indicators": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "bike_id",
+            "rename": "",
+            "name": "bike_id",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }, {
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "order_id",
+            "rename": "",
+            "name": "order_id",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "int",
+            "aggregatefunc": "sum",
+            "order": "none"
+          }],
+          "dimensions": [{
+            "enumFilterValue": "",
+            "filterMethodType": "2",
+            "nameZh": "",
+            "conditionFilterType": "1",
+            "align": "center",
+            "type": "1",
+            "enumFilterType": "1",
+            "conditionFilterValue": "",
+            "field": "event_day",
+            "rename": "",
+            "name": "event_day",
+            "showType": "1",
+            "enumFilterValues": [],
+            "formatType": "1",
+            "fieldType": "String",
+            "aggregatefunc": "count",
+            "order": "none"
+          }]
+        },
+        "style": {
+          "yAxisAll": true,
+          "xAxis": {
+            "title": ""
+          },
+          "showTitle": true,
+          "legend": "top",
+          "yAxisRight": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": ["order_id"]
+          },
+          "yAxisLeft": {
+            "rangeValues": [null, null],
+            "title": "",
+            "fields": []
+          },
+          "title": "柱状图"
+        }
+      },
+      "coordinate": {
+        "static": false,
+        "minH": 12,
+        "minW": 3,
+        "w": 6,
+        "moved": false,
+        "h": 16,
+        "x": 6,
+        "y": 30,
+        "i": "dc1d2f33-c68e-4a5c-a06a-29650122182e"
+      },
+      "name": "柱状图",
+      "id": "dc1d2f33-c68e-4a5c-a06a-29650122182e",
+      "type": "bar"
+    }]
+  },
+  "message": "OK"
+}

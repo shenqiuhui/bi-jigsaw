@@ -1,0 +1,138 @@
+.dashborad-layout {
+  min-height: 100vh !important;
+
+  .dashborad-header {
+    padding: 0 20px 0 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+
+    .dashborad-logo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 60px;
+      height: 100%;
+      background-color: rgba(102, 194, 255, 1);
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .dashborad-header-right {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      font-size: 16px;
+
+      h1 {
+        margin: 0 0 0 30px;
+        color: #FFFFFF;
+        width: 350px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        li {
+          color: #FFFFFF;
+          list-style: none;
+          margin-right: 20px;
+          cursor: pointer;
+          height: 22px;
+          line-height: 22px;
+        }
+      }
+    }
+
+    .dashborad-operater {
+      color: #FFFFFF;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+
+      .switch-buttons {
+        overflow: hidden;
+        background-color: #2b3551;
+        height: 26px;
+        border-radius: 15px;
+        position: relative;
+
+        li {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 90px;
+          margin: 0;
+          font-size: 14px;
+          color: hsla(0, 0%, 100%, .3);
+
+          &.active {
+            color: #FFFFFF;
+          }
+
+          &:hover {
+            color: #FFFFFF;
+          }
+
+          &.switch-buttons-mark {
+            position: absolute;
+            right: 90px;
+            background-color: rgba(196, 211, 255, .2);
+            border-radius: 15px;
+            transition: .2s linear;
+          }
+
+          &.edit-buttons-mark {
+            right: 90px;
+          }
+
+          &.preview-buttons-mark {
+            right: 0;
+          }
+        }
+      }
+
+      .divider {
+        background-color: #324553;
+        height: 40px;
+        margin: 0 16px;
+      }
+
+      .dashborad-operater-button {
+        cursor: pointer;
+        height: 22px;
+        line-height: 22px;
+
+        &.disabled-events {
+          pointer-events: none;
+        }
+
+        .loading-icon {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+
+  .dashborad-content {
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
