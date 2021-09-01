@@ -9,12 +9,10 @@ import store from './store';
 import './index.less';
 
 ReactDOM.render(
-  <StrictMode>
-    <ConfigProvider locale={zhCN}>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    </ConfigProvider>
-  </StrictMode>,
+  <ConfigProvider locale={zhCN}>
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  </ConfigProvider>,
   document.getElementById('root')
 );
