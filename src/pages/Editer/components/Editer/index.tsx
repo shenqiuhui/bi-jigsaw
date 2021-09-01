@@ -121,7 +121,6 @@ const Editer: React.FC<IEditerProps> = memo(() => {
   // 用于更新组件数据配置
   const handleDataSettingChange = (dataSettings: Settings['data']) => {
     const widgets = replaceWidgets(selectedWidgetId as string, 'data', dataSettings, pageConfig.widgets);
-    console.log('%c 🥤 widgets: ', 'font-size:20px;background-color: #E41A6A;color:#fff;', widgets);
     dispatch(setDashboardConfig({ ...pageConfig, widgets }));
     setSettings((settings) => ({ ...settings, data: dataSettings }));
   }

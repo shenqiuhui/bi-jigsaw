@@ -238,7 +238,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
     }
 
     // 组件自定义条件判断
-    if (!validater?.(result)) {
+    if (validater && !validater?.(result)) {
       return;
     };
 

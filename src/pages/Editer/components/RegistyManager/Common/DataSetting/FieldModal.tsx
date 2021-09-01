@@ -76,7 +76,7 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
   const fetchFilterSelectList = async () => {
     try {
       const res: any = await getFilterSelectList({
-        api: '/api/datausage/getDashBoardModuleData',
+        api: '/getFilterSelectList',
         method: 'post',
         params: {
           widgetFieldList: [
