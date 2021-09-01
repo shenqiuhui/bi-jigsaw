@@ -8,7 +8,7 @@
       }
     },
     "legend": {
-      "data": ["user_id(sum)", "bike_id(sum)", "order_id(sum)"],
+      "data": ["user_id(sum)", "product_id(sum)", "order_id(sum)"],
       "top": "0",
       "left": "center"
     },
@@ -33,7 +33,7 @@
       "type": "bar",
       "data": [152536608, 25411092, 25411400, 50830976]
     }, {
-      "name": "bike_id(sum)",
+      "name": "product_id(sum)",
       "type": "line",
       "data": [4590320, 764400, 764288, 1528800]
     }, {

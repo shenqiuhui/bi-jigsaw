@@ -37,7 +37,7 @@ export const getFilterSelectList = ({ method = 'get', api, params = {} }: {
 // 获取字段列表
 export const getFieldList = (params = {}) => {
   // return request.post('/getPlanIndex', params);
-  return request.get('/getPlanList');
+  return request.get('/getFieldList');
 }
 
 // 获取查询条件列表
