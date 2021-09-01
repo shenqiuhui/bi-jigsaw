@@ -200,7 +200,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
       title: '提示',
       content: '当前页面存在未保存数据将会丢失，确定退出吗？',
       keyboard: true,
-      onOk: () => window.location.replace(`${pathname}#/dashboard/${pageId}`)
+      onOk: () => window.location.replace(`${pathname}#/`)
     });
   }
 
