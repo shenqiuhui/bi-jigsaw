@@ -1,10 +1,9 @@
-import React, { memo, forwardRef, useState, useMemo, useCallback, useImperativeHandle, useEffect } from 'react';
+import React, { memo, forwardRef, useState, useMemo, useImperativeHandle, useEffect } from 'react';
 import { Table, message } from 'antd';
 import { AutoSizer } from 'react-virtualized';
 import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { debounce } from 'lodash';
 import { getTableData, exportData } from '@/service/widgetsApi';
 import { ITableWidgetProps, IWidgetRef } from '../../../../types';
 
@@ -18,7 +17,6 @@ interface IColumns {
 const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) => {
   const {
     type,
-    isEdit,
     pageId,
     id: widgetId,
     filterValues,
@@ -33,23 +31,24 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
   const [total, setTotal] = useState<number>(0);
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [dataSource, setDataSource] = useState([]);
-  const [tableHeadHeight, setTableHeadHeight] = useState<number>(39);
 
   // 是否存在数据
   const hasData = useMemo(() => {
     return columns?.length && dataSource?.length;
   }, [columns, dataSource]);
 
-  // 实际每页条数
-  const realPageSize = useMemo(() => {
-    return isEdit ? settings?.style?.pageSize : pageSize;
-  }, [isEdit, pageSize, settings?.style?.pageSize]);
-
   const handleChange = (page: number, pageSize: number | undefined) => {
     setPage(page);
     setPageSize(pageSize as number);
     onWatchInfoChange?.({ page, pageSize });
     onStyleSettingChange?.({ ...settings?.style, pageSize });
+  }
+
+  const columnAddWidth = (columns: IColumns[]) => {
+    return columns?.map((column) => ({
+      ...column,
+      width: 200
+    }));
   }
 
   const fetchTableData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -59,14 +58,14 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       const res: any = await getTableData({
         type,
         page,
-        pageSize: realPageSize,
+        pageSize,
         pageId,
         widgetId,
         filterValues,
         settings
       });
 
-      setColumns(res?.columns || []);
+      setColumns(columnAddWidth(res?.columns || []));
       setDataSource(res?.dataSource || []);
       setTotal(res?.total || 0);
     } catch (err) {}
@@ -97,22 +96,9 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
     setDisabled?.(false);
   }
 
-  const dynamicTableHeadHeight = useCallback(() => {
-    const tableHeadHightDom = document.querySelector(`.table-selector-${widgetId} .ant-table-thead`);
-    const tableHeadHeight = tableHeadHightDom?.clientHeight;
-
-    if (tableHeadHeight && typeof tableHeadHeight === 'number') {
-      setTableHeadHeight(tableHeadHeight);
-    }
-  }, [widgetId]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const dynamicTableHeadHeightDebounce = useCallback(debounce(dynamicTableHeadHeight, 100), [dynamicTableHeadHeight]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    dynamicTableHeadHeightDebounce();
-  });
+    setPageSize(settings?.style?.pageSize as number);
+  }, [settings?.style?.pageSize]);
 
   useImperativeHandle(ref, () => ({
     fetchData: fetchTableData,
@@ -124,11 +110,11 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       <AutoSizer
         className={classNames({
           [`table-selector-${widgetId}`]: true,
+          'table-widget-width': true,
           'table-widget-auto-size': !hasData
         })}
-        disableWidth
       >
-        {({ height }) => hasData ? (
+        {({ width, height }) => hasData ? (
           <Table
             rowKey="id"
             size="small"
@@ -136,12 +122,13 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
             columns={columns}
             dataSource={dataSource}
             scroll={{
-              y: height - 56 - tableHeadHeight - 1,
+              y: height - 56 - 40,
+              x: width
             }}
             pagination={{
               total,
-              current: page as number,
-              pageSize: realPageSize as number,
+              current: page,
+              pageSize,
               showSizeChanger: true,
               position: ['bottomCenter'],
               showTotal: (total) => (
