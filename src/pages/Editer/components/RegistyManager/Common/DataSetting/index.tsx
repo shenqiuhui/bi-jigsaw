@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Select, Input, Radio, message } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { findIndex, omit } from 'lodash';
+import { findIndex, omit, cloneDeep } from 'lodash';
 import { getFieldList, getPlanList } from '@/service/dashboardApi';
 import { Settings, IDragItem, IDataSetting } from '@/store/types';
 import DataSource from './DataSource';
@@ -73,11 +73,13 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
 
   // 更改查询类型
   const handlePlanInfoChange = (planId: number, option: IOption) => {
+    const settings = cloneDeep(dataSetting);
+
     fetchFields(planId);
     onDataSettingChange?.({
       ...settingDes?.reduce((dataSetting, des) => {
         return (dataSetting[des?.type as DroppableId] = [], dataSetting)
-      }, dataSetting),
+      }, settings),
       planId,
       planName: option?.label,
     });
@@ -86,16 +88,17 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   // 更改类型
   const hadleShowTypeChange = (event: any) => {
     const showType = event?.target?.value;
+    const settings = cloneDeep(dataSetting);
 
     if (showType === '1') {
-      const dimensions = dataSetting?.dimensions || [];
-      const indicators = dataSetting?.indicators || [];
-      dataSetting.dimensions = dimensions.concat(indicators);
-      dataSetting.indicators = [];
+      const dimensions = settings?.dimensions || [];
+      const indicators = settings?.indicators || [];
+      settings.dimensions = dimensions.concat(indicators);
+      settings.indicators = [];
     }
 
     onDataSettingChange?.({
-      ...dataSetting,
+      ...settings,
       showType,
     });
   }
