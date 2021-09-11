@@ -47,7 +47,9 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   }, [pageConfig?.widgets]);
 
   // 更改保存状态
-  const deleteNewWidgetStatus = (widgets: IWidget[]) => {
+  const deleteNewWidgetStatus = (widgetSource: IWidget[]) => {
+    const widgets = cloneDeep(widgetSource);
+
     for (let i = 0; i < widgets?.length; i++) {
       const outterWidget: IWidget = widgets[i];
       const tabs = outterWidget?.tabs || [];
