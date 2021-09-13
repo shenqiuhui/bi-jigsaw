@@ -15,7 +15,7 @@ import { IPlanData } from '@/pages/Editer/types';
 import { widgetMap, widgetButtons, widgetConfig } from '@/pages/Editer/register';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/dashboardApi';
 
-import "./index.less";
+import './index.less';
 
 const { Header, Content } = Layout;
 
