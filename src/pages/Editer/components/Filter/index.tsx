@@ -74,7 +74,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
             >
               {filterComponentMap?.[type]?.component?.(Object.assign(
                 customProps,
-                ['select', 'select-multiple'].includes(type) ? otherProps : {}
+                ['select', 'select-multiple'].includes(type) ? omit(otherProps, ['dateRangeType']) : {}
               ))}
             </Item>
           );
