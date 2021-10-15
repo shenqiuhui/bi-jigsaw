@@ -22,6 +22,10 @@ Register.configRegister<IDataSetting>({
   enumFilterValues: [],
   conditionFilterType: '1',
   conditionFilterValue: '',
+  ratioNumeratorAggregatefunc: 'sum',
+  ratioNumeratorField: null,
+  ratioDenominatorAggregatefunc: 'sum',
+  ratioDenominatorField: null,
   showType: '1'
 });
 

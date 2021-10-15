@@ -123,7 +123,11 @@
             "enumFilterValues": [],
             "formatType": "1",
             "fieldType": "String",
-            "aggregatefunc": "count",
+            "aggregatefunc": "group-ratio",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": "user_gps",
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": "user_gps_time",
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -142,6 +146,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -160,6 +168,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }],
           "dimensions": [{
@@ -179,6 +191,10 @@
             "formatType": "1",
             "fieldType": "TIMESTAMP",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }]
         },
@@ -227,6 +243,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -245,6 +265,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -263,6 +287,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }],
           "dimensions": [{
@@ -282,6 +310,10 @@
             "formatType": "1",
             "fieldType": "String",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }]
         },
@@ -343,6 +375,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }],
           "dimensions": [{
@@ -362,6 +398,10 @@
             "formatType": "1",
             "fieldType": "String",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }]
         },
@@ -412,6 +452,10 @@
             "formatType": "1",
             "fieldType": "String",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -449,6 +493,10 @@
             "formatType": "1",
             "fieldType": "String",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }]
         },
@@ -511,6 +559,10 @@
             "formatType": "1",
             "fieldType": "int",
             "aggregatefunc": "sum",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }, {
             "enumFilterValue": "",
@@ -548,6 +600,10 @@
             "formatType": "1",
             "fieldType": "String",
             "aggregatefunc": "count",
+            "ratioNumeratorAggregatefunc": "sum",
+            "ratioNumeratorField": null,
+            "ratioDenominatorAggregatefunc": "sum",
+            "ratioDenominatorField": null,
             "order": "none"
           }]
         },

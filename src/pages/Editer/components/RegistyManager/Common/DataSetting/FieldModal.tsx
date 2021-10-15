@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Modal, Form, Input, Radio, Select, Row, Col } from 'antd';
 import { IDataSetting, IDragItem } from '@/store/types';
 import { getFilterSelectList } from '@/service/dashboardApi';
-import { IOption } from '../../../../types';
+import { IOption, IFieldData } from '../../../../types';
+import { dataSettingConfig } from '../../../../register';
 
 interface IFieldModalProps {
   widgetId?: string;
   planId: number;
   type: string;
   data: IDataSetting | IDragItem;
+  fields: IFieldData[];
   visible: boolean;
   droppableId: string;
   index: number;
@@ -20,8 +22,8 @@ const { Item, useForm } = Form;
 const { Group } = Radio;
 
 const formLayout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 14 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 18 },
 };
 
 const formatTypeOptions = [
@@ -51,6 +53,10 @@ const enumFilterTypeOptions = [
   { value: '2', label: '多选' }
 ];
 
+const ratioAggregatefuncOptions = [
+  { value: 'sum', label: '求和' }
+];
+
 const FieldModal: React.FC<IFieldModalProps> = (props) => {
   const {
     planId,
@@ -58,6 +64,7 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
     index,
     type,
     data,
+    fields,
     visible,
     droppableId,
     onVisibleChange,
@@ -67,10 +74,20 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
   const [form] = useForm();
   const [filterValues, setFilterValues] = useState<IOption[]>([]);
 
-  const handleSave = () => {
-    const formValues = form.getFieldsValue(Object.keys(data));
-    onFieldInfoSave?.(formValues, droppableId, index);
-    onVisibleChange?.(false);
+  const ratioFieldOptions = useMemo(() => {
+    return fields?.map(({ name, field }) => ({ label: name, value: field }));
+  }, [fields]);
+
+  const handleSave = async () => {
+    try {
+      await form.validateFields();
+
+      const formKeys = Object.keys(dataSettingConfig?.defaultParams)?.filter((key) => key !== 'type');
+      const formValues = form.getFieldsValue(formKeys);
+
+      onFieldInfoSave?.(formValues, droppableId, index);
+      onVisibleChange?.(false);
+    } catch (err) {}
   }
 
   const fetchFilterSelectList = async () => {
@@ -139,7 +156,64 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
               <Radio value="avg">平均值</Radio>
               <Radio value="count">计数</Radio>
               <Radio value="count-distinct">重排计数</Radio>
+              <Radio value="group-ratio">组内做比</Radio>
             </Group>
+          </Item>
+        )}
+        {droppableId === 'indicators' && (
+          <Item
+            noStyle
+            shouldUpdate={(prev, next) => prev?.aggregatefunc !== next?.aggregatefunc}
+          >
+            {({ getFieldValue }) => {
+              const aggregatefunc = getFieldValue('aggregatefunc');
+
+              return aggregatefunc === 'group-ratio' && (
+                <Item label="组内做比">
+                  <Row gutter={8}>
+                    <Col span={4}>
+                      <Item name="ratioNumeratorAggregatefunc" noStyle>
+                        <Select options={ratioAggregatefuncOptions} />
+                      </Item>
+                    </Col>
+                    <Col span={7}>
+                      <Item
+                        label="分子字段"
+                        name="ratioNumeratorField"
+                        rules={[{ required: true, message: '请选择分子字段' }]}
+                        noStyle
+                      >
+                        <Select
+                          allowClear
+                          placeholder="请选择分子"
+                          options={ratioFieldOptions}
+                        />
+                      </Item>
+                    </Col>
+                    <Col className="ratio-character" span={2}>/</Col>
+                    <Col span={4}>
+                      <Item name="ratioDenominatorAggregatefunc" noStyle>
+                        <Select options={ratioAggregatefuncOptions} />
+                      </Item>
+                    </Col>
+                    <Col span={7}>
+                      <Item
+                        label="分母字段"
+                        name="ratioDenominatorField"
+                        rules={[{ required: true, message: '请选择分母字段' }]}
+                        noStyle
+                      >
+                        <Select
+                          allowClear
+                          placeholder="请选择分母"
+                          options={ratioFieldOptions}
+                        />
+                      </Item>
+                    </Col>
+                  </Row>
+                </Item>
+              );
+            }}
           </Item>
         )}
         {droppableId === 'indicators' && (
@@ -211,6 +285,7 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
                         >
                           {({ getFieldValue }) => {
                             const enumFilterType = getFieldValue('enumFilterType');
+
                             return enumFilterType === '1' ? (
                               <Item name="enumFilterValue" noStyle>
                                 <Select

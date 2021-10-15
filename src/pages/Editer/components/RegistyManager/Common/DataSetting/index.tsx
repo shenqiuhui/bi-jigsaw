@@ -333,6 +333,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
                 droppableId={des?.type}
                 data={dataSetting?.[des?.type as DroppableId] || []}
                 planId={dataSetting?.planId as number}
+                fields={fields}
                 onDelete={handleFieldDelete}
                 onFieldInfoSave={handleFieldInfoSave}
                 {...otherProps}

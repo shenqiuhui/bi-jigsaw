@@ -3,6 +3,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { IDataSetting, IDragItem } from '@/store/types';
 import FieldItem from './FieldItem';
 import FieldModal from './FieldModal';
+import { IFieldData } from '../../../../types';
 
 import './index.less';
 
@@ -12,6 +13,7 @@ interface IDataTargetProps {
   droppableId: string;
   planId: number;
   data: IDataSetting[];
+  fields: IFieldData[];
   onDelete?: (field: string, droppableId: string) => void;
   onFieldInfoSave?: (field: IDataSetting | IDragItem, droppableId: string, index: number) => void;
 }
@@ -22,6 +24,7 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
     title,
     droppableId,
     data,
+    fields,
     onDelete,
     onFieldInfoSave,
     ...otherProps
@@ -87,6 +90,7 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
       {visible && (
         <FieldModal
           data={curField}
+          fields={fields}
           index={curIndex}
           type={type}
           visible={visible}

@@ -179,6 +179,10 @@ export interface IDataSetting extends IDragItem {
   enumFilterValues: string[];
   conditionFilterType: string;
   conditionFilterValue: string;
+  ratioNumeratorAggregatefunc: string;
+  ratioNumeratorField: string | null;
+  ratioDenominatorAggregatefunc: string;
+  ratioDenominatorField: string | null;
   showType?: string;
 }
 
