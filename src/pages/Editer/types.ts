@@ -121,8 +121,8 @@ export interface IWidgetMap {
 }
 
 export interface IWidgetRef {
-  fetchData?: (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
-  exportData?: (setDisabled: React.Dispatch<React.SetStateAction<boolean>>) => void;
+  fetchData?: (setLoading: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => void;
+  exportData?: (setDisabled: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => void;
   downloadImage?: () => void;
 }
 

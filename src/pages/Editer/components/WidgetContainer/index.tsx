@@ -88,9 +88,9 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetDelete]);
 
   // 导出数据
-  const handleExportData = () => {
-    widgetRef?.current?.exportData?.(setExportDisabled);
-  }
+  const handleExportData = useCallback(() => {
+    widgetRef?.current?.exportData?.(setExportDisabled, data?.settings);
+  }, [data?.settings]);
 
   // 导出图片
   const handleDownloadImage = () => {
@@ -112,12 +112,12 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
       case 'delete':
         return handleWidgetDelete();
     }
-  }, [handleWidgetDelete, handleWidgetSelect]);
+  }, [handleExportData, handleWidgetDelete, handleWidgetSelect]);
 
   // 刷新数据
   const handleRefresh = (event: React.MouseEvent) => {
     handleStopPropagation(event);
-    !data?.newWidget && widgetRef?.current?.fetchData?.(setLoading);
+    !data?.newWidget && widgetRef?.current?.fetchData?.(setLoading, data?.settings);
   }
 
   // 键盘删除操作
@@ -216,7 +216,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   useEffect(() => {
     if (form && !data?.newWidget) {
-      widgetRef?.current?.fetchData?.(setLoading);
+      widgetRef?.current?.fetchData?.(setLoading, data?.settings);
       firstRenderRef.current = false;
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -224,7 +224,8 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   useEffect(() => {
     if (firstRenderRef.current || data?.newWidget) return;
-    widgetRef?.current?.fetchData?.(setLoading);
+    widgetRef?.current?.fetchData?.(setLoading, data?.settings);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.newWidget, watchInfo]);
 
   return (

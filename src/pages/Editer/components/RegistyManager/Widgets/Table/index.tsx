@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/widgetsApi';
+import { Settings } from '@/store/types';
 import { ITableWidgetProps, IWidgetRef } from '../../../../types';
 
 import './index.less';
@@ -51,14 +52,14 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
     }));
   }
 
-  const fetchTableData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const fetchTableData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => {
     setLoading?.(true);
 
     try {
       const res: any = await getTableData({
         type,
         page,
-        pageSize,
+        pageSize: settings.style.pageSize,
         pageId,
         widgetId,
         filterValues,
