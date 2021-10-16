@@ -267,3 +267,7 @@ export interface IPlanData {
   planId: number;
   planName: string;
 }
+
+export interface IMaskVisibleMap {
+  [key: string]: boolean;
+}

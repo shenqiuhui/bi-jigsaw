@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { IPageConfig, IWidget, IFilterForm, Settings } from '@/store/types';
 import WidgetContainer from '../WidgetContainer';
 import Register, { widgetMap } from '../../register';
-import { IGridRef, IWidgetContainerRef, IWatchHandlers } from '../../types';
+import { IGridRef, IWidgetContainerRef, IWatchHandlers, IMaskVisibleMap } from '../../types';
 
 import './index.less';
 
@@ -51,7 +51,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
     onStyleSettingChange
   } = props;
 
-  const [showMask, setShowMask] = useState<boolean>(false);
+  const [maskVisibleMap, setMaskVisibleMap] = useState<IMaskVisibleMap>({});
   const [pointX, setPointX] = useState<number>(0);
   const [pointY, setPointY] = useState<number>(0);
   const [showWidgets, setShowWidgets] = useState<boolean>(false);
@@ -160,17 +160,23 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
   }
 
   // 拖拽中计算抖动幅度决定触发的事件
-  const handleDrag: ItemCallback = (_layout, _oldItem, _newItem, _placeholder, event) => {
+  const handleDrag: ItemCallback = (_layout, _oldItem, newItem, _placeholder, event) => {
     const hypotenuse = getHypotenuse(pointX, pointY, event.clientX, event.clientY);
 
-    if (hypotenuse >= 7 && !showMask) {
-      setShowMask(true);
+    if (hypotenuse >= 7 && !maskVisibleMap?.[newItem?.i]) {
+      setMaskVisibleMap({
+        ...maskVisibleMap,
+        [newItem?.i]: true
+      });
     }
   }
 
   // 拖拽结束组件恢复可点击状态
-  const handleDragStop: ItemCallback = () => {
-    showMask && setShowMask(false);
+  const handleDragStop: ItemCallback = (_layout, _oldItem, newItem) => {
+    maskVisibleMap?.[newItem?.i] && setMaskVisibleMap({
+      ...maskVisibleMap,
+      [newItem?.i]: false
+    });
   }
 
   return (
@@ -222,7 +228,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
                 })}
                 key={widget?.id}
               >
-                {showMask && (
+                {maskVisibleMap?.[widget?.id] && (
                   <div className="mask" />
                 )}
                 <WidgetContainer
