@@ -43,7 +43,6 @@ const { Item } = Menu;
 
 const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerProps>((props, ref) => {
   const {
-    inner,
     data,
     form,
     selectedWidgetId,
@@ -58,8 +57,8 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [loading, setLoading] = useState<boolean>(false);
   const [exportDisabled, setExportDisabled] = useState<boolean>(false);
   const [watchInfo, setWatchInfo] = useState<any>();
+  const [mounted, setMounted] = useState<boolean>(false);
   const widgetRef = useRef<IWidgetRef>(null);
-  const firstRenderRef = useRef<boolean>(true);
 
   useImperativeHandle(ref, () => ({
     widgetId: data?.id,
@@ -215,18 +214,15 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetSelect, selectedWidgetId]);
 
   useEffect(() => {
-    if (form && !data?.newWidget) {
-      widgetRef?.current?.fetchData?.(setLoading, data?.settings);
-      firstRenderRef.current = false;
+    if (mounted) {
+      if (!data?.newWidget) {
+        widgetRef?.current?.fetchData?.(setLoading, data?.settings);
+      }
+    } else {
+      setMounted(true);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.newWidget, form, ...inner ? [widgetRef?.current] : []]);
-
-  useEffect(() => {
-    if (firstRenderRef.current || data?.newWidget) return;
-    widgetRef?.current?.fetchData?.(setLoading, data?.settings);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.newWidget, watchInfo]);
+  }, [data?.newWidget, form, watchInfo, mounted]);
 
   return (
     <div
