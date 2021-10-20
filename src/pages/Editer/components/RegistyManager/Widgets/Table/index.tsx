@@ -17,6 +17,7 @@ interface IColumns {
 
 const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) => {
   const {
+    isEdit,
     type,
     pageId,
     id: widgetId,
@@ -28,7 +29,7 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
   } = props;
 
   const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(10);
+  const [pageSize, setPageSize] = useState<number | undefined>(settings?.style?.pageSize);
   const [total, setTotal] = useState<number>(0);
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [dataSource, setDataSource] = useState([]);
@@ -59,7 +60,7 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       const res: any = await getTableData({
         type,
         page,
-        pageSize: settings.style.pageSize,
+        pageSize: isEdit ? settings?.style?.pageSize : pageSize,
         pageId,
         widgetId,
         filterValues,
