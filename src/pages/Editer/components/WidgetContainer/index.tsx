@@ -31,6 +31,7 @@ interface IWidgetContainerProps {
   inner?: boolean;
   showOperater?: boolean;
   showHeader?: boolean;
+  useLoading?: boolean;
   selectedWidgetId?: string | null | undefined;
   data: IWidget;
   form?: IFilterForm | undefined;
@@ -48,6 +49,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     selectedWidgetId,
     showOperater = false,
     showHeader = true,
+    useLoading = true,
     children,
     onWidgetSelect,
     onWidgetDelete
@@ -58,6 +60,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [exportDisabled, setExportDisabled] = useState<boolean>(false);
   const [watchInfo, setWatchInfo] = useState<any>();
   const [mounted, setMounted] = useState<boolean>(false);
+  const [isRefreshInit, setIsRefreshInit] = useState<boolean>(true);
   const widgetRef = useRef<IWidgetRef>(null);
 
   useImperativeHandle(ref, () => ({
@@ -88,7 +91,10 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   // 导出数据
   const handleExportData = useCallback(() => {
-    widgetRef?.current?.exportData?.(setExportDisabled, data?.settings);
+    setExportDisabled(true);
+    widgetRef?.current?.exportData?.(data?.settings)?.then(() => {
+      setExportDisabled(false);
+    });
   }, [data?.settings]);
 
   // 导出图片
@@ -116,7 +122,13 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   // 刷新数据
   const handleRefresh = (event: React.MouseEvent) => {
     handleStopPropagation(event);
-    !data?.newWidget && widgetRef?.current?.fetchData?.(setLoading, data?.settings);
+
+    if (!data?.newWidget) {
+      useLoading && setLoading(true);
+      widgetRef?.current?.fetchData?.(data?.settings).then(() => {
+        useLoading && setLoading(false);
+      });
+    }
   }
 
   // 键盘删除操作
@@ -216,7 +228,12 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   useEffect(() => {
     if (mounted) {
       if (!data?.newWidget) {
-        widgetRef?.current?.fetchData?.(setLoading, data?.settings);
+        (isRefreshInit || useLoading) && setLoading(true);
+
+        widgetRef?.current?.fetchData?.(data?.settings)?.then(() => {
+          !useLoading && setIsRefreshInit(false);
+          (isRefreshInit || useLoading) && setLoading(false);
+        });
       }
     } else {
       setMounted(true);

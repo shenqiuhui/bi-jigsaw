@@ -18,6 +18,7 @@ interface IColumns {
 const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) => {
   const {
     isEdit,
+    isSelected,
     type,
     pageId,
     id: widgetId,
@@ -53,9 +54,7 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
     }));
   }
 
-  const fetchTableData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => {
-    setLoading?.(true);
-
+  const fetchTableData = async (settings: Settings) => {
     try {
       const res: any = await getTableData({
         type,
@@ -71,13 +70,9 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       setDataSource(res?.dataSource || []);
       setTotal(res?.total || 0);
     } catch (err) {}
-
-    setLoading?.(false);
   }
 
-  const downloadTableData = async (setDisabled: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setDisabled?.(true);
-
+  const downloadTableData = async () => {
     try {
       const res: any = await exportData({
         type,
@@ -94,8 +89,6 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       FileSaver.saveAs(blob, `${settings?.style?.title}${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}.csv`);
       message.success('导出成功');
     } catch (err) {}
-
-    setDisabled?.(false);
   }
 
   useEffect(() => {
@@ -124,7 +117,7 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
             columns={columns}
             dataSource={dataSource}
             scroll={{
-              y: height - 56 - 40,
+              y: (isEdit && isSelected ? height + 2 : height) - 56 - 40,
               x: width
             }}
             pagination={{

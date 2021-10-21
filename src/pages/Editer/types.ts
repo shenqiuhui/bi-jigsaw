@@ -121,8 +121,8 @@ export interface IWidgetMap {
 }
 
 export interface IWidgetRef {
-  fetchData?: (setLoading: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => void;
-  exportData?: (setDisabled: React.Dispatch<React.SetStateAction<boolean>>, settings: Settings) => void;
+  fetchData?: (settings: Settings) => Promise<any>;
+  exportData?: (settings: Settings) => Promise<any>;
   downloadImage?: () => void;
 }
 
@@ -134,6 +134,7 @@ export interface IWidgetButtons {
 export interface IWidgetDefaultProps extends IWidget, Omit<IWidgetGlobal, 'type'> {
   pageId: number;
   isEdit: boolean;
+  isSelected: string;
   filterValues: IFilterForm;
   api: string;
   emptyRender: (offset?: number) => React.ReactNode;
@@ -148,6 +149,7 @@ export interface IWidgetDefaultProps extends IWidget, Omit<IWidgetGlobal, 'type'
 export interface IWidget extends IRegister, IWidgetSize {
   hasRef: boolean;
   showHeader: boolean;
+  useLoading: boolean;
 }
 
 export interface ITabsWidgetProps extends IWidgetDefaultProps {

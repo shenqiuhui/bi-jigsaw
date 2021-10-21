@@ -239,6 +239,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
                 <WidgetContainer
                   data={widget}
                   showHeader={otherProps?.showHeader as boolean}
+                  useLoading={otherProps?.useLoading as boolean}
                   form={filterValues}
                   {...widgetContainerProps}
                 >
@@ -247,6 +248,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
 
                     return showWidgets && widgetMap?.[widget?.type]?.component?.({
                       isEdit,
+                      isSelected: currentClickId === widget?.id,
                       pageId: pageConfig?.pageId,
                       filterValues,
                       ...widget,

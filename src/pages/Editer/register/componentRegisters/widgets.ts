@@ -31,6 +31,7 @@ import {
 //   defaultH: 20,
 //   hasRef: false,
 //   showHeader: false,
+//   useLoading: false,
 // });
 
 // 注册表格组件
@@ -45,6 +46,7 @@ Register.componentRegister<IWidget, ITableWidgetProps>(TableWidget, {
   defaultH: 20,
   hasRef: true,
   showHeader: true,
+  useLoading: true,
 });
 
 // 注册折线图组件
@@ -59,6 +61,7 @@ Register.componentRegister<IWidget, ILineWidgetProps>(LineWidget, {
   defaultH: 20,
   hasRef: true,
   showHeader: true,
+  useLoading: true,
 });
 
 // 注册柱状图组件
@@ -73,6 +76,7 @@ Register.componentRegister<IWidget, IBarWidgetProps>(BarWidget, {
   defaultH: 20,
   hasRef: true,
   showHeader: true,
+  useLoading: true,
 });
 
 // 注册饼图组件
@@ -87,6 +91,7 @@ Register.componentRegister<IWidget, IPieWidgetProps>(PieWidget, {
   defaultH: 20,
   hasRef: true,
   showHeader: true,
+  useLoading: true,
 });
 
 // 注册组合图组件
@@ -101,6 +106,7 @@ Register.componentRegister<IWidget, IComplexWidgetProps>(ComplexWidget, {
   defaultH: 20,
   hasRef: true,
   showHeader: true,
+  useLoading: true,
 });
 
 export const widgetMap: IWidgetMap = Register.getComponents('widgets');

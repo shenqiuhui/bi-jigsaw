@@ -17,9 +17,7 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
   const [option, setOption] = useState({});
   const chartRef = useRef<ICharInstanceRef>(null);
 
-  const fetchData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setLoading?.(true);
-
+  const fetchData = async () => {
     try {
       const res: any = await getEchartsData({
         api,
@@ -35,13 +33,9 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
 
       setOption(res || {});
     } catch (err) {}
-
-    setLoading?.(false);
   }
 
-  const downloadData = async (setDisabled: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setDisabled?.(true);
-
+  const downloadData = async () => {
     try {
       const res: any = await exportData({
         type,
@@ -58,8 +52,6 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
       FileSaver.saveAs(blob, `${settings?.style?.title}${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}.csv`);
       message.success('导出成功');
     } catch (err) {}
-
-    setDisabled?.(false);
   }
 
   const downloadImage = () => {
