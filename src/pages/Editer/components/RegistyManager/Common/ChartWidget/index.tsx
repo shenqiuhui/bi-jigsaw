@@ -1,12 +1,12 @@
-import React, { memo, forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
+import React, { memo, forwardRef, useState, useRef, useImperativeHandle } from 'react';
 import { message } from 'antd';
 import { AutoSizer } from 'react-virtualized';
 import classNames from 'classnames';
-import * as echarts from 'echarts';
 import { isEmpty } from 'lodash';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getEchartsData, exportData } from '@/service/widgetsApi';
+import InnerChart, { ICharInstanceRef } from './InnerChart';
 import { base64ToBlob } from '../../../../utils';
 import { IWidgetDefaultProps, IWidgetRef } from '../../../../types';
 
@@ -14,9 +14,8 @@ import './index.less';
 
 const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref) => {
   const { type, pageId, api, id: widgetId, filterValues, settings, emptyRender } = props;
-  const [options, setOptions] = useState({});
-  const [charInstance, setCharInstance] = useState<echarts.EChartsType>();
-  const chartRef = useRef<HTMLDivElement>(null);
+  const [option, setOption] = useState({});
+  const chartRef = useRef<ICharInstanceRef>(null);
 
   const fetchData = async (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
     setLoading?.(true);
@@ -34,7 +33,7 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
         },
       });
 
-      setOptions(res || {});
+      setOption(res || {});
     } catch (err) {}
 
     setLoading?.(false);
@@ -64,11 +63,11 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
   }
 
   const downloadImage = () => {
-    if (isEmpty(options)) {
+    if (isEmpty(option)) {
       return message.warning('图表数据为空');
     }
 
-    const base64 = charInstance?.getDataURL({
+    const base64 = chartRef?.current?.charInstance?.getDataURL({
       pixelRatio: 2,
       backgroundColor: '#FFFFFF'
     }) as string;
@@ -84,30 +83,21 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
     downloadImage: downloadImage
   }));
 
-  useEffect(() => {
-    if (!isEmpty(options)) {
-      if (!charInstance) {
-        const instance = echarts.init(chartRef?.current as HTMLDivElement);
-        setCharInstance(instance);
-      } else {
-        charInstance?.clear();
-        charInstance?.setOption(options, true);
-      }
-    }
-  }, [charInstance, options]);
-
   return (
     <div className="chart-widget-container">
       <AutoSizer
         className={classNames({
-          'chart-widget-auto-size': isEmpty(options)
+          'chart-widget-auto-size': isEmpty(option)
         })}
       >
         {({ height, width }) => {
-          charInstance?.resize({ height, width });
-
-          return !isEmpty(options) ? (
-            <div ref={chartRef} />
+          return !isEmpty(option) ? (
+            <InnerChart
+              option={option}
+              ref={chartRef}
+              height={height}
+              width={width}
+            />
           ) : emptyRender?.();
         }}
       </AutoSizer>

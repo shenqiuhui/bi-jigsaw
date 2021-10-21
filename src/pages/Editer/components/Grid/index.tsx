@@ -55,6 +55,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
   const [pointX, setPointX] = useState<number>(0);
   const [pointY, setPointY] = useState<number>(0);
   const [showWidgets, setShowWidgets] = useState<boolean>(false);
+  const [currentClickId, setCurrentClickId] = useState<string>('');
   const [activeTabsInfo, setActiveTabsInfo] = useState<ITabsInfo>({});
 
   const widgetContainerRef = useRef<IWatchHandlers>({});
@@ -101,6 +102,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
 
   // 选中组件
   const handleWidgetSelect = (id: string, type: string, settings: Settings) => {
+    setCurrentClickId(id);
     onWidgetSelect?.(id, type, settings);
   }
 
@@ -206,7 +208,9 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
               ref: setWatchInfoHandles,
               onWidgetSelect: handleWidgetSelect,
               onWidgetDelete: hanleWidgetDelete
-            } : {};
+            } : {
+              onWidgetSelect: handleWidgetSelect
+            };
 
             const tabsContainerProps = widget?.type === 'tabs' ? {
               ref,
@@ -222,7 +226,8 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
             return (
               <div
                 className={classNames({
-                  'selected-widget': isEdit && selectedWidgetId === widget?.id,
+                  'selected-widget': currentClickId === widget?.id,
+                  'active-widget': isEdit && selectedWidgetId === widget?.id,
                   'hover-widget': isEdit && selectedWidgetId !== widget?.id,
                   'inner-widget': widget?.parentId
                 })}
