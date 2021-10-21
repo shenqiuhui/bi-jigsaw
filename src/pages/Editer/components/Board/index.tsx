@@ -1,4 +1,4 @@
-import { memo, forwardRef, useState, useEffect } from 'react';
+import { memo, forwardRef, useState, useEffect, useCallback } from 'react';
 import { Empty } from 'antd';
 import { isEmpty } from 'lodash'
 import { IFilterForm } from '@/store/types';
@@ -26,9 +26,9 @@ const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
 
   const [formValues, setFormValues] = useState<IFilterForm>();
 
-  const handleSearch = (form: IFilterForm) => {
+  const handleSearch = useCallback((form: IFilterForm) => {
     setFormValues(form);
-  }
+  }, []);
 
   useEffect(() => {
     const initialValues = config?.filters?.conditions?.reduce((result, { fieldValue, initialValue }) => {

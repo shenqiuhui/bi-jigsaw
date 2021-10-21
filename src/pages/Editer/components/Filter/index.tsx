@@ -1,7 +1,7 @@
-import React, { memo, useState, useMemo, useEffect } from 'react';
+import React, { memo, useState, useMemo, useEffect, useCallback } from 'react';
 import { Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { omit, omitBy, isNil } from 'lodash';
+import { omit, omitBy, isNil, throttle } from 'lodash';
 import { IFilterForm, IFilterCondition, IPageConfig } from '@/store/types';
 import FilterModal from '../FilterModal';
 import Register, { filterComponentMap } from '../../register';
@@ -31,9 +31,12 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
       || [];
   }, [pageConfig]);
 
-  const handleFinish = (values: IFilterForm) => {
+  const handleFinish = useCallback((values: IFilterForm) => {
     onSearch?.(omitBy(values, isNil));
-  }
+  }, [onSearch]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleFinishThrottle = useCallback(throttle(handleFinish, 600), [handleFinish]);
 
   const handleFinishFailed = (errorInfo: any) => {
     console.log('errorInfo', errorInfo);
@@ -58,7 +61,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
         layout="inline"
         form={form}
         initialValues={initialValues}
-        onFinish={handleFinish}
+        onFinish={handleFinishThrottle}
         onFinishFailed={handleFinishFailed}
       >
         {conditions?.map((condition) => {

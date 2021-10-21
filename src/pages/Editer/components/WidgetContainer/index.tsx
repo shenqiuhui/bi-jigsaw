@@ -9,6 +9,7 @@ import {
   DownloadOutlined,
   FileImageOutlined
 } from '@ant-design/icons';
+import { throttle } from 'lodash';
 import classNames from 'classnames';
 import { IWidget, Settings, IFilterForm } from '@/store/types';
 import Grid, { IGirdProps } from '../Grid';
@@ -58,6 +59,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [offset, setOffset] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [exportDisabled, setExportDisabled] = useState<boolean>(false);
+  const [refreshDisabled, setRefreshDisabled] = useState<boolean>(false);
   const [watchInfo, setWatchInfo] = useState<any>();
   const [mounted, setMounted] = useState<boolean>(false);
   const [isRefreshInit, setIsRefreshInit] = useState<boolean>(true);
@@ -90,12 +92,15 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetDelete]);
 
   // 导出数据
-  const handleExportData = useCallback(() => {
+  const handleExportData = useCallback((data) => {
     setExportDisabled(true);
     widgetRef?.current?.exportData?.(data?.settings)?.then(() => {
       setExportDisabled(false);
     });
-  }, [data?.settings]);
+  }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleExportDataThrottle = useCallback(throttle(handleExportData, 600), [handleExportData]);
 
   // 导出图片
   const handleDownloadImage = () => {
@@ -111,25 +116,30 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
       case 'move':
         return;
       case 'export':
-        return handleExportData();
+        return handleExportDataThrottle(data);
       case 'download':
         return handleDownloadImage();
       case 'delete':
         return handleWidgetDelete();
     }
-  }, [handleExportData, handleWidgetDelete, handleWidgetSelect]);
+  }, [data, handleExportDataThrottle, handleWidgetDelete, handleWidgetSelect]);
 
   // 刷新数据
-  const handleRefresh = (event: React.MouseEvent) => {
+  const handleRefresh = useCallback((event, data, useLoading, refreshDisabled) => {
     handleStopPropagation(event);
 
-    if (!data?.newWidget) {
+    if (!data?.newWidget && !refreshDisabled) {
       useLoading && setLoading(true);
+      setRefreshDisabled(true);
       widgetRef?.current?.fetchData?.(data?.settings).then(() => {
         useLoading && setLoading(false);
+        setRefreshDisabled(false);
       });
     }
-  }
+  }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleRefreshThrottle = useCallback(throttle(handleRefresh, 600), [handleRefresh]);
 
   // 键盘删除操作
   const handleKeyUpDelete = (event: React.KeyboardEvent) => {
@@ -192,8 +202,13 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   // 渲染刷新按钮
   const refreshRender = () => (
     <SyncOutlined
-      className="widget-operate-sync"
-      onClick={handleRefresh}
+      className={classNames({
+        'widget-operate-sync': true,
+        'disabled-events': data?.newWidget || refreshDisabled
+      })}
+      onClick={(event) => {
+        handleRefreshThrottle(event, data, useLoading, refreshDisabled);
+      }}
     />
   );
 
