@@ -56,9 +56,8 @@
 
     .dashborad-operater {
       color: #FFFFFF;
-      height: 40px;
-      line-height: 40px;
       font-size: 16px;
+      position: relative;
 
       .switch-buttons {
         overflow: hidden;
@@ -66,6 +65,7 @@
         height: 26px;
         border-radius: 15px;
         position: relative;
+        margin-right: 180px;
 
         li {
           display: flex;
@@ -106,20 +106,21 @@
       .divider {
         background-color: #324553;
         height: 40px;
-        margin: 0 16px;
       }
 
-      .dashborad-operater-button {
-        cursor: pointer;
-        height: 22px;
-        line-height: 22px;
+      .dashborad-operater-buttons {
+        position: absolute;
+        right: 0;
+        top: calc(50% - 32px);
 
-        &.disabled-events {
-          pointer-events: none;
-        }
+        .dashborad-operater-button {
+          font-size: 16px;
+          color: #FFFFFF;
+          background: none;
 
-        .loading-icon {
-          margin-left: 4px;
+          &::before {
+            display: none;
+          }
         }
       }
     }

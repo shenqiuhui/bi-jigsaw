@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Layout, Divider, Space, Modal, message } from 'antd';
+import { Layout, Divider, Space, Button, Modal, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { LoadingOutlined } from '@ant-design/icons';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 import { cloneDeep, isEmpty } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
@@ -235,83 +234,75 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   }, []);
 
   return (
-    <>
-      <Layout className="dashborad-layout">
-        <Header className="dashborad-header">
-          <div className="dashborad-logo">
-            <img src={logo} alt="仪表板编辑器" />
+    <Layout className="dashborad-layout">
+      <Header className="dashborad-header">
+        <div className="dashborad-logo">
+          <img src={logo} alt="仪表板编辑器" />
+        </div>
+        <div className="dashborad-header-right">
+          <h1 className="dashborad-title ellipsis">
+            {pageConfig?.name}
+          </h1>
+          {activeButtonValue === 'edit' && (
+            <ul className="dashborad-tabs">
+              {widgetButtons?.map((item) => (
+                <li key={item.type} onClick={() => handleAddWidget(item.type)}>
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="dashborad-operater">
+            <ul className="switch-buttons">
+              {activeButtons?.map(({ type, name }) => (
+                <li
+                  key={type}
+                  className={classNames({
+                    active: type === activeButtonValue
+                  })}
+                  onClick={() => handleEidterStatusChange(type)}
+                >
+                  {name}
+                </li>
+              ))}
+              <li
+                className={classNames({
+                  'switch-buttons-mark': true,
+                  'edit-buttons-mark': activeButtonValue === 'edit',
+                  'preview-buttons-mark': activeButtonValue === 'preview',
+                })}
+              />
+            </ul>
+            <Space
+              className="dashborad-operater-buttons"
+              size={0}
+              split={
+                <Divider className="divider" type="vertical" />
+              }
+            >
+              <Button
+                className="dashborad-operater-button"
+                type="link"
+                loading={saveLoading}
+                onClick={handleSaveConfig}
+              >
+                保存
+              </Button>
+              <Button
+                className="dashborad-operater-button"
+                type="link"
+                onClick={handleExitLayout}
+              >
+                退出
+              </Button>
+            </Space>
           </div>
-          <div className="dashborad-header-right">
-            <h1 className="dashborad-title ellipsis">
-              {pageConfig?.name}
-            </h1>
-            {activeButtonValue === 'edit' && (
-              <ul className="dashborad-tabs">
-                {
-                  widgetButtons?.map((item) => {
-                    return (
-                      <li key={item.type} onClick={() => handleAddWidget(item.type)}>
-                        {item.name}
-                      </li>
-                    );
-                  })
-                }
-              </ul>
-            )}
-            <div className="dashborad-operater">
-              <Space size={40}>
-                <ul className="switch-buttons">
-                  {activeButtons?.map(({ type, name }) => (
-                    <li
-                      key={type}
-                      className={classNames({
-                        active: type === activeButtonValue
-                      })}
-                      onClick={() => handleEidterStatusChange(type)}
-                    >
-                      {name}
-                    </li>
-                  ))}
-                  <li className={classNames({
-                    'switch-buttons-mark': true,
-                    'edit-buttons-mark': activeButtonValue === 'edit',
-                    'preview-buttons-mark': activeButtonValue === 'preview',
-                  })} />
-                </ul>
-                <Space split={<Divider className="divider" type="vertical" />}>
-                  <Space size={10}>
-                    <div
-                      className={classNames({
-                        'dashborad-operater-button': true,
-                        'disabled-events': saveLoading
-                      })}
-                      onClick={handleSaveConfig}
-                    >
-                      保存
-                      {saveLoading && (
-                        <LoadingOutlined className="loading-icon" />
-                      )}
-                    </div>
-                    {/* <div className="dashborad-operater-button">
-                      发布
-                    </div> */}
-                  </Space>
-                  <div
-                    className="dashborad-operater-button"
-                    onClick={handleExitLayout}
-                  >
-                    退出
-                  </div>
-                </Space>
-              </Space>
-            </div>
-          </div>
-        </Header>
-        <Content className="dashborad-content">
-          {renderRoutes(route?.routes)}
-        </Content>
-      </Layout>
-    </>
+        </div>
+      </Header>
+      <Content className="dashborad-content">
+        {renderRoutes(route?.routes)}
+      </Content>
+    </Layout>
   );
 };
 
