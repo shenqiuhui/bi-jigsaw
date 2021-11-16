@@ -16,16 +16,16 @@ import { getPageConfig, setPageConfig, getPlanList } from '@/service/dashboardAp
 
 import './index.less';
 
+interface IRouteParams {
+  id: string;
+}
+
 const { Header, Content } = Layout;
 
 const activeButtons = [
   { type: 'edit', name: '编辑' },
   { type: 'preview', name: '预览' },
-]
-
-interface IRouteParams {
-  id: string;
-};
+];
 
 const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   const { route } = props;

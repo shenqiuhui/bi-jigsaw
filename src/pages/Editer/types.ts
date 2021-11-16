@@ -27,6 +27,10 @@ export type PickerRangeValueType = [string, string];
 
 export type DefaultValueType = string | string[] | never[] | null;
 
+export interface IRangePreset {
+  [key: string]: MomentRangeType
+}
+
 export interface IFilterComponentMap {
   [key: string]: IFilterComponent;
 }
@@ -51,11 +55,11 @@ export interface ISelectProps extends IFilterCondition {
   dataSource: IOption[];
   widgetFieldList: IWidgetField[];
   width: number | string;
-  mode: "multiple" | "tags";
+  mode: 'multiple' | 'tags';
 }
 
 export interface IPickerProps extends IFilterCondition {
-  mode: "time" | "date";
+  mode: 'time' | 'date';
   width?: number | string;
   format: string;
   value: string | null | undefined;
@@ -63,7 +67,8 @@ export interface IPickerProps extends IFilterCondition {
 }
 
 export interface IRangePickerProps extends IFilterCondition {
-  mode: "time" | "date";
+  mode: 'time' | 'date';
+  preset?: boolean;
   width?: number | string;
   format: string;
   value: PickerRangeValueType;

@@ -9,6 +9,10 @@
     padding: 10px;
     overflow: auto;
 
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+
     .item-label {
       color: #C4C7CE;
       font-size: 14px;
@@ -111,6 +115,10 @@
     margin: 0;
     max-height: calc(100% - 26px);
     overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 
     li {
       display: flex;

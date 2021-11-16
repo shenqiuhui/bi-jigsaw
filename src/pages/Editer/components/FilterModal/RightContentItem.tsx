@@ -232,6 +232,7 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                   <Item label="默认值">
                     {filterComponentMap?.['date-range']?.component?.({
                       ...filterComponentMap?.['date-range']?.props,
+                      preset: false,
                       width: '100%',
                       value: data?.defaultValue,
                       onChange: handleDefaultValueChange
