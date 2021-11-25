@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Layout, Divider, Space, Button, Modal, message } from 'antd';
+import { Layout, Button, Modal, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 import { cloneDeep, isEmpty } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
-import logo from '@/assets/dashboard-logo.png';
+import { IconFont } from '@/assets/iconfont';
 import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboardSlice';
-import { IRootState } from '@/store/types';
-import { ICoordinate, IWidget, ITabs } from '@/store/types';
+import { IRootState, ICoordinate, IWidget, ITabs } from '@/store/types';
 import { IPlanData } from '@/pages/Editer/types';
 import { widgetMap, widgetButtons, widgetConfig } from '@/pages/Editer/register';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/dashboardApi';
@@ -23,8 +22,8 @@ interface IRouteParams {
 const { Header, Content } = Layout;
 
 const activeButtons = [
-  { type: 'edit', name: '编辑' },
-  { type: 'preview', name: '预览' },
+  { type: 'edit', name: '编 辑' },
+  { type: 'preview', name: '预 览' },
 ];
 
 const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
@@ -236,8 +235,12 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   return (
     <Layout className="dashborad-layout">
       <Header className="dashborad-header">
-        <div className="dashborad-logo">
-          <img src={logo} alt="仪表板编辑器" />
+        <div className="dashborad-operater-exit">
+          <IconFont
+            className="dashborad-operater-exit-icon"
+            type="icon-back"
+            onClick={handleExitLayout}
+          />
         </div>
         <div className="dashborad-header-right">
           <h1 className="dashborad-title ellipsis">
@@ -246,8 +249,14 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
           {activeButtonValue === 'edit' && (
             <ul className="dashborad-tabs">
               {widgetButtons?.map((item) => (
-                <li key={item.type} onClick={() => handleAddWidget(item.type)}>
-                  {item.name}
+                <li
+                  key={item.type}
+                  onClick={() => handleAddWidget(item.type)}
+                >
+                  <IconFont
+                    className="widget-add-button"
+                    type={`icon-widget-${item?.type}`}
+                  />
                 </li>
               ))}
             </ul>
@@ -273,29 +282,15 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
                 })}
               />
             </ul>
-            <Space
-              className="dashborad-operater-buttons"
-              size={0}
-              split={
-                <Divider className="divider" type="vertical" />
-              }
+            <Button
+              className="dashborad-operater-save"
+              type="primary"
+              shape="round"
+              loading={saveLoading}
+              onClick={handleSaveConfig}
             >
-              <Button
-                className="dashborad-operater-button"
-                type="link"
-                loading={saveLoading}
-                onClick={handleSaveConfig}
-              >
-                保存
-              </Button>
-              <Button
-                className="dashborad-operater-button"
-                type="link"
-                onClick={handleExitLayout}
-              >
-                退出
-              </Button>
-            </Space>
+              保存
+            </Button>
           </div>
         </div>
       </Header>

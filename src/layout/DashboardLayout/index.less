@@ -2,21 +2,27 @@
   min-height: 100vh !important;
 
   .dashborad-header {
-    padding: 0 20px 0 0;
-    height: 80px;
+    padding: 0 30px 0 0;
+    height: 56px;
     display: flex;
     align-items: center;
+    background: #000000;
 
-    .dashborad-logo {
+    .dashborad-operater-exit {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 60px;
+      align-items: center;
+      width: 50px;
       height: 100%;
-      background-color: rgba(102, 194, 255, 1);
+      border-right: 1px solid hsla(0, 0%, 100%, .2);
 
-      img {
-        width: 100%;
+      .dashborad-operater-exit-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        color: hsla(0, 0%, 100%, .65);
+        cursor: pointer;
       }
     }
 
@@ -28,7 +34,7 @@
       font-size: 16px;
 
       h1 {
-        margin: 0 0 0 30px;
+        margin: 0 0 0 14px;
         color: #FFFFFF;
         width: 350px;
         height: 40px;
@@ -48,8 +54,16 @@
           list-style: none;
           margin-right: 20px;
           cursor: pointer;
-          height: 22px;
-          line-height: 22px;
+          height: 24px;
+          line-height: 24px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          .widget-add-button {
+            font-size: 24px;
+          }
         }
       }
     }
@@ -65,7 +79,7 @@
         height: 26px;
         border-radius: 15px;
         position: relative;
-        margin-right: 180px;
+        margin-right: 118px;
 
         li {
           display: flex;
@@ -103,25 +117,11 @@
         }
       }
 
-      .divider {
-        background-color: #324553;
-        height: 40px;
-      }
-
-      .dashborad-operater-buttons {
+      .dashborad-operater-save {
+        width: 88px;
         position: absolute;
         right: 0;
-        top: calc(50% - 32px);
-
-        .dashborad-operater-button {
-          font-size: 16px;
-          color: #FFFFFF;
-          background: none;
-
-          &::before {
-            display: none;
-          }
-        }
+        top: calc(50% - 16px);
       }
     }
   }
