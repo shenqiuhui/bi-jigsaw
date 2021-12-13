@@ -76,7 +76,16 @@ export interface ITabs {
   widgets?: IWidget[];
 }
 
-export type SettingKeys = ITabsSetting['data'] & ITabsSetting['style'] & ITableSetting['data'] & ITableSetting['style'] & IComplexSetting['data'] & IComplexSetting['style'] & IPieSetting['data'] & IPieSetting['style'];
+export type SettingKeys = ITabsSetting['data']
+  & ITabsSetting['style']
+  & ITableSetting['data']
+  & ITableSetting['style']
+  & IComplexSetting['data']
+  & IComplexSetting['style']
+  & IPieSetting['data']
+  & IPieSetting['style']
+  & ITextSetting['data']
+  & ITextSetting['style'];
 
 export type Settings = {
   [key: string]: SettingKeys;
@@ -89,7 +98,7 @@ export interface IPageSetting {
 }
 
 export interface ITabsSetting {
-  data?: {},
+  data: {},
   style: {
     title?: string;
     showTitle?: boolean;
@@ -152,13 +161,23 @@ export interface IPieSetting {
     dimensions?: IDataSetting[];
     filters?: IDataSetting[];
   };
-  style?: {
+  style: {
     title?: string;
     showTitle?: boolean;
     showType?: string;
     radiusPercentage?: number;
     labels?: string[];
   };
+}
+
+export interface ITextSetting {
+  data: {},
+  style: {
+    value?: string | null | undefined;
+    fontSize?: number;
+    color?: string;
+    backgroundColor?: string;
+  }
 }
 
 export interface IDragItem {

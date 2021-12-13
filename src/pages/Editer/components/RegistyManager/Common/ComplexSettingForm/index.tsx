@@ -24,7 +24,7 @@ const { Group } = Radio;
 const itemLayout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 19 },
-}
+};
 
 const axisDes = [
   {

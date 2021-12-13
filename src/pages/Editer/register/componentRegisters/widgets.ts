@@ -5,7 +5,8 @@ import {
   LineWidget,
   BarWidget,
   PieWidget,
-  ComplexWidget
+  ComplexWidget,
+  TextWidget
 } from '../../components/RegistyManager/Widgets';
 import {
   // ITabsWidgetProps,
@@ -14,6 +15,7 @@ import {
   IBarWidgetProps,
   IPieWidgetProps,
   IComplexWidgetProps,
+  ITextWidgetProps,
   IWidgetMap,
   IWidget,
   IWidgetButtons,
@@ -32,6 +34,7 @@ import {
 //   hasRef: false,
 //   showHeader: false,
 //   useLoading: false,
+//   showInFilter: false
 // });
 
 // 注册表格组件
@@ -47,6 +50,7 @@ Register.componentRegister<IWidget, ITableWidgetProps>(TableWidget, {
   hasRef: true,
   showHeader: true,
   useLoading: true,
+  showInFilter: true
 });
 
 // 注册折线图组件
@@ -62,6 +66,7 @@ Register.componentRegister<IWidget, ILineWidgetProps>(LineWidget, {
   hasRef: true,
   showHeader: true,
   useLoading: true,
+  showInFilter: true
 });
 
 // 注册柱状图组件
@@ -77,6 +82,7 @@ Register.componentRegister<IWidget, IBarWidgetProps>(BarWidget, {
   hasRef: true,
   showHeader: true,
   useLoading: true,
+  showInFilter: true
 });
 
 // 注册饼图组件
@@ -92,6 +98,7 @@ Register.componentRegister<IWidget, IPieWidgetProps>(PieWidget, {
   hasRef: true,
   showHeader: true,
   useLoading: true,
+  showInFilter: true
 });
 
 // 注册组合图组件
@@ -107,6 +114,23 @@ Register.componentRegister<IWidget, IComplexWidgetProps>(ComplexWidget, {
   hasRef: true,
   showHeader: true,
   useLoading: true,
+  showInFilter: true
+});
+
+// 注册文本组件
+Register.componentRegister<IWidget, ITextWidgetProps>(TextWidget, {
+  namespace: 'widgets',
+  type: 'text',
+  name: '文本'
+}, {
+  minW: 2,
+  minH: 3,
+  defaultW: 12,
+  defaultH: 10,
+  hasRef: false,
+  showHeader: false,
+  useLoading: false,
+  showInFilter: false
 });
 
 export const widgetMap: IWidgetMap = Register.getComponents('widgets');

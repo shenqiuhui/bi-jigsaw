@@ -2,31 +2,31 @@ import Register from '../methods';
 import { INewWidget, IWidgetConfig } from '../../types';
 
 // 注册标签页组件初始值
-Register.configRegister<INewWidget>({
-  namespace: 'widgets',
-  type: 'tabs',
-  name: '标签页'
-}, {
-  type: 'tabs',
-  tabs: [],
-  settings: {
-    style: {
-      title: '标签页',
-      showTitle: true,
-      align: 'right',
-      tabs: [
-        {
-          key: '',
-          name: 'Tab1'
-        },
-        {
-          key: '',
-          name: 'Tab2'
-        }
-      ]
-    }
-  }
-});
+// Register.configRegister<INewWidget>({
+//   namespace: 'widgets',
+//   type: 'tabs',
+//   name: '标签页'
+// }, {
+//   type: 'tabs',
+//   tabs: [],
+//   settings: {
+//     style: {
+//       title: '标签页',
+//       showTitle: true,
+//       align: 'right',
+//       tabs: [
+//         {
+//           key: '',
+//           name: 'Tab1'
+//         },
+//         {
+//           key: '',
+//           name: 'Tab2'
+//         }
+//       ]
+//     }
+//   }
+// });
 
 // 注册表格组件初始值
 Register.configRegister<INewWidget>({
@@ -191,6 +191,23 @@ Register.configRegister<INewWidget>({
         fields: [],
         rangeValues: [null, null]
       },
+    }
+  }
+});
+
+// 注册文本组件初始值
+Register.configRegister<INewWidget>({
+  namespace: 'widgets',
+  type: 'text',
+  name: '文本'
+}, {
+  type: 'text',
+  settings: {
+    style: {
+      value: null,
+      fontSize: 14,
+      color: '#000000',
+      backgroundColor: '#FFFFFF'
     }
   }
 });

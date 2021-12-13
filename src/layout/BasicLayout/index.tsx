@@ -10,7 +10,7 @@ const BasicLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
 
   return (
     <Layout className="base-layout">
-      <Header>
+      <Header className="base-layout-header">
         <h1>BI 平台</h1>
       </Header>
       <Content className="base-content">

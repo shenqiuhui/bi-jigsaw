@@ -29,14 +29,6 @@
         background: hsla(0, 0%, 100%, .1);
         border: 1px dashed hsla(0, 0%, 100%, .2);
 
-        .target-container {
-          margin-bottom: 2px;
-
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-
         .tips {
           text-align: center;
           color: hsla(0, 0%, 100%, .4);
@@ -101,9 +93,14 @@
         margin: 0 0 4px;
       }
 
-      .field-item-clone {
-        + li {
-          display: none !important;
+      ul {
+        max-height: calc(100% - 26px);
+        overflow: auto;
+
+        .field-item-clone {
+          +li {
+            display: none !important;
+          }
         }
       }
     }
@@ -113,8 +110,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: calc(100% - 26px);
-    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -130,6 +125,11 @@
       height: 26px;
       line-height: 26px;
       box-sizing: border-box;
+      margin-bottom: 2px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       .ellipsis {
         width: 160px;

@@ -155,6 +155,7 @@ export interface IWidget extends IRegister, IWidgetSize {
   hasRef: boolean;
   showHeader: boolean;
   useLoading: boolean;
+  showInFilter: boolean;
 }
 
 export interface ITabsWidgetProps extends IWidgetDefaultProps {
@@ -177,6 +178,8 @@ export interface IBarWidgetProps extends IWidgetDefaultProps {}
 export interface IPieWidgetProps extends IWidgetDefaultProps {}
 
 export interface IComplexWidgetProps extends IWidgetDefaultProps {}
+
+export interface ITextWidgetProps extends IWidgetDefaultProps {}
 
 // 图表设置表单
 export interface ITabsDefaultProps {
@@ -224,6 +227,10 @@ export interface IPieSettingProps extends ITabsDefaultProps {
 }
 
 export interface IComplexSettingProps extends ITabsDefaultProps {
+  settings: Settings;
+}
+
+export interface ITextSettingProps extends ITabsDefaultProps {
   settings: Settings;
 }
 

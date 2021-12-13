@@ -1,21 +1,23 @@
 import Register from '../methods';
 import {
   PageSetting,
-  TabsSetting,
+  // TabsSetting,
   TableSetting,
   LineSetting,
   BarSetting,
   PieSetting,
-  ComplexSetting
+  ComplexSetting,
+  TextSetting
 } from '../../components/RegistyManager/Settings';
 import {
   IPageSettingProps,
-  ITabsSettingProps,
+  // ITabsSettingProps,
   ITableSettingProps,
   ILineSettingProps,
   IBarSettingProps,
   IPieSettingProps,
   IComplexSettingProps,
+  ITextSettingProps,
   IWidgetSettingMap,
   IWidgetSetting,
 } from '../../types';
@@ -30,13 +32,13 @@ Register.componentRegister<IWidgetSetting, IPageSettingProps>(PageSetting, {
 });
 
 // 注册标签页设置组件
-Register.componentRegister<IWidgetSetting, ITabsSettingProps>(TabsSetting, {
-  namespace: 'settings',
-  type: 'tabs',
-  name: '标签页设置'
-}, {
-  hasTab: false,
-});
+// Register.componentRegister<IWidgetSetting, ITabsSettingProps>(TabsSetting, {
+//   namespace: 'settings',
+//   type: 'tabs',
+//   name: '标签页设置'
+// }, {
+//   hasTab: false,
+// });
 
 // 注册表格设置组件
 Register.componentRegister<IWidgetSetting, ITableSettingProps>(TableSetting, {
@@ -81,6 +83,15 @@ Register.componentRegister<IWidgetSetting, IComplexSettingProps>(ComplexSetting,
   name: '组合图设置'
 }, {
   hasTab: true,
+});
+
+// 注册文本设置组件
+Register.componentRegister<IWidgetSetting, ITextSettingProps>(TextSetting, {
+  namespace: 'settings',
+  type: 'text',
+  name: '文本设置'
+}, {
+  hasTab: false,
 });
 
 export const widgetSettingMap: IWidgetSettingMap = Register.getComponents('settings');

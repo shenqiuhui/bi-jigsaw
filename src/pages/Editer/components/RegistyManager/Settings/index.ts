@@ -5,3 +5,4 @@ export { default as LineSetting } from './LineSetting';
 export { default as BarSetting } from './BarSetting';
 export { default as PieSetting } from './PieSetting';
 export { default as ComplexSetting } from './ComplexSetting';
+export { default as TextSetting } from './TextSetting';

@@ -49,37 +49,32 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
         <Droppable droppableId={droppableId}>
           {(provided) => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
-              {data.length !== 0 ? (
-                <>
-                  {data?.map((field, index) => (
-                    <div key={field?.field} className="target-container">
-                      <Draggable
-                        draggableId={`${droppableId}-${field?.field}`}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <FieldItem
-                            className="active target-item"
-                            item={field}
-                            showAggregatefunc={droppableId === 'indicators'}
-                            showRename={['dimensions', 'indicators', 'legends'].includes(droppableId)}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            onDelete={handleFieldDelete}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setCurIndex(index);
-                              setCurfield(field);
-                              handleVisibleChange(true);
-                            }}
-                          />
-                        )}
-                      </Draggable>
-                    </div>
-                  ))}
-                </>
-              ) : (
+              {data.length !== 0 ? data?.map((field, index) => (
+                <Draggable
+                  key={field?.field}
+                  draggableId={`${droppableId}-${field?.field}`}
+                  index={index}
+                >
+                  {(provided) => (
+                    <FieldItem
+                      className="active target-item"
+                      item={field}
+                      showAggregatefunc={droppableId === 'indicators'}
+                      showRename={['dimensions', 'indicators', 'legends'].includes(droppableId)}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      onDelete={handleFieldDelete}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setCurIndex(index);
+                        setCurfield(field);
+                        handleVisibleChange(true);
+                      }}
+                    />
+                  )}
+                </Draggable>
+              )) : (
                 <div className="tips">拖动数据字段至此处</div>
               )}
               {provided.placeholder}

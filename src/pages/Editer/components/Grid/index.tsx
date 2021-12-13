@@ -232,6 +232,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
                   'inner-widget': widget?.parentId
                 })}
                 key={widget?.id}
+                onClick={(event) => event?.stopPropagation()}
               >
                 {maskVisibleMap?.[widget?.id] && (
                   <div className="mask" />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Layout, Button, Modal, message } from 'antd';
+import { Layout, Button, Modal, Tooltip, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
@@ -249,15 +249,14 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
           {activeButtonValue === 'edit' && (
             <ul className="dashborad-tabs">
               {widgetButtons?.map((item) => (
-                <li
-                  key={item.type}
-                  onClick={() => handleAddWidget(item.type)}
-                >
-                  <IconFont
-                    className="widget-add-button"
-                    type={`icon-widget-${item?.type}`}
-                  />
-                </li>
+                <Tooltip key={item.type} title={item?.name}>
+                  <li onClick={() => handleAddWidget(item.type)}>
+                    <IconFont
+                      className="widget-add-button"
+                      type={`icon-widget-${item?.type}`}
+                    />
+                  </li>
+                </Tooltip>
               ))}
             </ul>
           )}

@@ -4,3 +4,4 @@ export { default as LineWidget } from './Line';
 export { default as BarWidget } from './Bar';
 export { default as PieWidget } from './Pie';
 export { default as ComplexWidget } from './Complex';
+export { default as TextWidget } from './Text';

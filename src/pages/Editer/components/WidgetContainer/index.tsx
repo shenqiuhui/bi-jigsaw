@@ -94,7 +94,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   // 导出数据
   const handleExportData = useCallback((data) => {
     setExportDisabled(true);
-    widgetRef?.current?.exportData?.(data?.settings)?.then(() => {
+    widgetRef?.current?.exportData?.(data?.settings)?.finally(() => {
       setExportDisabled(false);
     });
   }, []);
@@ -131,7 +131,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     if (!data?.newWidget && !refreshDisabled) {
       useLoading && setLoading(true);
       setRefreshDisabled(true);
-      widgetRef?.current?.fetchData?.(data?.settings).then(() => {
+      widgetRef?.current?.fetchData?.(data?.settings).finally(() => {
         useLoading && setLoading(false);
         setRefreshDisabled(false);
       });
@@ -243,11 +243,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   useEffect(() => {
     if (mounted) {
       if (!data?.newWidget) {
-        (isRefreshInit || useLoading) && setLoading(true);
+        (isRefreshInit && useLoading) && setLoading(true);
 
-        widgetRef?.current?.fetchData?.(data?.settings)?.then(() => {
+        widgetRef?.current?.fetchData?.(data?.settings)?.finally(() => {
           !useLoading && setIsRefreshInit(false);
-          (isRefreshInit || useLoading) && setLoading(false);
+          (isRefreshInit && useLoading) && setLoading(false);
         });
       }
     } else {

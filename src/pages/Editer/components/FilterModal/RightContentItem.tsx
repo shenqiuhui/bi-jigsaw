@@ -4,7 +4,7 @@ import { find } from 'lodash'
 import { IWidget } from '@/store/types';
 import Container from './Container';
 import ColumnSelect from './ColumnSelect';
-import Register, { filterComponentMap, selectDataSource } from '../../register';
+import Register, { widgetMap, filterComponentMap, selectDataSource } from '../../register';
 import { IListRecord, DefaultValueType } from '../../types';
 
 interface IRightContentItem {
@@ -56,14 +56,21 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   const flatWidgets = useCallback((widgets: IWidget[] = [], result: IWidget[] = []) => {
     for (let i = 0; i < widgets?.length; i++) {
       const outterWidget: IWidget = widgets[i];
-      const tabs = outterWidget?.tabs || [];
 
-      if (outterWidget?.type === 'tabs' && tabs?.length > 0) {
-        for (let j = 0; j < tabs?.length; j++) {
-          const tab = tabs[j];
+      if (!widgetMap?.[outterWidget?.type]?.showInFilter) {
+        continue;
+      }
 
-          if (tab?.widgets && tab?.widgets?.length > 0) {
-            result.concat(flatWidgets(tab?.widgets, result));
+      if (outterWidget?.type === 'tabs') {
+        const tabs = outterWidget?.tabs || [];
+
+        if (tabs?.length > 0) {
+          for (let j = 0; j < tabs?.length; j++) {
+            const tab = tabs[j];
+
+            if (tab?.widgets && tab?.widgets?.length > 0) {
+              result.concat(flatWidgets(tab?.widgets, result));
+            }
           }
         }
       } else {
