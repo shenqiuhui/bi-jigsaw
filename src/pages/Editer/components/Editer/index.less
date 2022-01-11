@@ -2,18 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  height: calc(100vh - 56px);
+  height: calc(100vh - @dashboard-header-height);
 
   .editer-board-container {
     flex: 1;
-    height: calc(100vh - 56px - 10px);
+    height: calc(100vh - @dashboard-header-height - 10px);
     margin-top: 10px;
   }
 
   .editer-setter-container {
     width: 420px;
-    height: calc(100vh - 56px);
-    background-color: #3E4860;
+    height: calc(100vh - @dashboard-header-height);
+    background-color: @dashboard-tint-bg-color;
   }
 
   .editer-setter-container-none {

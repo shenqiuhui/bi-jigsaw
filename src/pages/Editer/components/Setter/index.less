@@ -6,8 +6,8 @@
     line-height: 40px;
     font-size: 16px;
     font-weight: 400;
-    color: #FFFFFF;
-    background-color: #2C3551;
+    color: @dashboard-title-color;
+    background-color: @dashboard-deep-bg-color;
     margin: 0;
     padding-left: 16px;
   }
@@ -31,15 +31,15 @@
 
         li {
           flex: 1;
-          color: #FFFFFF;
+          color: @dashboard-title-color;
           height: 34px;
           line-height: 34px;
           text-align: center;
-          background-color: #2C3551;
+          background-color: @dashboard-deep-bg-color;
           cursor: pointer;
 
           &.active {
-            background-color: #3E4860;
+            background-color: @dashboard-tint-bg-color;
           }
         }
       }
@@ -62,6 +62,6 @@
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    color: #FFFFFF;
+    color: @dashboard-main-text-color;
   }
 }

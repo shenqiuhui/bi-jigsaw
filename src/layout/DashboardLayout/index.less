@@ -3,7 +3,7 @@
 
   .dashborad-header {
     padding: 0 30px 0 0;
-    height: 56px;
+    height: @dashboard-header-height;
     display: flex;
     align-items: center;
     background: #000000;
@@ -34,8 +34,8 @@
       font-size: 16px;
 
       h1 {
+        color: @dashboard-title-color;
         margin: 0 0 0 14px;
-        color: #FFFFFF;
         width: 350px;
         height: 40px;
         line-height: 40px;
@@ -52,7 +52,7 @@
 
         li {
           height: 100%;
-          color: #FFFFFF;
+          color: @dashboard-chart-icon-color;
           list-style: none;
           margin-right: 20px;
           cursor: pointer;
@@ -71,13 +71,12 @@
     }
 
     .dashborad-operater {
-      color: #FFFFFF;
       font-size: 16px;
       position: relative;
 
       .switch-buttons {
         overflow: hidden;
-        background-color: #2b3551;
+        background-color: @dashboard-deep-bg-color;
         height: 26px;
         border-radius: 15px;
         position: relative;
@@ -94,11 +93,11 @@
           color: hsla(0, 0%, 100%, .3);
 
           &.active {
-            color: #FFFFFF;
+            color: @dashboard-main-text-color;
           }
 
           &:hover {
-            color: #FFFFFF;
+            color: @dashboard-main-text-color;
           }
 
           &.switch-buttons-mark {

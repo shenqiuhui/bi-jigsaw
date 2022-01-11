@@ -14,7 +14,7 @@
     }
 
     .item-label {
-      color: #C4C7CE;
+      color: @dashboard-label-color;
       font-size: 14px;
       font-weight: 400;
       margin: 0 0 8px;
@@ -38,42 +38,13 @@
 
     .data-type {
       margin-bottom: 24px;
-
-      .data-type-item {
-        height: 32px;
-        display: flex;
-        align-items: center;
-
-        .ant-radio-wrapper {
-          color: #787F8F;
-
-          .ant-radio-inner {
-            background-color: #3E4860;
-            border-color: #D9D9D9;
-
-            &::after {
-              width: 10px;
-              height: 10px;
-              top: 2px;
-              left: 2px;
-              background-color: #1990FF;
-            }
-          }
-
-          .ant-radio-checked {
-            .ant-radio-inner {
-              border-color: #1990FF;
-            }
-          }
-        }
-      }
     }
   }
 
   .data-source {
     width: 50%;
     height: 100%;
-    border-left: 1px solid #C4C7CE;
+    border-left: 1px solid @dashboard-gray;
     padding: 10px;
     box-sizing: border-box;
 
@@ -87,15 +58,19 @@
       height: calc(100% - 94px);
 
       h2 {
-        color: #C4C7CE;
+        color: @dashboard-label-color;
         font-size: 14px;
         font-weight: 400;
         margin: 0 0 4px;
       }
 
-      ul {
-        max-height: calc(100% - 26px);
+      .fields-container-list {
+        height: calc(100% - 26px);
         overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: 0;
+        }
 
         .field-item-clone {
           +li {
@@ -111,15 +86,11 @@
     padding: 0;
     margin: 0;
 
-    &::-webkit-scrollbar {
-      width: 0;
-    }
-
     li {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: #C4C7CE;
+      color: @dashboard-gray;
       cursor: pointer;
       padding: 0 4px;
       height: 26px;
@@ -141,40 +112,40 @@
 
       .table-icon {
         margin-right: 6px;
-        color: #1990FF;
+        color: @dashboard-blue;
         font-size: 14px;
       }
 
       .delete-icon {
-        color: #1990FF;
+        color: @dashboard-blue;
         font-size: 14px;
       }
 
       &.hover-item {
         &:hover {
-          background-color: #2C3551;
+          background-color: @dashboard-deep-bg-color;
 
           .field-name {
-            color: #FFFFFF;
+            color: @dashboard-main-text-color;
           }
         }
       }
 
       &.active {
-        color: #FFFFFF;
-        background-color: #2C3551;
-        border: 1px solid #1990FF;
+        color: @dashboard-main-text-color;
+        background-color: @dashboard-deep-bg-color;
+        border: 1px solid @dashboard-blue;
       }
 
       &.target-item {
-        color: #C4C7CE;
+        color: @dashboard-main-text-color;
       }
     }
 
     .dragging-item {
-      color: #FFFFFF;
-      background-color: #2C3551;
-      border: 1px solid #1990FF;
+      color: @dashboard-main-text-color;
+      background-color: @dashboard-deep-bg-color;
+      border: 1px solid @dashboard-blue;
     }
   }
 }

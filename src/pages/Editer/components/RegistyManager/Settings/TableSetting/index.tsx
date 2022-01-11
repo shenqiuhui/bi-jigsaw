@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import classNames from 'classnames';
 import DataSetting from '../../Common/DataSetting';
 import LabelRender from '../../Common/LabelRender';
+import ItemGroup from '../../Common/ItemGroup';
 import { ITableSettingProps } from '../../../../types';
 
 import './index.less';
@@ -82,32 +83,39 @@ const TableSetting: React.FC<ITableSettingProps> = (props) => {
           form={form}
           initialValues={settings?.style}
         >
-          <Item
-            name="title"
-            className="item-title"
+          <ItemGroup
             label={<LabelRender name="标题" />}
+            padding={[15, 12, 12]}
           >
-            <Input
-              placeholder="请输入标题"
-              autoComplete="off"
-              onChange={(event) => {
-                handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
-              }}
-            />
-          </Item>
-          <Item name="showTitle" valuePropName="checked">
-            <Checkbox
-              className="item-color"
-              onChange={(event) => {
-                handleChange('showTitle', event?.target?.checked, settings?.style);
-              }}
+            <Item
+              className="item-title"
+              name="title"
             >
-              显示标题
-            </Checkbox>
-          </Item>
-          <Item label={<LabelRender name="分页" />}>
+              <Input
+                placeholder="请输入标题"
+                autoComplete="off"
+                onChange={(event) => {
+                  handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
+                }}
+              />
+            </Item>
+            <Item
+              name="showTitle"
+              valuePropName="checked"
+            >
+              <Checkbox
+                onChange={(event) => {
+                  handleChange('showTitle', event?.target?.checked, settings?.style);
+                }}
+              >
+                显示标题
+              </Checkbox>
+            </Item>
+          </ItemGroup>
+          <ItemGroup label={<LabelRender name="分页" />}>
             <Item name="pageSize" noStyle>
               <Select
+                size="small"
                 style={{ width: 70 }}
                 options={sizeChangeOptions}
                 onChange={(value) => {
@@ -116,10 +124,10 @@ const TableSetting: React.FC<ITableSettingProps> = (props) => {
                 }}
               />
             </Item>
-            <span className="item-color item-unit">
+            <span className="item-unit">
               条/页
             </span>
-          </Item>
+          </ItemGroup>
         </Form>
       </div>
     </div>

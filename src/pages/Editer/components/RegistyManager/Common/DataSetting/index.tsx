@@ -7,6 +7,7 @@ import { getFieldList, getPlanList } from '@/service/dashboardApi';
 import { Settings, IDragItem, IDataSetting } from '@/store/types';
 import DataSource from './DataSource';
 import DataTarget from './DataTarget';
+import ItemGroup from '../../Common/ItemGroup';
 import { IPlanData, IOption } from '../../../../types';
 import { dataSettingConfig } from '../../../../register';
 
@@ -312,7 +313,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
           {type === 'table' && dataSetting?.showType  && (
             <div className="data-type">
               <h2 className="item-label">类型</h2>
-              <div className="data-type-item">
+              <ItemGroup>
                 <Group
                   size="small"
                   value={dataSetting?.showType}
@@ -321,7 +322,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
                   <Radio value="1">明细</Radio>
                   <Radio value="2">聚合</Radio>
                 </Group>
-              </div>
+              </ItemGroup>
             </div>
           )}
           {settingDesFilter?.map((des) => {

@@ -1,5 +1,5 @@
 import React, { memo, forwardRef, useState, useRef, useEffect, useMemo, useCallback, useImperativeHandle } from 'react';
-import { Menu, Dropdown, Spin } from 'antd';
+import { Menu, Dropdown, Spin, Space } from 'antd';
 import {
   MoreOutlined,
   SettingOutlined,
@@ -7,8 +7,11 @@ import {
   // LogoutOutlined,
   SyncOutlined,
   DownloadOutlined,
-  FileImageOutlined
+  FileImageOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined
 } from '@ant-design/icons';
+import { useFullscreen } from 'ahooks';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
 import { IWidget, Settings, IFilterForm } from '@/store/types';
@@ -64,6 +67,8 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [mounted, setMounted] = useState<boolean>(false);
   const [isRefreshInit, setIsRefreshInit] = useState<boolean>(true);
   const widgetRef = useRef<IWidgetRef>(null);
+  const widgetScreenRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, { toggleFullscreen }] = useFullscreen(widgetScreenRef);
 
   useImperativeHandle(ref, () => ({
     widgetId: data?.id,
@@ -201,31 +206,52 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   // 渲染刷新按钮
   const refreshRender = () => (
-    <SyncOutlined
-      className={classNames({
-        'widget-operate-sync': true,
-        'disabled-events': data?.newWidget || refreshDisabled
-      })}
-      onClick={(event) => {
-        handleRefreshThrottle(event, data, useLoading, refreshDisabled);
-      }}
-    />
+    <div className="widget-operate-refresh">
+      <SyncOutlined
+        className={classNames({
+          'widget-operate-base': true,
+          'disabled-events': data?.newWidget || refreshDisabled
+        })}
+        onClick={(event) => {
+          handleRefreshThrottle(event, data, useLoading, refreshDisabled);
+        }}
+      />
+    </div>
+  );
+
+  // 渲染全屏操作
+  const toggleScreenRender = () => (
+    <div className="widget-operate-toggle-screen">
+      {isFullscreen ? (
+        <FullscreenExitOutlined
+          className="widget-operate-base"
+          onClick={toggleFullscreen}
+        />
+      ) : (
+        <FullscreenOutlined
+          className="widget-operate-base"
+          onClick={toggleFullscreen}
+        />
+      )}
+    </div>
   );
 
   // 渲染下拉操作集合
-  const dropdownRender = () => (
-    <Dropdown
-      overlay={menu}
-      placement="bottomCenter"
-      trigger={['click']}
-      overlayClassName="widget-operate-dropdown"
-    >
-      <MoreOutlined
-        className="widget-operate-more"
-        onClick={handleStopPropagation}
-      />
-    </Dropdown>
+  const dropdownRender = () => !isFullscreen && (
+    <div className="widget-operate-dropdown">
+      <Dropdown
+        overlay={menu}
+        trigger={['click']}
+        overlayClassName="widget-operate-dropdown-list"
+      >
+        <MoreOutlined
+          className="widget-operate-more"
+          onClick={handleStopPropagation}
+        />
+      </Dropdown>
+    </div>
   );
+
   // 栅格容器渲染
   const gridContainerRender = (gridProps: ISubGridProps) => {
     const { ref, ...otherProps } = gridProps;
@@ -260,6 +286,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     <div
       className="widget-container"
       tabIndex={-1}
+      ref={widgetScreenRef}
       onClick={handleWidgetSelect}
       onKeyUp={handleKeyUpDelete}
     >
@@ -271,12 +298,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
           })}
         >
           {titleRender()}
-          <div className="widget-operate">
-            <div className="widget-operate-refresh">
-              {refreshRender()}
-            </div>
+          <Space className="widget-operate" size={8}>
+            {refreshRender()}
+            {toggleScreenRender()}
             {dropdownRender()}
-          </div>
+          </Space>
         </div>
       )}
       <div
@@ -288,7 +314,12 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
             ref: widgetRef,
             emptyRender,
             onWatchInfoChange: handleWatchInfoChange,
-            ...!showHeader ? { titleRender, refreshRender, dropdownRender } : {},
+            ...!showHeader ? {
+              titleRender,
+              refreshRender,
+              toggleScreenRender,
+              dropdownRender
+            } : {},
             ...data?.type === 'tabs' ? { gridContainerRender } : {}
           })}
         </Spin>

@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import classNames from 'classnames';
 import DataSetting from '../../Common/DataSetting';
 import LabelRender from '../../Common/LabelRender';
+import ItemGroup from '../../Common/ItemGroup';
 import { IPieSettingProps } from '../../../../types';
 
 import './index.less';
@@ -98,30 +99,34 @@ const PieSetting: React.FC<IPieSettingProps> = (props) => {
           form={form}
           initialValues={settings?.style}
         >
-          <Item
-            name="title"
-            className="item-title"
+          <ItemGroup
             label={<LabelRender name="标题" />}
+            padding={[15, 12, 12]}
           >
-            <Input
-              placeholder="请输入标题"
-              autoComplete="off"
-              onChange={(event) => {
-                handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
-              }}
-            />
-          </Item>
-          <Item name="showTitle" valuePropName="checked">
-            <Checkbox
-              className="item-color"
-              onChange={(event) => {
-                handleChange('showTitle', event?.target?.checked, settings?.style);
-              }}
+            <Item
+              name="title"
+              className="item-title"
             >
-              显示标题
-            </Checkbox>
-          </Item>
-          <Item label={<LabelRender name="可视化类型" />}>
+              <Input
+                placeholder="请输入标题"
+                autoComplete="off"
+                onChange={(event) => {
+                  handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
+                }}
+              />
+            </Item>
+            <Item name="showTitle" valuePropName="checked">
+              <Checkbox
+                className="item-color"
+                onChange={(event) => {
+                  handleChange('showTitle', event?.target?.checked, settings?.style);
+                }}
+              >
+                显示标题
+              </Checkbox>
+            </Item>
+          </ItemGroup>
+          <ItemGroup label={<LabelRender name="可视化类型" />}>
             <Item name="showType" noStyle>
               <Radio.Group
                 size="small"
@@ -146,28 +151,27 @@ const PieSetting: React.FC<IPieSettingProps> = (props) => {
                 }}
               />
             </Item>
-            <span className="item-color item-unit">
+            <span className="item-unit">
               半径占比
             </span>
-          </Item>
-          <Item
-            name="labels"
-            label={<LabelRender name="显示标签" />}
-          >
-            <Checkbox.Group onChange={(value) => {
-              handleChange('labels', value, settings?.style);
-            }}>
-              <Checkbox className="item-color" value="1">
-                维度
-              </Checkbox>
-              <Checkbox className="item-color" value="2">
-                度量
-              </Checkbox>
-              <Checkbox className="item-color" value="3">
-                占比
-              </Checkbox>
-            </Checkbox.Group>
-          </Item>
+          </ItemGroup>
+          <ItemGroup label={<LabelRender name="显示标签" />}>
+            <Item name="labels">
+              <Checkbox.Group onChange={(value) => {
+                handleChange('labels', value, settings?.style);
+              }}>
+                <Checkbox value="1">
+                  维度
+                </Checkbox>
+                <Checkbox value="2">
+                  度量
+                </Checkbox>
+                <Checkbox value="3">
+                  占比
+                </Checkbox>
+              </Checkbox.Group>
+            </Item>
+          </ItemGroup>
         </Form>
       </div>
     </div>

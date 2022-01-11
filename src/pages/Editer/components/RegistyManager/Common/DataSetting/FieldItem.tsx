@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useRef, useLayoutEffect } from 'react';
 import { Tooltip } from 'antd';
-import { TableOutlined, DeleteOutlined } from '@ant-design/icons';
+import { TableOutlined } from '@ant-design/icons';
+import { IconFont } from '@/assets/iconfont';
 import { IDataSetting, IDragItem } from '@/store/types';
 
 import './index.less';
@@ -72,7 +73,8 @@ const FieldItem = forwardRef<any, IFieldItemProps>((props, ref) => {
         </Tooltip>
       </div>
       {onDelete && (
-        <DeleteOutlined
+        <IconFont
+          type="icon-delete"
           className="delete-icon"
           onClick={(event) => {
             event.stopPropagation();

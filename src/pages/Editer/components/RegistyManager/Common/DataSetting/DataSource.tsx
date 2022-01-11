@@ -23,52 +23,54 @@ const DataSource: React.FC<IDataSourceProps> = (props) => {
       {!!fields?.length && (
         <>
           <h2>维度/指标</h2>
-          <Droppable droppableId="source" isDropDisabled>
-            {(provided) => (
-              <ul
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {fields?.map((field, index) => (
-                  <Draggable
-                    key={field?.field}
-                    draggableId={field?.field}
-                    index={index}
-                  >
-                    {(provided, snapshot) => (
-                      <>
-                        <FieldItem
-                          className={classNames({
-                            active: activeField === field?.field,
-                            'hover-item': true,
-                            'dragging-item': snapshot.isDragging
-                          })}
-                          item={field}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            onActiveFieldChange?.(field?.field);
-                          }}
-                        />
-                        {snapshot.isDragging && (
+          <div className="fields-container-list">
+            <Droppable droppableId="source" isDropDisabled>
+              {(provided) => (
+                <ul
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {fields?.map((field, index) => (
+                    <Draggable
+                      key={field?.field}
+                      draggableId={field?.field}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <>
                           <FieldItem
                             className={classNames({
-                              'field-item-clone': true,
-                              'dragging-item': snapshot.isDragging && activeField === field?.field,
+                              active: activeField === field?.field,
+                              'hover-item': true,
+                              'dragging-item': snapshot.isDragging
                             })}
                             item={field}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              onActiveFieldChange?.(field?.field);
+                            }}
                           />
-                        )}
-                      </>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
+                          {snapshot.isDragging && (
+                            <FieldItem
+                              className={classNames({
+                                'field-item-clone': true,
+                                'dragging-item': snapshot.isDragging && activeField === field?.field,
+                              })}
+                              item={field}
+                            />
+                          )}
+                        </>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </div>
         </>
       )}
     </div>

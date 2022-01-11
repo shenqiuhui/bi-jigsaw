@@ -27,5 +27,15 @@ export default defineConfig({
       plugins: [resolveFixup()]
     }
   },
+  css: {
+    preprocessorOptions: {
+       less: {
+         modifyVars: {
+           hack: `true; @import (reference) '${path.resolve(__dirname, 'src/assets/css/variables.less')}';`,
+         },
+         javascriptEnabled: true
+       }
+    }
+  },
   plugins: [react()]
 });

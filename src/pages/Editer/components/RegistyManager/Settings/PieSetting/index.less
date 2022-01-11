@@ -1,10 +1,6 @@
 .pie-setting-container {
   height: 100%;
 
-  .item-color {
-    color: #C4C7CE;
-  }
-
   .pie-setting {
     display: none;
   }
@@ -16,7 +12,7 @@
 
   .pie-style-setting {
     height: 100%;
-    padding: 15px 20px;
+    padding: @dashboard-setter-padding;
     display: block;
     overflow: auto;
 
@@ -29,29 +25,13 @@
     }
 
     .percent-input {
-      width: 86px;
+      width: 80px;
+      margin-left: 20px;
     }
 
-    .ant-radio-wrapper {
-      color: #787F8F;
-
-      .ant-radio-inner {
-        background-color: #3E4860;
-        border-color: #D9D9D9;
-
-        &::after {
-          width: 10px;
-          height: 10px;
-          top: 2px;
-          left: 2px;
-          background-color: #1990FF;
-        }
-      }
-
-      .ant-radio-checked {
-        .ant-radio-inner {
-          border-color: #1990FF;
-        }
+    .ant-form-item {
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

@@ -3,6 +3,7 @@ import { Form, Input, Radio, message } from 'antd';
 import { debounce } from 'lodash';
 import { checkUniqueName } from '@/service/dashboardApi';
 import LabelRender from '../../Common/LabelRender';
+import ItemGroup from '../../Common/ItemGroup';
 import { IPageSettingProps } from '../../../../types';
 
 import './index.less';
@@ -77,20 +78,22 @@ const PageSetting: React.FC<IPageSettingProps> = (props) => {
             }}
           />
         </Item>
-        <Item
-          name="theme"
-          label={<LabelRender name="主题" />}
-        >
-          <Group
-            size="small"
-            onChange={(event) => {
-              handleChange('theme', event?.target?.value, settings);
-            }}
+        <ItemGroup label={<LabelRender name="主题" />}>
+          <Item
+            className="form-item-horizontal"
+            name="theme"
           >
-            <Radio value="light">浅色</Radio>
-            {/* <Radio value="dark">深色</Radio> */}
-          </Group>
-        </Item>
+            <Group
+              size="small"
+              onChange={(event) => {
+                handleChange('theme', event?.target?.value, settings);
+              }}
+            >
+              <Radio value="light">浅色</Radio>
+              {/* <Radio value="dark">深色</Radio> */}
+            </Group>
+          </Item>
+        </ItemGroup>
       </Form>
     </div>
   );

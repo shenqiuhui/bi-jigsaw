@@ -62,7 +62,6 @@ const TabsSetting: React.FC<ITabsSettingProps> = (props) => {
         </Item>
         <Item name="showTitle" valuePropName="checked">
           <Checkbox
-            className="item-color"
             onChange={(event) => {
               handleChange('showTitle', event?.target?.checked, settings?.style);
             }}

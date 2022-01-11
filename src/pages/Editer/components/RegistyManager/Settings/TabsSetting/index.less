@@ -3,35 +3,8 @@
   padding: 15px 20px;
   overflow: auto;
 
-  .item-color {
-    color: #C4C7CE;
-  }
-
   .item-title {
     margin-bottom: 10px;
-  }
-
-  .ant-radio-wrapper {
-    color: #787F8F;
-
-    .ant-radio-inner {
-      background-color: #3E4860;
-      border-color: #D9D9D9;
-
-      &::after {
-        width: 10px;
-        height: 10px;
-        top: 2px;
-        left: 2px;
-        background-color: #1990FF;
-      }
-    }
-
-    .ant-radio-checked {
-      .ant-radio-inner {
-        border-color: #1990FF;
-      }
-    }
   }
 }
 
@@ -61,9 +34,9 @@
     width: 350px;
     height: 24px;
     line-height: 24px;
-    background-color: #2C3551;
+    background-color: @dashboard-deep-bg-color;
     text-align: center;
-    color: #C4C7CE;
+    color: @dashboard-gray;
     border-radius: 3px;
     cursor: pointer;
 

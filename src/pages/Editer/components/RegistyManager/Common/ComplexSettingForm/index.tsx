@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import { Settings, IDataSetting } from '@/store/types';
 import RangeValues from './RangeValues';
 import LabelRender from '../LabelRender';
+import ItemGroup from '../../Common/ItemGroup';
 
 import './index.less';
 
@@ -31,12 +32,14 @@ const axisDes = [
     key: 'xAxis',
     label: 'x轴',
     always: true,
+    extra: false,
     titleName: ['xAxis', 'title']
   },
   {
     key: 'yAxisLeft',
     label: '左y轴',
     always: true,
+    extra: true,
     titleName: ['yAxisLeft', 'title'],
     fieldName: ['yAxisLeft', 'fields'],
     rangeName: ['yAxisLeft', 'rangeValues']
@@ -45,6 +48,7 @@ const axisDes = [
     key: 'yAxisRight',
     label: '右y轴',
     always: false,
+    extra: false,
     titleName: ['yAxisRight', 'title'],
     fieldName: ['yAxisRight', 'fields'],
     rangeName: ['yAxisRight', 'rangeValues'],
@@ -97,10 +101,6 @@ const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChangeDebounce = useCallback(debounce(handleChange, 300), [handleChange]);
 
-  const axisLabelRender = (name: string) => (
-    <div className="axis-label">{name}</div>
-  );
-
   useEffect(() => {
     form.setFieldsValue(styleSetting);
   }, [form, styleSetting]);
@@ -112,60 +112,65 @@ const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
         form={form}
         initialValues={styleSetting}
       >
-        <Item
-          name="title"
-          className="item-title"
+        <ItemGroup
           label={<LabelRender name="标题" />}
+          padding={[15, 12, 12]}
         >
-          <Input
-            placeholder="请输入标题"
-            autoComplete="off"
-            onChange={(event) => {
-              handleChangeDebounce('title', event?.target?.value?.trim(), styleSetting);
-            }}
-          />
-        </Item>
-        <Item name="showTitle" valuePropName="checked">
-          <Checkbox
-            className="item-color"
-            onChange={(event) => {
-              handleChange('showTitle', event?.target?.checked, styleSetting);
-            }}
-          >
-            显示标题
-          </Checkbox>
-        </Item>
-        <Item
-          name="legend"
-          label={<LabelRender name="图例位置" />}
-        >
-          <Group
-            size="small"
-            onChange={(event) => {
-              handleChange('legend', event?.target?.value, styleSetting);
-            }}
-          >
-            <Radio value="top">上</Radio>
-            <Radio value="right">右</Radio>
-            <Radio value="bottom">下</Radio>
-            <Radio value="left">左</Radio>
-          </Group>
-        </Item>
-        <Item name="yAxisAll" valuePropName="checked">
-          <Checkbox
-            className="item-color"
-            onChange={(event) => {
-              handleChange('yAxisAll', event?.target?.checked, styleSetting);
-            }}
-          >
-            显示双y轴
-          </Checkbox>
-        </Item>
-        {axisDes?.map((des) => (des?.always || styleSetting?.yAxisAll) && (
           <Item
+            name="title"
+            className="item-title"
+          >
+            <Input
+              placeholder="请输入标题"
+              autoComplete="off"
+              onChange={(event) => {
+                handleChangeDebounce('title', event?.target?.value?.trim(), styleSetting);
+              }}
+            />
+          </Item>
+          <Item name="showTitle" valuePropName="checked">
+            <Checkbox
+              className="item-color"
+              onChange={(event) => {
+                handleChange('showTitle', event?.target?.checked, styleSetting);
+              }}
+            >
+              显示标题
+            </Checkbox>
+          </Item>
+        </ItemGroup>
+        <ItemGroup label={<LabelRender name="图例位置" />}>
+          <Item name="legend">
+            <Group
+              size="small"
+              onChange={(event) => {
+                handleChange('legend', event?.target?.value, styleSetting);
+              }}
+            >
+              <Radio value="top">上</Radio>
+              <Radio value="right">右</Radio>
+              <Radio value="bottom">下</Radio>
+              <Radio value="left">左</Radio>
+            </Group>
+          </Item>
+        </ItemGroup>
+        {axisDes?.map((des) => (des?.always || styleSetting?.yAxisAll) && (
+          <ItemGroup
             key={des?.key}
-            className="axis-label-item"
-            label={axisLabelRender(des?.label)}
+            label={<LabelRender name={des?.label} />}
+            padding={[15, 12]}
+            extra={() => des?.extra && (
+              <Item name="yAxisAll" valuePropName="checked">
+                <Checkbox
+                  className="item-color"
+                  onChange={(event) => {
+                    handleChange('yAxisAll', event?.target?.checked, styleSetting);
+                  }}
+                >
+                  显示双y轴
+                </Checkbox>
+              </Item>
+            )}
           >
             {des?.titleName && (
               <Item
@@ -221,7 +226,7 @@ const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
                 }} />
               </Item>
             )}
-          </Item>
+          </ItemGroup>
         ))}
       </Form>
     </div>

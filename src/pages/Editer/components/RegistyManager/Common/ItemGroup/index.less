@@ -1,5 +1,53 @@
 .item-group-container {
-  background-color: #2C3551;
+  background-color: @dashboard-deep-bg-color;
   border-radius: 2px;
-  padding: 15px;
+  position: relative;
+
+  .item-group-extra {
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -30px;
+    right: 0;
+  }
+
+  >span {
+    color: @dashboard-main-text-color;
+  }
+
+  .ant-checkbox-wrapper {
+    color: @dashboard-main-text-color;
+  }
+
+  .ant-radio-wrapper {
+    color: @dashboard-main-text-color;
+
+    .ant-radio-inner {
+      background-color: @dashboard-tint-bg-color;
+
+      &::after {
+        width: 20px;
+        height: 20px;
+        top: calc(50% - 10px);
+        left: calc(50% - 10px);
+        margin: 0;
+      }
+    }
+
+    .ant-radio-input {
+      &:focus {
+        +.ant-radio-inner {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  >.ant-form-item {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

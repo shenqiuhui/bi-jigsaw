@@ -1,10 +1,6 @@
 .complex-setting-container {
   height: 100%;
 
-  .item-color {
-    color: #C4C7CE;
-  }
-
   .complex-setting {
     display: none;
   }
@@ -16,8 +12,14 @@
 
   .complex-style-setting {
     height: 100%;
-    padding: 15px 20px;
+    padding: @dashboard-setter-padding;
     display: block;
     overflow: auto;
+
+    .ant-form-item {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
