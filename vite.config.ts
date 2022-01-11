@@ -7,20 +7,19 @@ const resolveFixup = () => {
   return {
     name: 'resolve-fixup',
     setup(build) {
-      build.onResolve({ filter: /react-virtualized/ }, async () => {
+      build.onResolve({ filter: /react-virtualized/ }, () => {
         return {
-          path: path.resolve('./node_modules/react-virtualized/dist/umd/react-virtualized.js'),
+          path: path.resolve('./node_modules/react-virtualized/dist/umd/react-virtualized.js')
         };
       });
     }
   };
 }
 
-// https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src')
     }
   },
   optimizeDeps: {
