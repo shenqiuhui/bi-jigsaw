@@ -4,8 +4,10 @@ export interface IConfig extends AxiosRequestConfig {
   resType?: number;
 }
 
+const baseURL = import.meta.env.PROD ? 'https://mock.apifox.cn/m1/1062627-0-default' : '/'
+
 const instance = axios.create({
-  baseURL: "/",
+  baseURL,
   timeout: 10000,
 });
 
