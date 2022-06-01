@@ -1,4 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+
+export interface IConfig extends AxiosRequestConfig {
+  resType?: number;
+}
 
 const instance = axios.create({
   baseURL: "/",
@@ -6,11 +10,12 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (config) => {
-    return Promise.resolve({
-      ...config,
-      url: `http://${window.location.host}/mock${config.url}.json`
-    });
+  (config: IConfig) => {
+    if (config.resType && config.resType === 1) {
+      config.responseType = "blob";
+    }
+
+    return config;
   },
   (error) => {
     return Promise.reject(error);

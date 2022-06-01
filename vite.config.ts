@@ -22,6 +22,15 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://mock.apifox.cn/m1/1062627-0-default',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
+  },
   optimizeDeps: {
     esbuildOptions: {
       plugins: [resolveFixup()]
@@ -29,12 +38,12 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-       less: {
-         modifyVars: {
-           hack: `true; @import (reference) '${path.resolve(__dirname, 'src/assets/css/variables.less')}';`,
-         },
-         javascriptEnabled: true
-       }
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) '${path.resolve(__dirname, 'src/assets/css/variables.less')}';`,
+        },
+        javascriptEnabled: true
+      }
     }
   },
   plugins: [react()]

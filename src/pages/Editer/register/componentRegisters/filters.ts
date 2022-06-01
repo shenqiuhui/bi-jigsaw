@@ -32,7 +32,7 @@ Register.componentRegister<IFilterComponent, ISelectProps>(SelectItem, {
     filterOption: true,
     optionFilterProp: 'label',
     placeholder: '请选择',
-    api: '/getFilterSelectList',
+    api: '/api/getFilterSelectList',
     method: 'post'
   },
 });
@@ -54,7 +54,7 @@ Register.componentRegister<IFilterComponent, ISelectProps>(SelectItem, {
     optionFilterProp: 'label',
     placeholder: '请选择',
     mode: 'multiple',
-    api: '/getFilterSelectMultipleList',
+    api: '/api/getFilterSelectMultipleList',
     method: 'post'
   },
 });

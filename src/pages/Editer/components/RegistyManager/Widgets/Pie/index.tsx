@@ -4,7 +4,7 @@ import { IPieWidgetProps, IWidgetRef } from '../../../../types';
 
 const PieWidget = memo(forwardRef<IWidgetRef, IPieWidgetProps>((props, ref) => {
   return (
-    <ChartWidget ref={ref} {...props} api="/getPieData" />
+    <ChartWidget ref={ref} {...props} api="/api/getPieData" />
   );
 }));
 
