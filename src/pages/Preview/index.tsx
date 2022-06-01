@@ -20,6 +20,7 @@ const Preview: React.FC<IPreviewProps> = () => {
   const [loading, setLoading] = useState(false);
   const [pageConfig, setPageConfig] = useState<IPageConfig>({} as IPageConfig);
   const [hasAuth, setHasAuth] = useState(false);
+  const [authWait, setAuthWait] = useState(true);
 
   // 获取权限接口
   const fetchAuth = useCallback(async () => {
@@ -32,6 +33,8 @@ const Preview: React.FC<IPreviewProps> = () => {
 
         setHasAuth(res);
       } catch (err) {}
+
+      setAuthWait(false);
     }
   }, [pageId, spaceId]);
 
@@ -65,16 +68,20 @@ const Preview: React.FC<IPreviewProps> = () => {
 
   return (
     <div className="preview-container">
-      {hasAuth ? (
-        <Spin size="large" spinning={loading}>
-          {renderEngine({
-            config: pageConfig
-          })}
-        </Spin>
-      ) : (
-        <div className="page-no-access">
-          <Empty description="无查看该仪表板权限，请找到所有者添加" />
-        </div>
+      {!authWait && (
+        <>
+          {hasAuth? (
+            <Spin size="large" spinning={loading}>
+              {renderEngine({
+                config: pageConfig
+              })}
+            </Spin>
+          ) : (
+            <div className="page-no-access">
+              <Empty description="无查看该仪表板权限，请找到所有者添加" />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
