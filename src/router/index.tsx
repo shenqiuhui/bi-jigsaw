@@ -7,7 +7,7 @@ const Router = () => {
     <HashRouter>
       {renderRoutes(routes)}
     </HashRouter>
-  )
+  );
 }
 
 export default Router;

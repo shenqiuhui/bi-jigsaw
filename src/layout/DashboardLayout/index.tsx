@@ -7,11 +7,11 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import { IconFont } from '@/assets/iconfont';
-import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboardSlice';
-import { IRootState, ICoordinate, IWidget, ITabs } from '@/store/types';
-import { IPlanData } from '@/pages/Editer/types';
-import { widgetMap, widgetButtons, widgetConfig } from '@/pages/Editer/register';
-import { getPageConfig, setPageConfig, getPlanList } from '@/service/dashboardApi';
+import { widgetMap, widgetButtons, widgetConfig } from '@/core/register';
+import { getPageConfig, setPageConfig, getPlanList } from '@/service/apis/dashboard';
+import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboard';
+import { IRootState, ICoordinate, IWidget, ITab } from '@/store/types';
+import { IPlanData } from '@/types';
 
 import './index.less';
 
@@ -26,7 +26,7 @@ const activeButtons = [
   { type: 'preview', name: '预 览' },
 ];
 
-const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
+const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
   const { id: pageId } = useParams<IRouteParams>();
@@ -49,10 +49,10 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
     const widgets = cloneDeep(widgetSource);
 
     for (let i = 0; i < widgets?.length; i++) {
-      const outterWidget: IWidget = widgets[i];
-      const tabs = outterWidget?.tabs || [];
+      const outerWidget: IWidget = widgets[i];
+      const tabs = outerWidget?.tabs || [];
 
-      if (outterWidget?.type === 'tabs' && tabs?.length > 0) {
+      if (outerWidget?.type === 'tabs' && tabs?.length > 0) {
         for (let j = 0; j < tabs?.length; j++) {
           const tab = tabs[j];
 
@@ -61,8 +61,8 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
           }
         }
       } else {
-        if (outterWidget?.newWidget) {
-          delete outterWidget?.newWidget;
+        if (outerWidget?.newWidget) {
+          delete outerWidget?.newWidget;
         }
       }
     }
@@ -143,22 +143,22 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
           }
         });
       } else {
-        const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab) => {
+        const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab: ITab) => {
           const key = uuidv4();
           return { ...tab, key };
         });
 
-        const tabsInWidget = tabsInStyle?.map((tab) => ({ ...tab, widgets: []}));
+        const tabsInWidget = tabsInStyle?.map((tab: ITab) => ({ ...tab, widgets: []}));
 
         widgets?.push({
           id: uuid,
           coordinate,
           ...widgetConfig?.[type],
-          tabs: tabsInWidget as ITabs[],
+          tabs: tabsInWidget as ITab[],
           settings: {
             style: {
               ...widgetConfig?.[type]?.settings?.style,
-              tabs: tabsInStyle as ITabs[]
+              tabs: tabsInStyle as ITab[]
             }
           }
         });
@@ -169,7 +169,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   }
 
   // 切换状态
-  const handleEidterStatusChange = (type: string) => {
+  const handleEditorStatusChange = (type: string) => {
     setActiveButtonValue(type);
     dispatch(setDashboardStatus(type));
   }
@@ -233,21 +233,21 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   }, []);
 
   return (
-    <Layout className="dashborad-layout">
-      <Header className="dashborad-header">
-        <div className="dashborad-operater-exit">
+    <Layout className="dashboard-layout">
+      <Header className="dashboard-header">
+        <div className="dashboard-operator-exit">
           <IconFont
-            className="dashborad-operater-exit-icon"
+            className="dashboard-operator-exit-icon"
             type="icon-back"
             onClick={handleExitLayout}
           />
         </div>
-        <div className="dashborad-header-right">
-          <h1 className="dashborad-title ellipsis">
+        <div className="dashboard-header-right">
+          <h1 className="dashboard-title ellipsis">
             {pageConfig?.name}
           </h1>
           {activeButtonValue === 'edit' && (
-            <ul className="dashborad-tabs">
+            <ul className="dashboard-tabs">
               {widgetButtons?.map((item) => (
                 <Tooltip key={item.type} title={item?.name}>
                   <li onClick={() => handleAddWidget(item.type)}>
@@ -260,7 +260,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
               ))}
             </ul>
           )}
-          <div className="dashborad-operater">
+          <div className="dashboard-operator">
             <ul className="switch-buttons">
               {activeButtons?.map(({ type, name }) => (
                 <li
@@ -268,7 +268,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
                   className={classNames({
                     active: type === activeButtonValue
                   })}
-                  onClick={() => handleEidterStatusChange(type)}
+                  onClick={() => handleEditorStatusChange(type)}
                 >
                   {name}
                 </li>
@@ -282,7 +282,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
               />
             </ul>
             <Button
-              className="dashborad-operater-save"
+              className="dashboard-operator-save"
               type="primary"
               shape="round"
               loading={saveLoading}
@@ -293,7 +293,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
           </div>
         </div>
       </Header>
-      <Content className="dashborad-content">
+      <Content className="dashboard-content">
         {renderRoutes(route?.routes)}
       </Content>
     </Layout>

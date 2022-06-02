@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Spin, Empty } from 'antd';
 import { useParams } from 'react-router-dom';
-import { renderEngine } from '@/pages/Editer';
-import { getPageConfig } from '@/service/dashboardApi';
-import { checkPreviewAuth } from '@/service/dashboardApi';
+import { renderEngine } from '@/pages/Editor';
+import { checkDashboardAuth } from '@/service/apis/auth';
+import { getPageConfig } from '@/service/apis/dashboard';
 import { IPageConfig } from '@/store/types';
 
 import './index.less';
@@ -26,7 +26,7 @@ const Preview: React.FC<IPreviewProps> = () => {
   const fetchAuth = useCallback(async () => {
     if (spaceId && pageId) {
       try {
-        const res: any = await checkPreviewAuth({
+        const res: any = await checkDashboardAuth({
           spaceId,
           pageId
         });

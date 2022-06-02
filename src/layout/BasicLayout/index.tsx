@@ -11,7 +11,7 @@ const BasicLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
   return (
     <Layout className="base-layout">
       <Header className="base-layout-header">
-        <h1>BI 平台</h1>
+        <h1>可视化 BI 搭建案例</h1>
       </Header>
       <Content className="base-content">
         {renderRoutes(route?.routes)}

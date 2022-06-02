@@ -11,7 +11,7 @@ const Welcome = () => {
   }
 
   const handleEditJump = () => {
-    history.push('/editer/1');
+    history.push('/editor/20398/1');
   }
 
   return (
@@ -21,7 +21,7 @@ const Welcome = () => {
       </Button>
       <br />
       <Button type="link" onClick={handleEditJump}>
-        编辑器 ~/editer/:id
+        编辑器 ~/editor/:spaceId/:id
       </Button>
     </div>
   );

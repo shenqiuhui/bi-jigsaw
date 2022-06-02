@@ -22,10 +22,6 @@ export interface IPageConfig {
   widgets: IWidget[];
 }
 
-export interface IFilterForm {
-  [key: string]: string | string[] | number | undefined;
-}
-
 export interface IFilterCondition {
   widgetFieldList: IWidgetField[];
   type: string;
@@ -51,7 +47,7 @@ export interface IWidget {
   parentID?: string;
   type: string;
   coordinate: ICoordinate;
-  tabs?: ITabs[];
+  tabs?: ITab[];
   settings: Settings;
 }
 
@@ -70,7 +66,7 @@ export interface ICoordinate {
   isResizable?: boolean;
 }
 
-export interface ITabs {
+export interface ITab {
   key: string;
   name: string;
   widgets?: IWidget[];
@@ -103,7 +99,7 @@ export interface ITabsSetting {
     title?: string;
     showTitle?: boolean;
     align?: string;
-    tabs?: ITabs[];
+    tabs?: ITab[];
   };
 }
 

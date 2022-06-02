@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import dashboard from './slices/dashboardSlice';
+import dashboard from './slices/dashboard';
 
 const store = configureStore({
   reducer: combineReducers({ dashboard }),

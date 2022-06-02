@@ -2,7 +2,7 @@ import { RouteConfig } from 'react-router-config';
 import BasicLayout from '@/layout/BasicLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import PreviewLayout from '@/layout/PreviewLayout';
-import Editer from '@/pages/Editer';
+import Editor from '@/pages/Editor';
 import Preview from '@/pages/Preview';
 import Welcome from '@/pages/Welcome';
 
@@ -23,14 +23,14 @@ const routes: RouteConfig[] = [
     ]
   },
   {
-    path: '/editer/:id',
+    path: '/editor/:spaceId/:id',
     component: DashboardLayout,
     routes: [
       {
         name: "编辑仪表盘",
-        path: "/editer/:id",
+        path: "/editor/:spaceId/:id",
         exact: true,
-        component: Editer,
+        component: Editor,
       },
     ]
   },
