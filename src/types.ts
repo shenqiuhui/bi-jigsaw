@@ -27,7 +27,7 @@ export type PickerRangeValueType = [string, string];
 export type DefaultValueType = string | string[] | never[] | null;
 
 export interface IRangePreset {
-  [key: string]: MomentRangeType
+  [key: string]: MomentRangeType;
 }
 
 export interface IFilterComponentMap {
