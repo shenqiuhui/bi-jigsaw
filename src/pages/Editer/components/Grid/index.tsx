@@ -1,6 +1,6 @@
 import React, { memo, forwardRef, useState, useMemo, useRef, useImperativeHandle } from 'react';
 import GridLayout, { Layout, ItemCallback } from 'react-grid-layout';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash'
 import classNames from 'classnames';
 import { IPageConfig, IWidget, IFilterForm, Settings } from '@/store/types';
@@ -89,7 +89,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
 
   // 构建组件监听事件集合
   const setWatchInfoHandles = (widgetRef: IWidgetContainerRef) => {
-    if (widgetRef?.widgetId && widgetRef?.handler) {
+    if (widgetRef?.widgetId) {
       const { widgetId, handler } = widgetRef;
       widgetContainerRef.current[widgetId] = handler;
     }

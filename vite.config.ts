@@ -2,20 +2,6 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// 插件：解析第三方库未捕获插件报错导致 esbuild 无法构建
-const resolveFixup = () => {
-  return {
-    name: 'resolve-fixup',
-    setup(build) {
-      build.onResolve({ filter: /react-virtualized/ }, () => {
-        return {
-          path: path.resolve('./node_modules/react-virtualized/dist/umd/react-virtualized.js')
-        };
-      });
-    }
-  };
-}
-
 export default defineConfig({
   resolve: {
     alias: {
@@ -28,11 +14,6 @@ export default defineConfig({
         target: 'https://mock.apifox.cn/m1/1062627-0-default',
         changeOrigin: true
       }
-    }
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [resolveFixup()]
     }
   },
   css: {

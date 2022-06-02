@@ -1,6 +1,6 @@
-import React, { memo, forwardRef, useState, useRef, useImperativeHandle } from 'react';
+import { memo, forwardRef, useState, useRef, useImperativeHandle } from 'react';
 import { message } from 'antd';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import FileSaver from 'file-saver';

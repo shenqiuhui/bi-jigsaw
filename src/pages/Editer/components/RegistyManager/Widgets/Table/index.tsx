@@ -1,6 +1,6 @@
-import React, { memo, forwardRef, useState, useMemo, useImperativeHandle, useEffect } from 'react';
+import { memo, forwardRef, useState, useMemo, useImperativeHandle, useEffect } from 'react';
 import { Table, message } from 'antd';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
