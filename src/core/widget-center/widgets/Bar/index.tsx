@@ -1,11 +1,11 @@
-import { memo, forwardRef } from 'react';
-import { IBarWidgetProps, IWidgetRef } from '@/types';
+import { memo } from 'react';
+import { IBarWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
 
-const BarWidget = memo(forwardRef<IWidgetRef, IBarWidgetProps>((props, ref) => {
+const BarWidget: React.FC<IBarWidgetProps> = memo((props) => {
   return (
-    <ChartWidget ref={ref} {...props} api="/api/bar" />
+    <ChartWidget {...props} api="/api/bar" />
   );
-}));
+});
 
 export default BarWidget;

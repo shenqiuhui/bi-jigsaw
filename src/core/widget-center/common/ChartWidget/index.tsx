@@ -1,4 +1,4 @@
-import { memo, forwardRef, useState, useRef, useImperativeHandle } from 'react';
+import { memo, useState, useEffect, useRef } from 'react';
 import { message } from 'antd';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
@@ -7,13 +7,23 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
-import { IWidgetDefaultProps, IWidgetRef } from '@/types';
+import { IWidgetDefaultProps } from '@/types';
 import InnerChart, { ICharInstanceRef } from './InnerChart';
 
 import './index.less';
 
-const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref) => {
-  const { type, pageId, api, id: widgetId, filterValues, settings, emptyRender } = props;
+const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
+  const {
+    type,
+    pageId,
+    api,
+    id: widgetId,
+    filterValues,
+    settings,
+    emptyRender,
+    methodsRegister
+  } = props;
+
   const [option, setOption] = useState({});
   const chartRef = useRef<ICharInstanceRef>(null);
 
@@ -69,11 +79,13 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
     message.success('下载成功');
   }
 
-  useImperativeHandle(ref, () => ({
-    fetchData,
-    exportData: downloadData,
-    downloadImage: downloadImage
-  }));
+  useEffect(() => {
+    methodsRegister?.({
+      fetchData,
+      exportData: downloadData,
+      downloadImage: downloadImage
+    });
+  }, []);
 
   return (
     <div className="chart-widget-container">
@@ -95,6 +107,6 @@ const ChartWidget = memo(forwardRef<IWidgetRef, IWidgetDefaultProps>((props, ref
       </AutoSizer>
     </div>
   );
-}));
+});
 
 export default ChartWidget;

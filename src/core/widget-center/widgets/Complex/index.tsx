@@ -1,11 +1,11 @@
-import { memo, forwardRef } from 'react';
-import { IComplexWidgetProps, IWidgetRef } from '@/types';
+import { memo } from 'react';
+import { IComplexWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
 
-const ComplexWidget = memo(forwardRef<IWidgetRef, IComplexWidgetProps>((props, ref) => {
+const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
   return (
-    <ChartWidget ref={ref} {...props} api="/api/complex" />
+    <ChartWidget {...props} api="/api/complex" />
   );
-}));
+});
 
 export default ComplexWidget;

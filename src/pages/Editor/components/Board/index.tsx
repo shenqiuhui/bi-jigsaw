@@ -38,7 +38,7 @@ const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
   }, [config?.filters?.conditions]);
 
   return (
-    <div className="render-engine-container">
+    <div id="widgets-viewport" className="render-engine-container">
       {!isEmpty(config?.filters?.conditions) || !isEmpty(config?.widgets) ? (
         <div className="board-container">
           {!(!isEdit && isEmpty(config?.filters?.conditions)) && (

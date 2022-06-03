@@ -244,9 +244,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
                   form={filterValues}
                   {...widgetContainerProps}
                 >
-                  {({ ref, ...otherContainerProps }) => {
-                    const containerProps = otherProps?.hasRef ? { ref } : {};
-
+                  {(containerProps) => {
                     return showWidgets && widgetMap?.[widget?.type]?.component?.({
                       isEdit,
                       isSelected: currentClickId === widget?.id,
@@ -255,7 +253,6 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
                       ...widget,
                       ...otherProps,
                       ...containerProps,
-                      ...otherContainerProps,
                       ...tabsContainerProps,
                       onDataSettingChange,
                       onStyleSettingChange

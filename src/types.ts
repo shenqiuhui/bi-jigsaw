@@ -124,7 +124,7 @@ export interface IWidgetMap {
   [key: string]: IWidget;
 }
 
-export interface IWidgetRef {
+export interface IWidgetMethods {
   fetchData?: (settings: Settings) => Promise<any>;
   exportData?: (settings: Settings) => Promise<any>;
   downloadImage?: () => void;
@@ -152,10 +152,10 @@ export interface IWidgetDefaultProps extends IWidget, Omit<IWidgetGlobal, 'type'
   onDataSettingChange?: (dataSettings: Settings['data']) => void;
   onStyleSettingChange?: (styleSettings: Settings['style']) => void;
   onWatchInfoChange?: (info: any) => void;
+  methodsRegister?: (methods: IWidgetMethods) => void;
 }
 
 export interface IWidget extends IRegister, IWidgetSize {
-  hasRef: boolean;
   showHeader: boolean;
   useLoading: boolean;
   showInFilter: boolean;

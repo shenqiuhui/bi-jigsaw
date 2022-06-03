@@ -11,18 +11,18 @@ import {
   FullscreenOutlined,
   FullscreenExitOutlined
 } from '@ant-design/icons';
-import { useFullscreen } from 'ahooks';
+import { useFullscreen, useUpdateEffect } from 'ahooks';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
 import { widgetEmptyMap } from '@/core/register';
 import { IWidget, Settings } from '@/store/types';
-import { IFilterForm, IWidgetRef, IWidgetContainerRef, IGridRef } from '@/types';
+import { IFilterForm, IWidgetMethods, IWidgetContainerRef, IGridRef } from '@/types';
 import Grid, { IGirdProps } from '../Grid';
 
 import './index.less';
 
 interface IChildrenProps {
-  ref: React.MutableRefObject<IWidgetRef | null>,
+  methodsRegister: (methods: IWidgetMethods) => void;
   emptyRender: (offset?: number) => React.ReactNode;
   onWatchInfoChange: (info: any) => void;
 }
@@ -64,9 +64,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [exportDisabled, setExportDisabled] = useState<boolean>(false);
   const [refreshDisabled, setRefreshDisabled] = useState<boolean>(false);
   const [watchInfo, setWatchInfo] = useState<any>();
-  const [mounted, setMounted] = useState<boolean>(false);
-  const [isRefreshInit, setIsRefreshInit] = useState<boolean>(true);
-  const widgetRef = useRef<IWidgetRef>(null);
+  const [methods, setMethods] = useState<IWidgetMethods>({});
   const widgetScreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, { toggleFullscreen }] = useFullscreen(widgetScreenRef);
 
@@ -74,6 +72,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     widgetId: data?.id,
     handler: handleWatchInfoChange,
   }));
+
+  // 注册请求方法
+  const handleMethodsRegister = (methods: IWidgetMethods) => {
+    setMethods(methods);
+  }
 
   // 监听信息变更
   const handleWatchInfoChange = (info: any) => {
@@ -97,19 +100,18 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetDelete]);
 
   // 导出数据
-  const handleExportData = useCallback((data) => {
+  const handleExportData = (data: IWidget) => {
     setExportDisabled(true);
-    widgetRef?.current?.exportData?.(data?.settings)?.finally(() => {
+    methods?.exportData?.(data?.settings)?.finally(() => {
       setExportDisabled(false);
     });
-  }, []);
+  }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleExportDataThrottle = useCallback(throttle(handleExportData, 600), [handleExportData]);
 
   // 导出图片
   const handleDownloadImage = () => {
-    widgetRef?.current?.downloadImage?.();
+    methods?.downloadImage?.();
   }
 
   // 点击菜单选项
@@ -129,21 +131,25 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     }
   }, [data, handleExportDataThrottle, handleWidgetDelete, handleWidgetSelect]);
 
+  // 获取数据逻辑
+  const fetchWidgetAction = () => {
+    useLoading && setLoading(true);
+    setRefreshDisabled(true);
+    methods?.fetchData?.(data?.settings).finally(() => {
+      useLoading && setLoading(false);
+      setRefreshDisabled(false);
+    });
+  }
+
   // 刷新数据
-  const handleRefresh = useCallback((event, data, useLoading, refreshDisabled) => {
+  const handleRefresh = (event: React.MouseEvent, data: IWidget) => {
     handleStopPropagation(event);
 
     if (!data?.newWidget && !refreshDisabled) {
-      useLoading && setLoading(true);
-      setRefreshDisabled(true);
-      widgetRef?.current?.fetchData?.(data?.settings).finally(() => {
-        useLoading && setLoading(false);
-        setRefreshDisabled(false);
-      });
+      fetchWidgetAction();
     }
-  }, []);
+  }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleRefreshThrottle = useCallback(throttle(handleRefresh, 600), [handleRefresh]);
 
   // 键盘删除操作
@@ -213,7 +219,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
           'disabled-events': data?.newWidget || refreshDisabled
         })}
         onClick={(event) => {
-          handleRefreshThrottle(event, data, useLoading, refreshDisabled);
+          handleRefreshThrottle(event, data);
         }}
       />
     </div>
@@ -266,21 +272,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     }
   }, [data, onWidgetSelect, selectedWidgetId]);
 
-  useEffect(() => {
-    if (mounted) {
-      if (!data?.newWidget) {
-        (isRefreshInit && useLoading) && setLoading(true);
-
-        widgetRef?.current?.fetchData?.(data?.settings)?.finally(() => {
-          !useLoading && setIsRefreshInit(false);
-          (isRefreshInit && useLoading) && setLoading(false);
-        });
-      }
-    } else {
-      setMounted(true);
+  useUpdateEffect(() => {
+    if (!data?.newWidget) {
+      fetchWidgetAction();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.newWidget, form, watchInfo, mounted]);
+  }, [form, watchInfo, methods, data?.newWidget]);
 
   return (
     <div
@@ -311,8 +307,8 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
       >
         <Spin spinning={loading}>
           {children?.({
-            ref: widgetRef,
             emptyRender,
+            methodsRegister: handleMethodsRegister,
             onWatchInfoChange: handleWatchInfoChange,
             ...!showHeader ? {
               titleRender,

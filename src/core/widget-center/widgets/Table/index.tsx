@@ -1,4 +1,4 @@
-import { memo, forwardRef, useState, useMemo, useImperativeHandle, useEffect } from 'react';
+import { memo, useState, useMemo, useEffect } from 'react';
 import { Table, message } from 'antd';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
@@ -6,7 +6,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/apis/chart';
 import { Settings } from '@/store/types';
-import { ITableWidgetProps, IWidgetRef } from '@/types';
+import { ITableWidgetProps } from '@/types';
 
 import './index.less';
 
@@ -15,7 +15,7 @@ interface IColumns {
   dataIndex: string;
 }
 
-const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) => {
+const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
   const {
     isEdit,
     isSelected,
@@ -26,7 +26,8 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
     settings,
     emptyRender,
     onStyleSettingChange,
-    onWatchInfoChange
+    onWatchInfoChange,
+    methodsRegister
   } = props;
 
   const [page, setPage] = useState<number>(1);
@@ -95,10 +96,12 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
     setPageSize(settings?.style?.pageSize as number);
   }, [settings?.style?.pageSize]);
 
-  useImperativeHandle(ref, () => ({
-    fetchData: fetchTableData,
-    exportData: downloadTableData
-  }));
+  useEffect(() => {
+    methodsRegister?.({
+      fetchData: fetchTableData,
+      exportData: downloadTableData
+    });
+  }, []);
 
   return (
     <div className="table-widget-container">
@@ -136,6 +139,6 @@ const TableWidget = memo(forwardRef<IWidgetRef, ITableWidgetProps>((props, ref) 
       </AutoSizer>
     </div>
   );
-}));
+});
 
 export default TableWidget;

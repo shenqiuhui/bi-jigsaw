@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect, useMemo } from 'react';
-import { Modal, Button, Popconfirm, message } from 'antd';
+import { Modal, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import Register from '@/core/register';
@@ -249,22 +249,23 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
       visible={visible}
       maskClosable={false}
       onCancel={() => onVisibleChange?.(false)}
-      footer={[
-        <Button key="cancel" onClick={() => onVisibleChange?.(false)}>
-          取消
-        </Button>,
-        <Popconfirm
-          key="submit"
-          overlayClassName="double-submit"
-          title="如果该编辑页面存在未保存的组件，提交查询条件配置同时会自动提交页面配置。"
-          disabled={validateHasEditItem(data?.list)}
-          onConfirm={handleSubmitFilterConfig}
-        >
-          <Button type="primary" loading={submitLoading}>
-            保存
+      footer={
+        <Space size={16}>
+          <Button onClick={() => onVisibleChange?.(false)}>
+            取消
           </Button>
-        </Popconfirm>,
-      ]}
+          <Popconfirm
+            overlayClassName="double-submit"
+            title="如果该编辑页面存在未保存的组件，提交查询条件配置同时会自动提交页面配置。"
+            disabled={validateHasEditItem(data?.list)}
+            onConfirm={handleSubmitFilterConfig}
+          >
+            <Button type="primary" loading={submitLoading}>
+              保存
+            </Button>
+          </Popconfirm>
+        </Space>
+      }
     >
       <div className="list-container">
         <LeftMenu

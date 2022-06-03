@@ -47,7 +47,6 @@ Register.componentRegister<IWidget, ITableWidgetProps>(TableWidget, {
   minH: 12,
   defaultW: 12,
   defaultH: 20,
-  hasRef: true,
   showHeader: true,
   useLoading: true,
   showInFilter: true
@@ -63,7 +62,6 @@ Register.componentRegister<IWidget, ILineWidgetProps>(LineWidget, {
   minH: 12,
   defaultW: 6,
   defaultH: 20,
-  hasRef: true,
   showHeader: true,
   useLoading: true,
   showInFilter: true
@@ -79,7 +77,6 @@ Register.componentRegister<IWidget, IBarWidgetProps>(BarWidget, {
   minH: 12,
   defaultW: 6,
   defaultH: 20,
-  hasRef: true,
   showHeader: true,
   useLoading: true,
   showInFilter: true
@@ -95,7 +92,6 @@ Register.componentRegister<IWidget, IPieWidgetProps>(PieWidget, {
   minH: 12,
   defaultW: 6,
   defaultH: 20,
-  hasRef: true,
   showHeader: true,
   useLoading: true,
   showInFilter: true
@@ -111,7 +107,6 @@ Register.componentRegister<IWidget, IComplexWidgetProps>(ComplexWidget, {
   minH: 12,
   defaultW: 6,
   defaultH: 20,
-  hasRef: true,
   showHeader: true,
   useLoading: true,
   showInFilter: true
@@ -127,7 +122,6 @@ Register.componentRegister<IWidget, ITextWidgetProps>(TextWidget, {
   minH: 3,
   defaultW: 12,
   defaultH: 10,
-  hasRef: false,
   showHeader: false,
   useLoading: false,
   showInFilter: false

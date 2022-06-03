@@ -34,6 +34,7 @@ specifiers:
   react-color: ^2.19.3
   react-dom: ^17.0.2
   react-grid-layout: ^1.2.5
+  react-intersection-observer: ^9.2.0
   react-redux: ^7.2.4
   react-resizable: ^3.0.4
   react-router-config: ^5.1.1
@@ -64,6 +65,7 @@ dependencies:
   react-color: 2.19.3_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-grid-layout: 1.3.4_sfoxds7t5ydpegc3knd667wn6m
+  react-intersection-observer: 9.2.0_react@17.0.2
   react-redux: 7.2.8_sfoxds7t5ydpegc3knd667wn6m
   react-resizable: 3.0.4_sfoxds7t5ydpegc3knd667wn6m
   react-router-config: 5.1.1_react@17.0.2
@@ -11901,6 +11903,14 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-draggable: 4.4.5_sfoxds7t5ydpegc3knd667wn6m
       react-resizable: 3.0.4_sfoxds7t5ydpegc3knd667wn6m
+    dev: false
+
+  /react-intersection-observer/9.2.0_react@17.0.2:
+    resolution: {integrity: sha512-tETsf3nEuS9WGKPld5x16QkmMnq9vTQu0UzFYnU1jBajgAqe0rIyAtobxlGloabomOeYZVW7aL3JaDZ9jK0Yew==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:
