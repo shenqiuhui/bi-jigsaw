@@ -96,7 +96,10 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
     setType(value);
     onFilterItemTypeChange?.(data?.id, value);
     onDefaultValueChange?.(data?.id, filterComponentMap?.[value]?.emptyValue);
-    onDateRangeDynamicValueChange?.(data?.id, 'yesterday');
+
+    if (value === 'date-range') {
+      handleDateRangeTypeChange?.('static');
+    }
   }
 
   // 默认值变更
@@ -107,6 +110,10 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   // 日期类型变化
   const handleDateRangeTypeChange = (value: string) => {
     onDateRangeTypeChange?.(data?.id, value);
+
+    if (value === 'dynamic') {
+      onDateRangeDynamicValueChange?.(data?.id, 'yesterday');
+    }
   }
 
   // 日期动态默认值变化
@@ -228,9 +235,9 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                       ...filterComponentMap?.[type]?.props,
                       ...['select', 'select-multiple'].includes(type) ? {
                         widgetFieldList: data?.widgetFieldList,
-                        checkedWidgets: data?.checkedWidgets
+                        checkedWidgets: data?.checkedWidgets,
+                        width: '100%'
                       } : {},
-                      width: '100%',
                       value: data?.defaultValue,
                       onChange: handleDefaultValueChange
                     })}
@@ -258,7 +265,6 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                     {filterComponentMap?.['date-range']?.component?.({
                       ...filterComponentMap?.['date-range']?.props,
                       preset: false,
-                      width: '100%',
                       value: data?.defaultValue,
                       onChange: handleDefaultValueChange
                     })}

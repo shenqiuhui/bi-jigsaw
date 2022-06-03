@@ -1,7 +1,7 @@
 import React, { memo, useState, useMemo, useEffect, useCallback } from 'react';
 import { Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { omit, omitBy, isNil, throttle } from 'lodash';
+import { omit, throttle } from 'lodash';
 import Register, { filterComponentMap } from '@/core/register';
 import { IFilterCondition, IPageConfig } from '@/store/types';
 import { IFilterForm } from '@/types';
@@ -33,7 +33,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
   }, [pageConfig]);
 
   const handleFinish = useCallback((values: IFilterForm) => {
-    onSearch?.(omitBy(values, isNil));
+    onSearch?.(values);
   }, [onSearch]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,7 +78,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
             >
               {filterComponentMap?.[type]?.component?.(Object.assign(
                 customProps,
-                ['select', 'select-multiple'].includes(type) ? omit(otherProps, ['dateRangeType']) : {}
+                ['select', 'select-multiple'].includes(type) ? otherProps : {}
               ))}
             </Item>
           );
@@ -95,7 +95,9 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
           </Item>
         )}
         {!!conditions.length && (
-          <Button type="primary" htmlType="submit">查询</Button>
+          <Button type="primary" htmlType="submit">
+            查询
+          </Button>
         )}
       </Form>
       <FilterModal

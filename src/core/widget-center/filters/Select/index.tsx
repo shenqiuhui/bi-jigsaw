@@ -40,7 +40,7 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
     } else {
       setOptions(dataSource);
     }
-  }, [dataSource, fetchOptions, filterWidgetFieldList]);
+  }, [dataSource]);
 
   return (
     <Select style={ width ? { width } : {} } options={options} {...otherProps} />

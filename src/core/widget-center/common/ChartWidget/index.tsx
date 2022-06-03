@@ -7,7 +7,8 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
-import { IWidgetDefaultProps } from '@/types';
+import { Settings } from '@/store/types';
+import { IWidgetDefaultProps, IFilterForm } from '@/types';
 import InnerChart, { ICharInstanceRef } from './InnerChart';
 
 import './index.less';
@@ -18,7 +19,6 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
     pageId,
     api,
     id: widgetId,
-    filterValues,
     settings,
     emptyRender,
     methodsRegister
@@ -27,7 +27,7 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
   const [option, setOption] = useState({});
   const chartRef = useRef<ICharInstanceRef>(null);
 
-  const fetchData = async () => {
+  const fetchData = async (form: IFilterForm, settings: Settings) => {
     try {
       const res: any = await getEchartData({
         api,
@@ -36,7 +36,7 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
           type,
           pageId,
           widgetId,
-          filterValues,
+          filterValues: form,
           settings
         },
       });
@@ -45,13 +45,13 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
     } catch (err) {}
   }
 
-  const downloadData = async () => {
+  const downloadData = async (form: IFilterForm, settings: Settings) => {
     try {
       const res: any = await exportData({
         type,
         pageId,
         widgetId,
-        filterValues,
+        filterValues: form,
         settings
       });
 

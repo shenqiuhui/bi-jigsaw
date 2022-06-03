@@ -205,7 +205,10 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
       const res: any = await setPageConfig(pageConfig);
 
       if (res?.status === 'success') {
-        const list = data?.list?.map((item) => omit(item, ['isEdit']));
+        const list = data?.list?.map((item) => {
+          const omitKeys = item?.filterItemType !== 'data-range' ? ['dateRangeType', 'dateRangeDynamicValue'] : [];
+          omit(item, ['isEdit', ...omitKeys]);
+        });
         await setFilterConfig({ ...data, list });
         await onFilterConfigSubmit?.(data);
         onVisibleChange?.(false);

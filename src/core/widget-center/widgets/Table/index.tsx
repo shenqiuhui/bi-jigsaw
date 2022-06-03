@@ -6,7 +6,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/apis/chart';
 import { Settings } from '@/store/types';
-import { ITableWidgetProps } from '@/types';
+import { ITableWidgetProps, IFilterForm } from '@/types';
 
 import './index.less';
 
@@ -22,7 +22,6 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     type,
     pageId,
     id: widgetId,
-    filterValues,
     settings,
     emptyRender,
     onStyleSettingChange,
@@ -55,15 +54,15 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     }));
   }
 
-  const fetchTableData = async (settings: Settings) => {
+  const fetchTableData = async (form: IFilterForm, settings: Settings, watchInfo: any) => {
     try {
       const res: any = await getTableData({
         type,
         page,
-        pageSize: isEdit ? settings?.style?.pageSize : pageSize,
+        pageSize: (isEdit ? settings?.style?.pageSize : watchInfo?.pageSize) || pageSize,
         pageId,
         widgetId,
-        filterValues,
+        filterValues: form,
         settings
       });
 
@@ -73,13 +72,13 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     } catch (err) {}
   }
 
-  const downloadTableData = async () => {
+  const downloadTableData = async (form: IFilterForm, settings: Settings) => {
     try {
       const res: any = await exportData({
         type,
         pageId,
         widgetId,
-        filterValues,
+        filterValues: form,
         settings
       });
 

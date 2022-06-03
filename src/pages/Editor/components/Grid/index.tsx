@@ -17,7 +17,7 @@ export interface IGirdProps {
   isEdit: boolean;
   widgets: IWidget[];
   selectedWidgetId?: string | null | undefined;
-  filterValues: IFilterForm | undefined;
+  filterValues: IFilterForm;
   onWidgetSelect?: ((id: string, type: string, settings: Settings) => void) | undefined;
   onWidgetsUpdate?: ((widgets: IWidget[], action?: string, updateData?: boolean) => void) | undefined;
   onPageConfigUpdate?: ((config: IPageConfig) => void) | undefined;
@@ -193,6 +193,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
           isDraggable={isEdit}
           isResizable={isEdit}
           isBounded
+          useCSSTransforms={false}
           onLayoutChange={handleLayoutChange}
           onDragStart={handleDragStart}
           onDrag={handleDrag}

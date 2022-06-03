@@ -12,6 +12,7 @@ import {
   FullscreenExitOutlined
 } from '@ant-design/icons';
 import { useFullscreen, useUpdateEffect } from 'ahooks';
+import { useInView } from 'react-intersection-observer';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
 import { widgetEmptyMap } from '@/core/register';
@@ -38,7 +39,7 @@ interface IWidgetContainerProps {
   useLoading?: boolean;
   selectedWidgetId?: string | null | undefined;
   data: IWidget;
-  form?: IFilterForm | undefined;
+  form: IFilterForm;
   children?: (containerProps: IChildrenProps) => React.ReactNode;
   onWidgetSelect?: (id: string, type: string, settings: Settings) => void;
   onWidgetDelete?: (id: string) => void;
@@ -65,8 +66,20 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [refreshDisabled, setRefreshDisabled] = useState<boolean>(false);
   const [watchInfo, setWatchInfo] = useState<any>();
   const [methods, setMethods] = useState<IWidgetMethods>({});
-  const widgetScreenRef = useRef<HTMLDivElement>(null);
+  const [skip, setSkip] = useState(false);
+
+  const widgetScreenRef = useRef<HTMLDivElement>();
+
   const [isFullscreen, { toggleFullscreen }] = useFullscreen(widgetScreenRef);
+  const [inViewRef, inView] = useInView({
+    skip,
+    root: document.getElementById('widgets-viewport')
+  });
+
+  const setRefs = useCallback((node) => {
+    widgetScreenRef.current = node;
+    inViewRef(node);
+  }, [inViewRef]);
 
   useImperativeHandle(ref, () => ({
     widgetId: data?.id,
@@ -102,7 +115,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   // 导出数据
   const handleExportData = (data: IWidget) => {
     setExportDisabled(true);
-    methods?.exportData?.(data?.settings)?.finally(() => {
+    methods?.exportData?.(form, data?.settings, watchInfo)?.finally(() => {
       setExportDisabled(false);
     });
   }
@@ -111,7 +124,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   // 导出图片
   const handleDownloadImage = () => {
-    methods?.downloadImage?.();
+    methods?.downloadImage?.(form, watchInfo);
   }
 
   // 点击菜单选项
@@ -135,7 +148,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const fetchWidgetAction = () => {
     useLoading && setLoading(true);
     setRefreshDisabled(true);
-    methods?.fetchData?.(data?.settings).finally(() => {
+    methods?.fetchData?.(form, data?.settings, watchInfo).finally(() => {
       useLoading && setLoading(false);
       setRefreshDisabled(false);
     });
@@ -274,15 +287,27 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   useUpdateEffect(() => {
     if (!data?.newWidget) {
+      setSkip(true);
       fetchWidgetAction();
     }
-  }, [form, watchInfo, methods, data?.newWidget]);
+  }, [form, data?.newWidget]);
+
+  useUpdateEffect(() => {
+    fetchWidgetAction();
+  }, [watchInfo]);
+
+  useUpdateEffect(() => {
+    if (!data?.newWidget && inView) {
+      setSkip(true);
+      fetchWidgetAction();
+    }
+  }, [methods, inView, data?.newWidget]);
 
   return (
     <div
       className="widget-container"
       tabIndex={-1}
-      ref={widgetScreenRef}
+      ref={setRefs}
       onClick={handleWidgetSelect}
       onKeyUp={handleKeyUpDelete}
     >

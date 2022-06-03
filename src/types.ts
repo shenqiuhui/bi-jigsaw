@@ -125,9 +125,9 @@ export interface IWidgetMap {
 }
 
 export interface IWidgetMethods {
-  fetchData?: (settings: Settings) => Promise<any>;
-  exportData?: (settings: Settings) => Promise<any>;
-  downloadImage?: () => void;
+  fetchData?: (form: IFilterForm, settings: Settings, watchInfo: any) => Promise<any>;
+  exportData?: (form: IFilterForm, settings: Settings, watchInfo: any) => Promise<any>;
+  downloadImage?: (form: IFilterForm, watchInfo: any) => void;
 }
 
 export interface IWidgetButtons {
