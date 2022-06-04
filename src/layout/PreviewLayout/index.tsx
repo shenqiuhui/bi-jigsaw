@@ -3,7 +3,7 @@ import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 
 import './index.less';
 
-const PreviewLayout: React.FC<RouteConfigComponentProps<any>> = (props) => {
+const PreviewLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
   return (

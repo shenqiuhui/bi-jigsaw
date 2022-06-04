@@ -21,7 +21,7 @@ const Welcome = () => {
       </Button>
       <br />
       <Button type="link" onClick={handleEditJump}>
-        编辑器 ~/editor/:spaceId/:id
+        编辑器 ~/editor/:spaceId/:pageId
       </Button>
     </div>
   );

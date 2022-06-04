@@ -4,22 +4,22 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { pick, cloneDeep } from 'lodash';
 import classNames from 'classnames';
-import { renderEngine } from '@/pages/Editor';
+import { renderEngine } from '@/core/render-engine';
 import { getPageConfig } from '@/service/apis/dashboard';
 import { setDashboardConfig } from '@/store/slices/dashboard';
 import { IRootState, Settings, IPageSetting, IWidget, ITab, IPageConfig } from '@/store/types';
 import { IFilterConfig, IGridRef } from '@/types';
-import Setter from '../Setter';
+import Setter from './components/Setter';
 
 import './index.less';
 
-interface ICoreProps {};
+interface IEditorProps {};
 
 interface IRouteParams {
   id: string;
 };
 
-const Core: React.FC<ICoreProps> = memo(() => {
+const Editor: React.FC<IEditorProps> = memo(() => {
   const { id: pageId } = useParams<IRouteParams>();
 
   const dispatch = useDispatch();
@@ -230,4 +230,4 @@ const Core: React.FC<ICoreProps> = memo(() => {
   );
 });
 
-export default Core;
+export default Editor;

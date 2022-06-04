@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Spin, Empty } from 'antd';
 import { useParams } from 'react-router-dom';
-import { renderEngine } from '@/pages/Editor';
+import { renderEngine } from '@/core/render-engine';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
 import { IPageConfig } from '@/store/types';
