@@ -1,6 +1,5 @@
-import React from 'react';
 import { Input } from 'antd';
-import { IInputProps } from '@/types';
+import { IInputProps } from '../types';
 
 const InputItem: React.FC<IInputProps> = (props) => {
   const { width } = props;

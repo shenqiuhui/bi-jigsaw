@@ -1,10 +1,10 @@
-import React, { memo, forwardRef, useState, useMemo } from 'react';
+import { memo, forwardRef, useState, useMemo } from 'react';
 import { Tabs } from 'antd';
 import { omitBy, isNil, find, cloneDeep } from 'lodash';
 import classNames from 'classnames';
-import { IPageConfig, IWidget } from '@/store/types';
-import { IGridRef, ITabsWidgetProps } from '@/types';
+import { IPageConfig, IWidget, IGridRef } from '@/core/render-engine/types';
 import CustomTabs from './CustomTabs';
+import { ITabsWidgetProps } from '../types';
 
 import './index.less';
 

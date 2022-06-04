@@ -1,11 +1,14 @@
-import React, { memo, useState, useMemo, useRef, useEffect } from 'react';
+import { memo, useState, useMemo, useRef, useEffect } from 'react';
 import { omit } from 'lodash';
 import Register, { widgetSettingMap } from '@/core/register';
-import { Settings, IPageSetting } from '@/store/types';
-import { ITabsContainerRefs, IWatchHandlers } from '@/types';
 import TabsContainer from './TabsContainer';
+import { Settings, IPageSetting, IWatchHandlers } from '@/core/render-engine/types';
 
 import './index.less';
+
+export interface ITabsContainerRefs {
+  activeKeyInit: () => void;
+}
 
 interface ISetterProps {
   type: string;

@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Form, Input, Checkbox, Radio, InputNumber, message } from 'antd';
 import { debounce } from 'lodash';
 import classNames from 'classnames';
-import { IPieSettingProps } from '@/types';
 import DataSetting from '../../common/DataSetting';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
+import { IPieSettingProps } from '../types';
 
 import './index.less';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SketchPicker, SketchPickerProps, ColorResult } from 'react-color';
 import classNames from 'classnames';
 

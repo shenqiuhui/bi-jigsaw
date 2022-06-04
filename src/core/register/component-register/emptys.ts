@@ -1,4 +1,3 @@
-import Register from '../methods';
 import {
   // TabsEmpty,
   TableEmpty,
@@ -8,6 +7,7 @@ import {
   ComplexEmpty,
   TextEmpty
 } from '@/core/widget-center/emptys';
+import Register from '../methods';
 
 // 注册标签页为空组件
 // Register.componentRegister(TabsEmpty, {

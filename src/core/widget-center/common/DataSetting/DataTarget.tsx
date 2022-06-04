@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { IFieldData } from '@/types';
-import { IDataSetting, IDragItem } from '@/store/types';
+import { IFieldData, IDataSetting, IDragItem } from '@/core/render-engine/types';
 import FieldItem from './FieldItem';
 import FieldModal from './FieldModal';
 

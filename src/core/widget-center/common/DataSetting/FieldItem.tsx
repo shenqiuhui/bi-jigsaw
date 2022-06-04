@@ -1,8 +1,8 @@
-import React, { forwardRef, useState, useRef, useLayoutEffect } from 'react';
+import { forwardRef, useState, useRef, useLayoutEffect } from 'react';
 import { Tooltip } from 'antd';
 import { TableOutlined } from '@ant-design/icons';
 import { IconFont } from '@/assets/iconfont';
-import { IDataSetting, IDragItem } from '@/store/types';
+import { IDataSetting, IDragItem } from '@/core/render-engine/types';
 
 import './index.less';
 

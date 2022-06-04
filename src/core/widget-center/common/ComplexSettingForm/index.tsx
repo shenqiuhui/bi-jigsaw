@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { Form, Input, Checkbox, Radio, Select, message } from 'antd';
 import { debounce } from 'lodash';
-import { Settings, IDataSetting } from '@/store/types';
+import { Settings, IDataSetting } from '@/core/render-engine/types';
 import RangeValues from './RangeValues';
 import LabelRender from '../LabelRender';
 import ItemGroup from '../ItemGroup';

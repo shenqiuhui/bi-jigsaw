@@ -2,9 +2,9 @@ import { RouteConfig } from 'react-router-config';
 import BasicLayout from '@/layout/BasicLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import PreviewLayout from '@/layout/PreviewLayout';
-import Editor from '@/pages/Editor';
+import Home from '@/pages/Home';
 import Preview from '@/pages/Preview';
-import Welcome from '@/pages/Welcome';
+import Editor from '@/pages/Editor';
 
 const routes: RouteConfig[] = [
   {
@@ -13,25 +13,13 @@ const routes: RouteConfig[] = [
       {
         path: '/',
         exact: true,
-        component: Welcome,
+        component: Home,
       },
       {
         name: "首页",
         path: "/welcome",
-        component: Welcome,
+        component: Home,
       }
-    ]
-  },
-  {
-    path: '/editor/:spaceId/:id',
-    component: DashboardLayout,
-    routes: [
-      {
-        name: "编辑仪表盘",
-        path: "/editor/:spaceId/:id",
-        exact: true,
-        component: Editor,
-      },
     ]
   },
   {
@@ -46,6 +34,18 @@ const routes: RouteConfig[] = [
       },
     ]
   },
+  {
+    path: '/editor/:spaceId/:pageId',
+    component: DashboardLayout,
+    routes: [
+      {
+        name: "编辑仪表盘",
+        path: "/editor/:spaceId/:pageId",
+        exact: true,
+        component: Editor,
+      },
+    ]
+  }
 ];
 
 export default routes.reverse();

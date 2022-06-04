@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { IRangePreset } from '@/types';
+import { IRangePreset } from '../types';
 
 // 预置时间范围选项
 export const rangeDatePreset: IRangePreset = {

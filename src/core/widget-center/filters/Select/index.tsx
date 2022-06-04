@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Select } from 'antd';
 import { getFilterSelectList } from '@/service/apis/dashboard';
-import { IWidgetField } from '@/store/types';
-import { ISelectProps, IOption } from '@/types';
+import { IOption, IWidgetField } from '@/core/render-engine/types';
+import { ISelectProps } from '../types';
 
 const SelectItem: React.FC<ISelectProps> = (props) => {
   const {

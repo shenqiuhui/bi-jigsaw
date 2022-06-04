@@ -1,7 +1,6 @@
-import React from 'react';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
-import { IPickerProps, MomentType } from '@/types';
+import { IPickerProps, MomentType } from '../types';
 
 const PickerItem: React.FC<IPickerProps> = (props) => {
   const { mode = 'time', width, format, value, onChange } = props;

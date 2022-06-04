@@ -1,7 +1,6 @@
-import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
-import { IFieldData } from '@/types';
+import { IFieldData } from '@/core/render-engine/types';
 import FieldItem from './FieldItem';
 
 import './index.less';

@@ -1,29 +1,21 @@
-import React, { memo, forwardRef, useState, useMemo, useRef, useImperativeHandle } from 'react';
+import { memo, forwardRef, useState, useMemo, useRef, useImperativeHandle } from 'react';
 import GridLayout, { Layout, ItemCallback } from 'react-grid-layout';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash'
 import classNames from 'classnames';
 import Register, { widgetMap } from '@/core/register';
-import { IPageConfig, IWidget, Settings } from '@/store/types';
-import { IFilterForm, IGridRef, IWidgetContainerRef, IWatchHandlers, IMaskVisibleMap } from '@/types';
 import WidgetContainer from '../WidgetContainer';
+import {
+  IGirdProps,
+  IWidget,
+  Settings,
+  IGridRef,
+  IWidgetContainerRef,
+  IWatchHandlers,
+  IMaskVisibleMap
+} from '../../types';
 
 import './index.less';
-
-export interface IGirdProps {
-  ref?: any;
-  inner?: boolean;
-  pageConfig: IPageConfig;
-  isEdit: boolean;
-  widgets: IWidget[];
-  selectedWidgetId?: string | null | undefined;
-  filterValues: IFilterForm;
-  onWidgetSelect?: ((id: string, type: string, settings: Settings) => void) | undefined;
-  onWidgetsUpdate?: ((widgets: IWidget[], action?: string, updateData?: boolean) => void) | undefined;
-  onPageConfigUpdate?: ((config: IPageConfig) => void) | undefined;
-  onDataSettingChange?: ((dataSettings: Settings['data']) => void) | undefined;
-  onStyleSettingChange?: ((styleSettings: Settings['style']) => void) | undefined;
-}
 
 interface ITabsInfo {
   [key: string]: {

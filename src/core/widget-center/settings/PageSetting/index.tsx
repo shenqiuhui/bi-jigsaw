@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Form, Input, Radio, message } from 'antd';
 import { debounce } from 'lodash';
 import { checkUniqueName } from '@/service/apis/dashboard';
-import { IPageSettingProps } from '@/types';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
+import { IPageSettingProps } from '../types';
 
 import './index.less';
 

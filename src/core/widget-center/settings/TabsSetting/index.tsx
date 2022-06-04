@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Form, Input, Checkbox, Radio, message } from 'antd';
 import { debounce } from 'lodash';
-import { ITab } from '@/store/types';
-import { ITabsSettingProps } from '@/types';
+import { ITab } from '@/core/render-engine/types';
 import TabCollections from './TabCollections';
 import LabelRender from '../../common/LabelRender';
+import { ITabsSettingProps } from '../types';
 
 import './index.less';
 

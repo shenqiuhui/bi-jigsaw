@@ -1,4 +1,4 @@
-import { INewWidget, IWidgetConfig } from '@/types';
+import { INewWidget, IWidgetConfig } from '@/core/register/types';
 import Register from '../methods';
 
 // 注册标签页组件初始值

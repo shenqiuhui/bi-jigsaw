@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Empty } from 'antd';
-import { IWidget } from '@/store/types';
-import { IListRecord, DefaultValueType } from '@/types';
 import RightContentItem from './RightContentItem';
+import { IWidget, IListRecord, DefaultValueType } from '../../types';
 
 interface IRightContentProps {
   data: IListRecord[];

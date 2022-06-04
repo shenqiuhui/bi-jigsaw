@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { IComplexWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
+import { IComplexWidgetProps } from '../types';
 
 const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
   return (

@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { message } from 'antd';
 import classNames from 'classnames';
-import { IComplexSettingProps } from '@/types';
 import DataSetting from '../../common/DataSetting';
 import ComplexSettingForm from '../../common/ComplexSettingForm';
+import { IComplexSettingProps } from '../types';
 
 import './index.less';
 

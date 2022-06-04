@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { IBarWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
+import { IBarWidgetProps } from '../types';
 
 const BarWidget: React.FC<IBarWidgetProps> = memo((props) => {
   return (

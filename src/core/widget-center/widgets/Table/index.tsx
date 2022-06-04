@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/apis/chart';
-import { Settings } from '@/store/types';
-import { ITableWidgetProps, IFilterForm } from '@/types';
+import { Settings, IFilterForm } from '@/core/render-engine/types';
+import { ITableWidgetProps } from '../types';
 
 import './index.less';
 

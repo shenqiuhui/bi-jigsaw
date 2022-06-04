@@ -1,6 +1,6 @@
-import React, { memo, forwardRef, useState, useImperativeHandle } from 'react';
+import { memo, forwardRef, useState, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import { ITabsContainerRefs } from '@/types';
+import { ITabsContainerRefs } from './';
 
 import './index.less';
 

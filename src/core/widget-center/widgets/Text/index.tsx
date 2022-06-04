@@ -1,5 +1,5 @@
-import React, { memo, useMemo } from 'react';
-import { ITextWidgetProps } from '@/types';
+import { memo, useMemo } from 'react';
+import { ITextWidgetProps } from '../types';
 
 import './index.less';
 

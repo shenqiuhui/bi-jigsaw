@@ -1,25 +1,6 @@
 import React from 'react';
 import { values } from 'lodash';
-
-interface IComponentMap {
-  [key: string]: any
-}
-
-interface IConfigMap {
-  [key: string]: any
-}
-
-interface IFieldSet {
-  fieldKey: string;
-  fieldName: string;
-}
-
-interface IPathOptions {
-  namespace: string;
-  type: string;
-  name: string;
-  isComponent?: boolean;
-}
+import { IComponentMap, IConfigMap, IFieldSet, IPathOptions } from './types';
 
 const componentMap: IComponentMap = {};
 const configMap: IConfigMap = {};

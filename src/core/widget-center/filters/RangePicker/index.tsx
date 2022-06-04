@@ -1,8 +1,8 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
-import { IRangePickerProps, MomentRangeType } from '@/types';
 import { rangeDatePreset } from './config';
+import { IRangePickerProps, MomentRangeType } from '../types';
 
 const { RangePicker: TimeRangePicker } = TimePicker;
 const { RangePicker: DateRangePicker } = DatePicker;

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { ITab } from '@/store/types';
+import { ITab } from '@/core/render-engine/types';
 import TabCollectionItem from './TabCollectionItem';
 
 interface ITabCollectionsProps {

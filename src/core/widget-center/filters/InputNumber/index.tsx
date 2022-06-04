@@ -1,6 +1,5 @@
-import React from 'react';
 import { InputNumber } from 'antd';
-import { IInputNumberProps } from '@/types';
+import { IInputNumberProps } from '../types';
 
 const InputNumberItem: React.FC<IInputNumberProps> = (props) => {
   const { width } = props;

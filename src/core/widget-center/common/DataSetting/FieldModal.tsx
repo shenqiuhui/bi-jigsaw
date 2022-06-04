@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Modal, Form, Input, Radio, Select, Row, Col } from 'antd';
 import { dataSettingConfig } from '@/core/register';
 import { getFilterSelectList } from '@/service/apis/dashboard';
-import { IDataSetting, IDragItem } from '@/store/types';
-import { IOption, IFieldData } from '@/types';
+import { IDataSetting, IDragItem, IOption, IFieldData } from '@/core/render-engine/types';
 
 interface IFieldModalProps {
   widgetId?: string;

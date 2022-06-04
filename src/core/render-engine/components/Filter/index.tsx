@@ -1,11 +1,10 @@
-import React, { memo, useState, useMemo, useEffect, useCallback } from 'react';
+import { memo, useState, useMemo, useEffect, useCallback } from 'react';
 import { Form, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { omit, throttle } from 'lodash';
 import Register, { filterComponentMap } from '@/core/register';
-import { IFilterCondition, IPageConfig } from '@/store/types';
-import { IFilterForm } from '@/types';
 import FilterModal from '../FilterModal';
+import { IFilterForm, IFilterCondition, IPageConfig } from '../../types';
 
 import './index.less'
 

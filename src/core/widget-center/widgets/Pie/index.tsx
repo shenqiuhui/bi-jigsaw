@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { IPieWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
+import { IPieWidgetProps } from '../types';
 
 const PieWidget: React.FC<IPieWidgetProps> = memo((props) => {
   return (

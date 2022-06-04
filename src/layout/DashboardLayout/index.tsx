@@ -10,8 +10,9 @@ import { IconFont } from '@/assets/iconfont';
 import { widgetMap, widgetButtons, widgetConfig } from '@/core/register';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/apis/dashboard';
 import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboard';
-import { IRootState, ICoordinate, IWidget, ITab } from '@/store/types';
-import { IPlanData } from '@/types';
+import { ICoordinate, IWidget, ITab } from '@/core/render-engine/types';
+import { IPlanData } from '@/core/widget-center/settings/types'
+import { IRootState } from '@/store/types';
 
 import './index.less';
 

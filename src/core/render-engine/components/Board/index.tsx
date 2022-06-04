@@ -1,10 +1,10 @@
-import { memo, forwardRef, useState, useEffect, useCallback } from 'react';
+import { memo, forwardRef, useState, useCallback } from 'react';
 import { Empty } from 'antd';
 import { isEmpty } from 'lodash';
 import { useMount } from 'ahooks';
-import { IFilterForm, IRenderEngine, IGridRef } from '@/types';
 import Filter from '../Filter';
 import Gird from '../Grid';
+import { IFilterForm, IRenderEngine, IGridRef } from '../../types';
 
 import './index.less';
 

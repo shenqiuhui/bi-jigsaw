@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { ILineWidgetProps } from '@/types';
 import ChartWidget from '../../common/ChartWidget';
+import { ILineWidgetProps } from '../types';
 
 const LineWidget: React.FC<ILineWidgetProps> = memo((props) => {
   return (

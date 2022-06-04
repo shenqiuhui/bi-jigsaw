@@ -1,4 +1,3 @@
-import Register from '../methods';
 import {
   PageSetting,
   // TabsSetting,
@@ -17,10 +16,10 @@ import {
   IBarSettingProps,
   IPieSettingProps,
   IComplexSettingProps,
-  ITextSettingProps,
-  IWidgetSettingMap,
-  IWidgetSetting,
-} from '@/types';
+  ITextSettingProps
+} from '@/core/widget-center/settings/types';
+import { IWidgetSettingMap, IWidgetSetting } from '../types';
+import Register from '../methods';
 
 // 注册默认设置组件
 Register.componentRegister<IWidgetSetting, IPageSettingProps>(PageSetting, {

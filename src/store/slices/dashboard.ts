@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISpaceData, IPageConfig } from '../types';
+import { IPageConfig } from '@/core/render-engine/types';
+import { ISpaceData } from '../types';
 
 interface InitialState {
   spaceData: Object,

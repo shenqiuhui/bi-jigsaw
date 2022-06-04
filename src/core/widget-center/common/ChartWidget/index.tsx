@@ -7,8 +7,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
-import { Settings } from '@/store/types';
-import { IWidgetDefaultProps, IFilterForm } from '@/types';
+import { Settings, IWidgetDefaultProps, IFilterForm } from '@/core/render-engine/types';
 import InnerChart, { ICharInstanceRef } from './InnerChart';
 
 import './index.less';

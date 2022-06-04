@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useState, useRef, useEffect, useMemo, useCallback, useImperativeHandle } from 'react';
+import { memo, forwardRef, useState, useRef, useEffect, useMemo, useCallback, useImperativeHandle } from 'react';
 import { Menu, Dropdown, Spin, Space } from 'antd';
 import {
   MoreOutlined,
@@ -16,9 +16,16 @@ import { useInView } from 'react-intersection-observer';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
 import { widgetEmptyMap } from '@/core/register';
-import { IWidget, Settings } from '@/store/types';
-import { IFilterForm, IWidgetMethods, IWidgetContainerRef, IGridRef } from '@/types';
-import Grid, { IGirdProps } from '../Grid';
+import Grid from '../Grid';
+import {
+  IGridRef,
+  IWidgetMethods,
+  IFilterForm,
+  IWidgetContainerRef,
+  IWidget,
+  Settings,
+  IGirdProps
+} from '../../types';
 
 import './index.less';
 

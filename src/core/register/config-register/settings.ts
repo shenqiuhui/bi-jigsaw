@@ -1,5 +1,5 @@
-import { IDataSettingConfig } from '@/types';
-import { IDataSetting } from '@/store/types';
+import { IDataSetting } from '@/core/render-engine/types';
+import { IDataSettingConfig } from '../types';
 import Register from '../methods';
 
 // 注册维度指标设置项默认配置

@@ -1,13 +1,12 @@
-import React, { memo, useState, useEffect, useMemo } from 'react';
+import { memo, useState, useEffect, useMemo } from 'react';
 import { Modal, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import Register from '@/core/register';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
-import { IPageConfig, IWidgetField } from '@/store/types';
-import { IFilterConfig, IListRecord, DefaultValueType } from '@/types';
 import LeftMenu from './LeftMenu';
 import RightContent from './RightContent';
+import { IPageConfig, IWidgetField, IFilterConfig, IListRecord, DefaultValueType } from '../../types';
 
 import './index.less';
 

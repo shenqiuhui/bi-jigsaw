@@ -1,4 +1,3 @@
-import Register from '../methods';
 import {
   // TabsWidget,
   TableWidget,
@@ -15,11 +14,11 @@ import {
   IBarWidgetProps,
   IPieWidgetProps,
   IComplexWidgetProps,
-  ITextWidgetProps,
-  IWidgetMap,
-  IWidget,
-  IWidgetButtons,
-} from '@/types';
+  ITextWidgetProps
+} from '@/core/widget-center/widgets/types';
+import { IWidgetCommon } from '@/core/render-engine/types';
+import { IWidgetMap, IWidgetButtons } from '../types';
+import Register from '../methods';
 
 // 注册标签页组件
 // Register.componentRegister<IWidget, ITabsWidgetProps>(TabsWidget, {
@@ -38,7 +37,7 @@ import {
 // });
 
 // 注册表格组件
-Register.componentRegister<IWidget, ITableWidgetProps>(TableWidget, {
+Register.componentRegister<IWidgetCommon, ITableWidgetProps>(TableWidget, {
   namespace: 'widgets',
   type: 'table',
   name: '表格'
@@ -53,7 +52,7 @@ Register.componentRegister<IWidget, ITableWidgetProps>(TableWidget, {
 });
 
 // 注册折线图组件
-Register.componentRegister<IWidget, ILineWidgetProps>(LineWidget, {
+Register.componentRegister<IWidgetCommon, ILineWidgetProps>(LineWidget, {
   namespace: 'widgets',
   type: 'line',
   name: '折线图'
@@ -68,7 +67,7 @@ Register.componentRegister<IWidget, ILineWidgetProps>(LineWidget, {
 });
 
 // 注册柱状图组件
-Register.componentRegister<IWidget, IBarWidgetProps>(BarWidget, {
+Register.componentRegister<IWidgetCommon, IBarWidgetProps>(BarWidget, {
   namespace: 'widgets',
   type: 'bar',
   name: '柱状图'
@@ -83,7 +82,7 @@ Register.componentRegister<IWidget, IBarWidgetProps>(BarWidget, {
 });
 
 // 注册饼图组件
-Register.componentRegister<IWidget, IPieWidgetProps>(PieWidget, {
+Register.componentRegister<IWidgetCommon, IPieWidgetProps>(PieWidget, {
   namespace: 'widgets',
   type: 'pie',
   name: '饼图'
@@ -98,7 +97,7 @@ Register.componentRegister<IWidget, IPieWidgetProps>(PieWidget, {
 });
 
 // 注册组合图组件
-Register.componentRegister<IWidget, IComplexWidgetProps>(ComplexWidget, {
+Register.componentRegister<IWidgetCommon, IComplexWidgetProps>(ComplexWidget, {
   namespace: 'widgets',
   type: 'complex',
   name: '组合图'
@@ -113,7 +112,7 @@ Register.componentRegister<IWidget, IComplexWidgetProps>(ComplexWidget, {
 });
 
 // 注册文本组件
-Register.componentRegister<IWidget, ITextWidgetProps>(TextWidget, {
+Register.componentRegister<IWidgetCommon, ITextWidgetProps>(TextWidget, {
   namespace: 'widgets',
   type: 'text',
   name: '文本'

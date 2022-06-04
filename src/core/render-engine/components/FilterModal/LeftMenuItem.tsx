@@ -1,9 +1,9 @@
-import React, { memo, useRef, useEffect } from 'react';
+import { memo, useRef, useEffect } from 'react';
 import { Space, Input } from 'antd';
 import classNames from 'classnames';
 import { EyeOutlined, EyeInvisibleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Register from '@/core/register';
-import { IListRecord } from '@/types';
+import { IListRecord } from '../../types';
 
 import './index.less';
 

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import './index.less';
 
-const Welcome = () => {
+const Home = () => {
   const history = useHistory();
 
   const handlePreviewJump = () => {
@@ -15,7 +15,7 @@ const Welcome = () => {
   }
 
   return (
-    <div className="welcome-container">
+    <div className="home-container">
       <Button type="link" onClick={handlePreviewJump}>
         预览 ~/preview/:spaceId/:pageId
       </Button>
@@ -27,4 +27,4 @@ const Welcome = () => {
   );
 }
 
-export default Welcome;
+export default Home;

@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { IListRecord } from '@/types';
 import LeftMenuItem from './LeftMenuItem';
+import { IListRecord } from '../../types';
 
 import './index.less';
 

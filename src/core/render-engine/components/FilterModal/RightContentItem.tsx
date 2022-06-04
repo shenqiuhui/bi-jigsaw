@@ -1,11 +1,10 @@
-import React, { memo, useState, useMemo, useCallback } from 'react';
+import { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
 import { find } from 'lodash'
 import Register, { widgetMap, filterComponentMap, selectDataSource } from '@/core/register';
-import { IWidget } from '@/store/types';
-import { IListRecord, DefaultValueType } from '@/types';
 import Container from './Container';
 import ColumnSelect from './ColumnSelect';
+import { IWidget, IListRecord, DefaultValueType } from '../../types';
 
 interface IRightContentItem {
   data: IListRecord;

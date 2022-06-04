@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Select } from 'antd';
 import { getFieldList } from '@/service/apis/dashboard';
-import { IFieldData } from '@/types';
+import { IFieldData } from '../../types';
 
 interface IColumSelectProps {
   value: string;

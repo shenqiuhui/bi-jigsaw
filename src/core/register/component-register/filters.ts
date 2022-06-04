@@ -1,4 +1,3 @@
-import Register from '../methods';
 import {
   SelectItem,
   PickerItem,
@@ -11,11 +10,11 @@ import {
   IPickerProps,
   IRangePickerProps,
   IInputProps,
-  IInputNumberProps,
-  IFilterComponentMap,
-  IFilterComponent,
-  IOption
-} from '@/types';
+  IInputNumberProps
+} from '@/core/widget-center/filters/types';
+import { IOption } from '@/core/render-engine/types';
+import { IFilterComponentMap, IFilterComponent } from '../types';
+import Register from '../methods';
 
 // 注册单选组件
 Register.componentRegister<IFilterComponent, ISelectProps>(SelectItem, {

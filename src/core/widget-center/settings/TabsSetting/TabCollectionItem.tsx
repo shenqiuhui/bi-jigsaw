@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Input } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import { ITab } from '@/store/types';
+import { ITab } from '@/core/render-engine/types';
 
 import './index.less';
 

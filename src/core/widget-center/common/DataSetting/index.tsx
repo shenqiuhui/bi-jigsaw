@@ -1,15 +1,15 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Select, Input, Radio, message } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { findIndex, omit, cloneDeep } from 'lodash';
 import { dataSettingConfig } from '@/core/register';
 import { getFieldList, getPlanList } from '@/service/apis/dashboard';
-import { Settings, IDragItem, IDataSetting } from '@/store/types';
-import { IPlanData, IOption } from '@/types';
+import { Settings, IDragItem, IDataSetting, IOption } from '@/core/render-engine/types';
 import DataSource from './DataSource';
 import DataTarget from './DataTarget';
 import ItemGroup from '../ItemGroup';
+import { IPlanData } from '../../settings/types';
 
 import './index.less';
 
