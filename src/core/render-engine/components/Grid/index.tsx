@@ -3,6 +3,7 @@ import GridLayout, { Layout, ItemCallback } from 'react-grid-layout';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash'
 import classNames from 'classnames';
+import { COLS, ROW_HEIGHT } from '@/core/render-engine';
 import Register, { widgetMap } from '@/core/register';
 import WidgetContainer from '../WidgetContainer';
 import {
@@ -180,8 +181,8 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
           className="grid-container"
           width={width}
           layout={layoutInfo}
-          cols={12}
-          rowHeight={10}
+          cols={COLS}
+          rowHeight={ROW_HEIGHT}
           isDraggable={isEdit}
           isResizable={isEdit}
           isBounded

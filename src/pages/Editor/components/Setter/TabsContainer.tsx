@@ -1,6 +1,6 @@
 import { memo, forwardRef, useState, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import { ITabsContainerRefs } from './';
+import { ITabsContainerRefs } from '@/pages/Editor/components/Setter';
 
 import './index.less';
 

@@ -71,6 +71,15 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
     return widgets;
   }
 
+  // 滚动到最底部
+  const scrollToBottom = () => {
+    const scrollContainer = document.getElementById('widgets-viewport');
+
+    setTimeout(() => scrollContainer?.scrollTo({
+      top: scrollContainer?.scrollHeight
+    }), 0);
+  }
+
   // 计算新增组件坐标
   const computedCoordinate = (id: string, type: string, widgets: IWidget[]) => {
     const coordinate = {
@@ -143,6 +152,8 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
             }
           }
         });
+
+        scrollToBottom();
       } else {
         const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab: ITab) => {
           const key = uuidv4();
