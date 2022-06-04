@@ -67,6 +67,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   const [watchInfo, setWatchInfo] = useState<any>();
   const [methods, setMethods] = useState<IWidgetMethods>({});
   const [skip, setSkip] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const widgetScreenRef = useRef<HTMLDivElement>();
 
@@ -286,22 +287,24 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetSelect, selectedWidgetId]);
 
   useUpdateEffect(() => {
-    if (!data?.newWidget) {
-      setSkip(true);
-      fetchWidgetAction();
-    }
-  }, [form, data?.newWidget]);
+    setLoaded(false);
+    setSkip(false);
+  }, [form]);
 
   useUpdateEffect(() => {
     fetchWidgetAction();
   }, [watchInfo]);
 
   useUpdateEffect(() => {
-    if (!data?.newWidget && inView) {
-      setSkip(true);
+    if (!data?.newWidget && !loaded && inView) {
+      setLoaded(true);
       fetchWidgetAction();
     }
-  }, [methods, inView, data?.newWidget]);
+5
+    if (loaded && !inView) {
+      setSkip(true);
+    }
+  }, [methods, loaded, inView, data?.newWidget]);
 
   return (
     <div
