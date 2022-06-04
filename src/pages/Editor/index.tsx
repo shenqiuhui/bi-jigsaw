@@ -16,7 +16,6 @@ import {
   IWidget,
   ITab,
   IPageConfig,
-  IFilterConfig,
   IGridRef,
   IDashboardParams
 } from '@/core/render-engine/types';
@@ -40,8 +39,8 @@ const Editor: React.FC<IEditorProps> = memo(() => {
 
   const renderEngineRef = useRef<IGridRef>(null);
 
-  const handleFilterConfigSubmit = (data: IFilterConfig) => {
-    fetchPageConfig();
+  const handleFilterConfigSubmit = () => {
+    return fetchPageConfig();
   }
 
   // 选中图表组件切换设置

@@ -1,9 +1,10 @@
-import { memo, useState, useMemo, useCallback } from 'react';
+import React, { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
 import { find } from 'lodash'
 import Register, { widgetMap, filterComponentMap, selectDataSource } from '@/core/register';
 import Container from './Container';
 import ColumnSelect from './ColumnSelect';
+import { dynamicEnumList, presetShortcutEnumList } from './config';
 import { IWidget, IListRecord, DefaultValueType } from '../../types';
 
 interface IRightContentItem {
@@ -17,6 +18,7 @@ interface IRightContentItem {
   onDefaultValueChange?: (id: string, value: DefaultValueType) => void;
   onDateRangeTypeChange?: (id: string, value: string) => void;
   onDateRangeDynamicValueChange?: (id: string, value: DefaultValueType) => void;
+  onPresetShortcutsChange?: (id: string, value: React.Key[]) => void;
 }
 
 const { Item } = Form;
@@ -27,13 +29,6 @@ const formLayout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 19 }
 };
-
-const dynamicEnumList = [
-  { value: 'yesterday', label: '昨天' },
-  { value: '7_days_ago', label: '近7天' },
-  { value: '14_days_ago', label: '近14天' },
-  { value: '30_days_ago', label: '近30天' }
-];
 
 const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   const {
@@ -46,7 +41,8 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
     onFilterItemTypeChange,
     onDefaultValueChange,
     onDateRangeTypeChange,
-    onDateRangeDynamicValueChange
+    onDateRangeDynamicValueChange,
+    onPresetShortcutsChange
   } = props;
 
   const [type, setType] = useState(data?.filterItemType as string);
@@ -118,6 +114,11 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   // 日期动态默认值变化
   const handleDateRangeDynamicValueChange = (value: string) => {
     onDateRangeDynamicValueChange?.(data?.id, value);
+  }
+
+  // 选择快捷键
+  const handlePresetShortcuts = (value: React.Key[]) => {
+    onPresetShortcutsChange?.(data?.id, value);
   }
 
   const tableDataSource = useMemo<IWidget[]>(() => {
@@ -279,6 +280,20 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                       value: data?.dateRangeDynamicValue,
                       dataSource: dynamicEnumList,
                       onChange: handleDateRangeDynamicValueChange
+                    })}
+                  </Item>
+                )}
+              {data?.filterItemType === 'date-range'
+                && hasComponent('filters', 'select-multiple')
+                && (
+                  <Item label="快捷键">
+                    {filterComponentMap?.['select-multiple']?.component?.({
+                      ...filterComponentMap?.['select-multiple']?.props,
+                      width: '100%',
+                      maxTagCount: null,
+                      value: data?.presetShortcuts,
+                      dataSource: presetShortcutEnumList,
+                      onChange: handlePresetShortcuts
                     })}
                   </Item>
                 )}

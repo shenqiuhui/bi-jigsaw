@@ -11,16 +11,21 @@ export interface ISelectProps extends IFilterCondition {
 }
 
 export type PickerRangeValueType = [string, string];
+
 export type MomentRangeType = [moment.Moment, moment.Moment];
+
 export type MomentType = moment.Moment;
 
 export interface IRangePreset {
-  [key: string]: MomentRangeType;
+  [key: string]: {
+    name: string;
+    range: MomentRangeType;
+  };
 }
 
 export interface IRangePickerProps extends IFilterCondition {
   mode: 'time' | 'date';
-  preset?: boolean;
+  presetShortcuts?: React.Key[];
   width?: number | string;
   format: string;
   value: PickerRangeValueType;

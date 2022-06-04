@@ -1,5 +1,6 @@
 import { memo, useState, useMemo, useEffect, useCallback } from 'react';
 import { Form, Button } from 'antd';
+import { useUpdateEffect } from 'ahooks';
 import { PlusOutlined } from '@ant-design/icons';
 import { omit, throttle } from 'lodash';
 import Register, { filterComponentMap } from '@/core/register';
@@ -13,15 +14,17 @@ interface IFilterProps {
   pageConfig: IPageConfig;
   initialValues: IFilterForm | undefined;
   onSearch?: (form: IFilterForm) => void;
+  onFilterConfigSubmit?: () => void;
 }
 
 const { Item, useForm } = Form;
 const { hasComponent } = Register;
 
 const Filter: React.FC<IFilterProps> = memo((props) => {
-  const { isEdit, initialValues = {}, pageConfig, onSearch, ...otherProps } = props;
+  const { isEdit, initialValues = {}, pageConfig, onSearch, onFilterConfigSubmit, ...otherProps } = props;
 
   const [visible, setVisible] = useState(false);
+  const [conditionSaved, setConditionSaved] = useState(false);
   const [form] = useForm();
 
   const conditions = useMemo<IFilterCondition[]>(() => {
@@ -34,6 +37,10 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
   const handleFinish = useCallback((values: IFilterForm) => {
     onSearch?.(values);
   }, [onSearch]);
+
+  const handleConditionSaved = () => {
+    setConditionSaved(true);
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFinishThrottle = useCallback(throttle(handleFinish, 600), [handleFinish]);
@@ -51,7 +58,14 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
     event.stopPropagation();
   }
 
-  useEffect(() => {
+  useUpdateEffect(() => {
+    if (conditionSaved) {
+      onFilterConfigSubmit?.();
+      setConditionSaved(false);
+    }
+  }, [conditionSaved]);
+
+  useUpdateEffect(() => {
     form.setFieldsValue(initialValues);
   }, [form, initialValues]);
 
@@ -77,7 +91,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
             >
               {filterComponentMap?.[type]?.component?.(Object.assign(
                 customProps,
-                ['select', 'select-multiple'].includes(type) ? otherProps : {}
+                ['select', 'select-multiple', 'date-range'].includes(type) ? otherProps : {}
               ))}
             </Item>
           );
@@ -99,12 +113,15 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
           </Button>
         )}
       </Form>
-      <FilterModal
-        visible={visible}
-        pageConfig={pageConfig}
-        onVisibleChange={handleVisibleChange}
-        {...otherProps}
-      />
+      {visible && (
+        <FilterModal
+          visible={visible}
+          pageConfig={pageConfig}
+          onVisibleChange={handleVisibleChange}
+          onConditionSaved={handleConditionSaved}
+          {...otherProps}
+        />
+      )}
     </div>
   );
 });

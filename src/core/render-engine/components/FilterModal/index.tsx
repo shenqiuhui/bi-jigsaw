@@ -1,6 +1,7 @@
-import { memo, useState, useEffect, useMemo } from 'react';
+import { memo, useState, useMemo } from 'react';
 import { Modal, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
+import { useMount, useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
 import Register from '@/core/register';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
@@ -14,13 +15,13 @@ interface IFilterModalProps {
   visible: boolean;
   pageConfig: IPageConfig;
   onVisibleChange?: (visible: boolean) => void;
-  onFilterConfigSubmit?: (config: IFilterConfig) => void;
+  onConditionSaved?: () => void;
 }
 
 const { hasComponent } = Register;
 
 const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
-  const { visible, pageConfig, onVisibleChange, onFilterConfigSubmit } = props;
+  const { visible, pageConfig, onVisibleChange, onConditionSaved } = props;
 
   const [data, setData] = useState<IFilterConfig>({} as IFilterConfig);
   const [activeId, setActiveId] = useState(data?.list?.[0]?.id);
@@ -96,7 +97,8 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
               checkedWidgets: [],
               widgetFieldList: [],
               dateRangeType: 'static',
-              dateRangeDynamicValue: 'yesterday'
+              dateRangeDynamicValue: 'yesterday',
+              presetShortcuts: []
             }
           ];
           handleActiveChange(list?.[list?.length - 1]?.id);
@@ -196,6 +198,16 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
     });
   }
 
+  // 更改快捷键设置
+  const handlePresetShortcutsChange = (id: string, value: React.Key[]) => {
+    setData((data) => {
+      const list = data?.list?.map((item) => {
+        return item.id === id ? { ...item, presetShortcuts: value } : item;
+      });
+      return { ...data, list };
+    });
+  }
+
   // 提交过滤器配置
   const handleSubmitFilterConfig = async () => {
     setSubmitLoading(true);
@@ -205,12 +217,11 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
 
       if (res?.status === 'success') {
         const list = data?.list?.map((item) => {
-          const omitKeys = item?.filterItemType !== 'data-range' ? ['dateRangeType', 'dateRangeDynamicValue'] : [];
-          omit(item, ['isEdit', ...omitKeys]);
+          const omitKeys = item?.filterItemType !== 'date-range' ? ['dateRangeType', 'dateRangeDynamicValue', 'presetShortcuts'] : [];
+          return omit(item, ['isEdit', ...omitKeys]);
         });
+
         await setFilterConfig({ ...data, list });
-        await onFilterConfigSubmit?.(data);
-        onVisibleChange?.(false);
         message.success('设置成功');
       }
     } catch (err) {}
@@ -233,13 +244,17 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
     } catch (err) {}
   }
 
-  // 页面初始化请求接口
-  useEffect(() => {
-    if (visible) {
-      fetchFilterConfig();
+  useUpdateEffect(() => {
+    if (!submitLoading) {
+      onVisibleChange?.(false);
+      onConditionSaved?.();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
+  }, [submitLoading]);
+
+  // 页面初始化请求接口
+  useMount(() => {
+    fetchFilterConfig();
+  });
 
   return (
     <Modal
@@ -283,6 +298,7 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
         <RightContent
           data={data?.list}
           activeId={activeId}
+          widgets={pageConfig?.widgets}
           onClear={handleClear}
           onFieldChange={handleFieldChange}
           onCheckedWidgetsChange={handleCheckedWidgetsChange}
@@ -290,7 +306,7 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
           onDefaultValueChange={handleDefaultValueChange}
           onDateRangeTypeChange={handleDateRangeTypeChange}
           onDateRangeDynamicValueChange={handleDateRangeDynamicValueChange}
-          widgets={pageConfig?.widgets}
+          onPresetShortcutsChange={handlePresetShortcutsChange}
         />
       </div>
     </Modal>

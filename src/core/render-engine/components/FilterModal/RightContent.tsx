@@ -14,13 +14,13 @@ interface IRightContentProps {
   onDefaultValueChange?: (id: string, value: DefaultValueType) => void;
   onDateRangeTypeChange?: (id: string, value: string) => void;
   onDateRangeDynamicValueChange?: (id: string, value: DefaultValueType) => void;
+  onPresetShortcutsChange?: (id: string, value: React.Key[]) => void;
 }
 
 const RightContent: React.FC<IRightContentProps> = memo((props) => {
   const { data, ...otherProps } = props;
 
   return (
-
     <div className="active-content-container">
       {data?.length ? (
         <>

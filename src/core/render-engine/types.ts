@@ -6,7 +6,7 @@ export interface IRenderEngine {
   isEdit?: boolean;
   ref?: React.MutableRefObject<IGridRef | null>;
   selectedWidgetId?: string | null;
-  onFilterConfigSubmit?: (config: IFilterConfig) => void;
+  onFilterConfigSubmit?: () => void;
   onWidgetSelect?: (id: string, type: string, settings: Settings) => void;
   onWidgetsUpdate?: (widgets: IWidget[], action?: string, updateData?: boolean) => void;
   onPageConfigUpdate?: (config: IPageConfig) => void;
@@ -39,6 +39,7 @@ export interface IListRecord {
   widgetFieldList: IWidgetField[];
   dateRangeType?: string;
   dateRangeDynamicValue?: DefaultValueType;
+  presetShortcuts?: React.Key[];
   isEdit?: boolean;
 }
 
