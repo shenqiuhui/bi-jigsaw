@@ -11,14 +11,8 @@ interface ITabsContainerProps {
 }
 
 const tabs = [
-  {
-    key: 'data',
-    name: '数据',
-  },
-  {
-    key: 'style',
-    name: '样式',
-  },
+  { key: 'data', name: '数据' },
+  { key: 'style', name: '样式'}
 ];
 
 const TabsContainer = memo(forwardRef<ITabsContainerRefs, ITabsContainerProps>((props, ref) => {

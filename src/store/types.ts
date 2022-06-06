@@ -1,16 +1,19 @@
 import { IPageConfig } from '@/core/render-engine/types';
 
+export interface IUserInfo {
+  userId: string;
+  userName: string;
+  realName: string;
+  email: string;
+  mobile: string;
+}
+
 export interface IDashboardState {
-  spaceData: ISpaceData;
   pageConfig: IPageConfig;
   pageStatus: string;
-};
-
-export interface ISpaceData {
-  spaceId: number;
-  spaceName: string;
 }
 
 export interface IRootState {
+  user: IUserInfo;
   dashboard: IDashboardState;
-};
+}

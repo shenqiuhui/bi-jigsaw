@@ -1,0 +1,257 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "id": "1",
+      "name": "仪表板测试页面",
+      "spaceId": "20398",
+      "spaceName": "个人空间",
+      "createTime": "2021-05-06 16:33:21",
+      "createUser": "申秋辉",
+      "updateTime": "2021-08-15 09:13:46",
+      "updateUser": "申秋辉",
+      "description": "这是一个测试页面，用来展示效果。"
+    },
+    {
+      "id": "265",
+      "name": "NPS_按【自由区间】分析",
+      "spaceId": "3210",
+      "spaceName": "NPS空间",
+      "createTime": "2022-01-25 14:21:36",
+      "createUser": "张二蛋",
+      "updateTime": "2022-04-01 13:56:33",
+      "updateUser": "葛小花",
+      "description": "NPS 的自由区间数据分析"
+  },
+  {
+      "id": "266",
+      "name": "NPS_按【周】分析",
+      "spaceId": "3210",
+      "spaceName": "NPS空间",
+      "createTime": "2022-01-25 14:21:59",
+      "createUser": "王二丫",
+      "updateTime": "2022-03-21 15:16:11",
+      "updateUser": "张三",
+      "description": "按周的维度分析 NPS 指标"
+  },
+  {
+      "id": "267",
+      "name": "NPS_按【月】分析",
+      "spaceId": "3210",
+      "spaceName": "NPS空间",
+      "createTime": "2022-01-25 14:22:46",
+      "createUser": "孙老六",
+      "updateTime": "2022-03-03 10:11:01",
+      "updateUser": "王二麻子",
+      "description": "按月的维度分析 NPS 指标"
+  },
+  {
+      "id": "268",
+      "name": "城市战区调整记录",
+      "spaceId": "3210",
+      "spaceName": "NPS空间",
+      "createTime": "2022-01-25 17:18:51",
+      "createUser": "王二麻子",
+      "updateTime": "2022-01-25 17:20:42",
+      "updateUser": "李四",
+      "description": "本月大量的战区调整记录表"
+  },
+  {
+    "id": "71",
+    "name": "【整体】CTR监控",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2021-09-01 21:19:33",
+    "createUser": "张三",
+    "updateTime": "2022-03-17 21:28:47",
+    "updateUser": "李四",
+    "description": "该仪表板用于监控 CTR 整体数据"
+},
+{
+    "id": "101",
+    "name": "【分新老】CTR监控",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2021-09-23 21:38:16",
+    "createUser": "张三",
+    "updateTime": "2022-03-02 14:49:46",
+    "updateUser": "李四",
+    "description": "该仪表板通过新老数据对 CTR 指标进行区分"
+},
+{
+    "id": "125",
+    "name": "【分年龄】CTR监控",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2021-10-22 16:49:19",
+    "createUser": "王二麻子",
+    "updateTime": "2022-02-23 21:11:42",
+    "updateUser": "张三",
+    "description": "该仪表板通过年龄对 CTR 指标进行区分"
+},
+{
+    "id": "127",
+    "name": "【分年龄】专题看板",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2021-10-22 16:50:05",
+    "createUser": "李四",
+    "updateTime": "2021-10-28 10:43:17",
+    "updateUser": "王二麻子",
+    "description": "CTR 年龄专题看板"
+},
+{
+    "id": "126",
+    "name": "【分端分版本】CTR监控",
+    "spaceId": "2621",
+    "spaceName": "孙五",
+    "createTime": "2021-10-22 16:49:40",
+    "createUser": "申秋辉",
+    "updateTime": "2021-10-24 17:52:00",
+    "updateUser": "李四",
+    "description": "监控客户端版本的 CTR 指标"
+},
+{
+    "id": "284",
+    "name": "【剔除付费】CTR监控",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2022-02-11 19:41:45",
+    "createUser": "赵老六",
+    "updateTime": "2022-02-11 19:58:02",
+    "updateUser": "赵老六",
+    "description": "付费维度的 CTR 指标监控"
+},
+{
+    "id": "285",
+    "name": "【年轻用户】16-20数据监控",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2022-02-15 16:03:34",
+    "createUser": "王二蛋",
+    "updateTime": "2022-02-15 20:12:13",
+    "updateUser": "李四",
+    "description": "监控年轻用户的 CTR 指标"
+},
+{
+    "id": "315",
+    "name": "【分端】订单数",
+    "spaceId": "2621",
+    "spaceName": "CTR监控",
+    "createTime": "2022-03-08 16:38:43",
+    "createUser": "王老五",
+    "updateTime": "2022-03-09 16:04:42",
+    "updateUser": "孙老大",
+    "description": "监控不同端达成的订单数"
+},
+{
+  "id": "158",
+  "name": "9.0+9.1+F10车型故障现象监控",
+  "spaceId": "2842",
+  "spaceName": "质量保障部",
+  "createTime": "2021-11-23 15:12:46",
+  "createUser": "丫蛋儿",
+  "updateTime": "2022-05-31 16:33:08",
+  "updateUser": "孙老大",
+  "description": "9.0+9.1+F10三个车型的故障现象监控分析"
+},
+{
+  "id": "299",
+  "name": "Q10车型故障现象监控",
+  "spaceId": "2842",
+  "spaceName": "质量保障部",
+  "createTime": "2022-02-28 16:06:27",
+  "createUser": "王二麻子",
+  "updateTime": "2022-05-31 16:34:18",
+  "updateUser": "李老八",
+  "description": "Q10车型的故障现象监控分析"
+},
+{
+  "id": "301",
+  "name": "7.5车型故障现象监控",
+  "spaceId": "2842",
+  "spaceName": "质量保障部",
+  "createTime": "2022-02-28 17:15:38",
+  "createUser": "李老八",
+  "updateTime": "2022-05-31 16:35:48",
+  "updateUser": "王二麻子",
+  "description": "7.5车型的故障现象监控分析"
+},{
+  "id": "173",
+  "name": "配件供给效率监控",
+  "spaceId": "3037",
+  "spaceName": "硬件中台",
+  "createTime": "2021-12-07 17:22:04",
+  "createUser": "王二麻子",
+  "updateTime": "2022-03-01 15:58:12",
+  "updateUser": "李四",
+  "description": "配件供给效率监控，查看供给是否充足"
+},
+{
+  "id": "174",
+  "name": "配件供给质量监控",
+  "spaceId": "3037",
+  "spaceName": "硬件中台",
+  "createTime": "2021-12-07 18:52:38",
+  "createUser": "张三",
+  "updateTime": "2022-03-01 15:58:17",
+  "updateUser": "李四",
+  "description": "配件供给质量监控，查看供给配件是否有不合格"
+},
+{
+  "id": "176",
+  "name": "工单审批拒绝明细",
+  "spaceId": "3037",
+  "spaceName": "硬件中台",
+  "createTime": "2021-12-08 12:48:59",
+  "createUser": "葛二蛋",
+  "updateTime": "2022-03-01 15:58:23",
+  "updateUser": "丫蛋儿",
+  "description": "工单审批拒绝明细，严格把控审批流程可追溯"
+},
+{
+  "id": "204",
+  "name": "头盔缴费|退费监控",
+  "spaceId": "3104",
+  "spaceName": "供应链管理部",
+  "createTime": "2021-12-24 10:21:14",
+  "createUser": "李老八",
+  "updateTime": "2022-02-08 10:48:12",
+  "updateUser": "孙老大",
+  "description": "头盔缴费和退费监控，最小限度控制头盔丢失损坏"
+},{
+  "id": "278",
+  "name": "卡渗透率",
+  "spaceId": "3212",
+  "spaceName": "中台营销空间",
+  "createTime": "2022-02-07 15:15:46",
+  "createUser": "张小娇",
+  "updateTime": "2022-03-15 14:45:40",
+  "updateUser": "王老五",
+  "description": "卡渗透率相关指标"
+},
+{
+  "id": "276",
+  "name": "售卖骑行卡数据",
+  "spaceId": "3212",
+  "spaceName": "中台营销空间",
+  "createTime": "2022-02-07 14:35:48",
+  "createUser": "李四",
+  "updateTime": "2022-04-14 17:29:50",
+  "updateUser": "张三",
+  "description": "售卖骑行卡相关指标"
+},
+{
+  "id": "317",
+  "name": "各个售卖位数据",
+  "spaceId": "3212",
+  "spaceName": "中台营销空间",
+  "createTime": "2022-03-21 14:04:29",
+  "createUser": "白大白",
+  "updateTime": "2022-03-21 14:10:08",
+  "updateUser": "张小娇",
+  "description": "所有售卖位数据汇总"
+}
+  ],
+  "message": "OK"
+}

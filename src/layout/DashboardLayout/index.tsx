@@ -8,17 +8,15 @@ import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import { IconFont } from '@/assets/iconfont';
 import { widgetMap, widgetButtons, widgetConfig } from '@/core/register';
+import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/apis/dashboard';
 import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboard';
-import { ICoordinate, IWidget, ITab } from '@/core/render-engine/types';
+import { AuthHOC } from '@/core/render-engine';
+import { IDashboardParams, ICoordinate, IWidget, ITab } from '@/core/render-engine/types';
 import { IPlanData } from '@/core/component-center/settings/types'
 import { IRootState } from '@/store/types';
 
 import './index.less';
-
-interface IRouteParams {
-  id: string;
-}
 
 const { Header, Content } = Layout;
 
@@ -30,7 +28,7 @@ const activeButtons = [
 const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
-  const { id: pageId } = useParams<IRouteParams>();
+  const { pageId } = useParams<IDashboardParams>();
   const [activeButtonValue, setActiveButtonValue] = useState('edit');
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [defaultPlan, setDefaultPlan] = useState<IPlanData>({} as IPlanData);
@@ -312,4 +310,4 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   );
 };
 
-export default DashboardLayout;
+export default AuthHOC(DashboardLayout, checkDashboardAuth);

@@ -307,7 +307,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
       setLoaded(true);
       fetchWidgetAction();
     }
-5
+
     if (loaded && !inView) {
       setSkip(true);
     }

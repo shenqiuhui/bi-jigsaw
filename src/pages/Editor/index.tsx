@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { pick, cloneDeep } from 'lodash';
 import classNames from 'classnames';
-import { renderEngine, AuthHOC } from '@/core/render-engine';
-import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
+import { renderEngine } from '@/core/render-engine';
 import { setDashboardConfig } from '@/store/slices/dashboard';
 import { IRootState } from '@/store/types';
 import Setter from './components/Setter';
@@ -235,4 +234,4 @@ const Editor: React.FC<IEditorProps> = memo(() => {
   );
 });
 
-export default AuthHOC(Editor, checkDashboardAuth);
+export default Editor;

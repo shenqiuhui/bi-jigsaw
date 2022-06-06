@@ -3,10 +3,26 @@
   height: 100%;
 
   .base-layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
     background-color: #000000;
 
     h1 {
+      margin: 0;
       color: #FFFFFF;
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      color: #FFFFFF;
+
+      .user-name {
+        font-size: 16px;
+        margin-left: 10px;
+      }
     }
   }
 

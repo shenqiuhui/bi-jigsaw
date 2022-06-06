@@ -1,5 +1,35 @@
 .home-container {
-  ul {
-    list-style: none;
+  height: 100%;
+
+  .dashboard-list-card {
+    height: 100%;
+
+    .space-select {
+      width: 200px;
+    }
+
+    .list-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 24px;
+
+      .tips {
+        width: 100%;
+        margin-bottom: 20px;
+
+        .ant-collapse-header {
+          padding: 8px 16px;
+        }
+      }
+
+      .list-container {
+        width: 100%;
+        flex: 1;
+        overflow: hidden;
+      }
+    }
   }
 }

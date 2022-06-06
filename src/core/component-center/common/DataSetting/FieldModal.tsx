@@ -3,6 +3,7 @@ import { Modal, Form, Input, Radio, Select, Row, Col } from 'antd';
 import { dataSettingConfig } from '@/core/register';
 import { getFilterSelectList } from '@/service/apis/dashboard';
 import { IDataSetting, IDragItem, IOption, IFieldData } from '@/core/render-engine/types';
+import { ratioAggregatefuncOptions, formatTypeOptions, conditionFilterTypeOptions, enumFilterTypeOptions } from './config';
 
 interface IFieldModalProps {
   widgetId?: string;
@@ -24,37 +25,6 @@ const formLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 18 },
 };
-
-const formatTypeOptions = [
-  { value: '1', label: '自动' },
-  { value: '2', label: '整数' },
-  { value: '3', label: '保留1位小数' },
-  { value: '4', label: '保留2位小数' },
-  { value: '5', label: '百分比' },
-  { value: '6', label: '百分比1位小数' },
-  { value: '7', label: '百分比2位小数' }
-];
-
-const conditionFilterTypeOptions = [
-  { value: '1', label: '等于' },
-  { value: '2', label: '大于' },
-  { value: '3', label: '大于等于' },
-  { value: '4', label: '小于' },
-  { value: '5', label: '小于等于' },
-  { value: '6', label: '包含' },
-  { value: '7', label: '不包含' },
-  { value: '8', label: '开头是' },
-  { value: '9', label: '结尾是' }
-];
-
-const enumFilterTypeOptions = [
-  { value: '1', label: '单选' },
-  { value: '2', label: '多选' }
-];
-
-const ratioAggregatefuncOptions = [
-  { value: 'sum', label: '求和' }
-];
 
 const FieldModal: React.FC<IFieldModalProps> = (props) => {
   const {
