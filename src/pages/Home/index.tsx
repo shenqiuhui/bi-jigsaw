@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
 import { Card, Button, Select, Collapse, Radio, RadioChangeEvent } from 'antd';
 import { useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 import { AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
 import { IOption } from '@/core/render-engine/types';
@@ -20,11 +21,14 @@ export interface IDashboardItem {
   name: string;
   spaceId: string;
   spaceName: string;
+  description: string;
   createTime: string;
   createUser: string;
   updateTime: string;
   updateUser: string;
 }
+
+export const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 
 const { Panel } = Collapse;
 
@@ -73,18 +77,19 @@ const Home = () => {
     setSpaceId(value);
   }
 
-  const handlePreview = () => {
-    history.push('/preview/20398/1');
-    // window.open(`${window.location.pathname}#/preview/${item?.id}`);
+  const handlePreview = (spaceId: string, pageId: string) => {
+    const pathname = window.location.pathname;
+    window.open(`${pathname}#/preview/${spaceId}/${pageId}`);
   }
 
-  const handleIframePreview = () => {
-    history.push('/iframe/20398/1');
+  const handleIframePreview = (spaceId: string, pageId: string) => {
+    const pathname = window.location.pathname;
+    window.open(`${pathname}#/preview/iframe/${spaceId}/${pageId}`);
   }
 
-  const handleEdit = () => {
-    history.push('/editor/20398/1');
-    // window.open(`${window.location.pathname}#/editor/${item?.id}`);
+  const handleEdit = (spaceId: string, pageId: string) => {
+    const pathname = window.location.pathname;
+    window.open(`${pathname}#/editor/${spaceId}/${pageId}`);
   }
 
   const spaceSelectorRender = () => (
@@ -122,16 +127,25 @@ const Home = () => {
         header="路由说明"
         extra={<FileTextOutlined />}
       >
-        <Button type="link" onClick={handleEdit}>
-          编辑器 ~/editor/:spaceId/:pageId
-        </Button>
-        <br />
-        <Button type="link" onClick={handlePreview}>
+        <Button
+          type="link"
+          onClick={() => handlePreview('20398', '1')}
+        >
           预览 ~/preview/:spaceId/:pageId
         </Button>
         <br />
-        <Button type="link" onClick={handleIframePreview}>
+        <Button
+          type="link"
+          onClick={() => handleIframePreview('20398', '1')}
+        >
           iframe嵌入 ~/preview/iframe/:spaceId/:pageId
+        </Button>
+        <br />
+        <Button
+          type="link"
+          onClick={() => handleEdit('20398', '1')}
+        >
+          编辑器 ~/editor/:spaceId/:pageId
         </Button>
       </Panel>
     </Collapse>
@@ -157,11 +171,19 @@ const Home = () => {
           <div className="tips">
             {tipsRender()}
           </div>
-          <div className="list-container">
+          <div
+            className={classNames({
+              'list-container': true,
+              'list-empty': !dashboardList?.length
+            })}
+          >
             {mode === 'card' && (
               <CustomCard
                 loading={loading}
                 dataSource={dashboardList}
+                onPreview={handlePreview}
+                onIframePreview={handleIframePreview}
+                onEdit={handleEdit}
               />
             )}
             {mode === 'list' && (
@@ -172,7 +194,6 @@ const Home = () => {
             )}
           </div>
         </div>
-
       </Card>
     </div>
   );

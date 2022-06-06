@@ -3,14 +3,23 @@ import { IDashboardItem } from '@/pages/Home';
 
 interface ICustomListProps {
   loading: boolean;
-  dataSource: IDashboardItem[]
+  dataSource: IDashboardItem[];
+  onPreview?: (spaceId: string, pageId: string) => void;
+  onIframePreview?: (spaceId: string, pageId: string) => void;
+  onEdit?: (spaceId: string, pageId: string) => void;
 }
 
 const CustomList: React.FC<ICustomListProps> = (props) => {
   const { loading, dataSource } = props;
 
   return (
-    <List />
+    <List
+      loading={{
+        size: "large",
+        spinning: loading
+      }}
+      dataSource={dataSource}
+    />
   )
 }
 
