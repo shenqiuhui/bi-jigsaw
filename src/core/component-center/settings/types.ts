@@ -4,7 +4,7 @@ export interface ISettingDefaultProps {
   hasTab: boolean;
   type: string;
   activeTab: string;
-  pageId: number;
+  pageId: string;
   spaceId: string;
   widgetId: string;
   onWatchInfoChange?: (info: any) => void;

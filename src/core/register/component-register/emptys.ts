@@ -6,7 +6,7 @@ import {
   PieEmpty,
   ComplexEmpty,
   TextEmpty
-} from '@/core/widget-center/emptys';
+} from '@/core/component-center/emptys';
 import Register from '../methods';
 
 // 注册标签页为空组件

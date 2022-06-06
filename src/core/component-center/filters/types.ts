@@ -1,7 +1,7 @@
 import { IFilterCondition, IOption, IWidgetField } from '@/core/render-engine/types';
 
 export interface ISelectProps extends IFilterCondition {
-  pageId: number;
+  pageId: string;
   api: string;
   method: 'get' | 'post';
   dataSource: IOption[];

@@ -25,7 +25,7 @@ interface IDragEndInfo {
 
 interface IDataSettingProps {
   type: string;
-  pageId: number;
+  pageId: string;
   widgetId: string;
   dataSetting: Settings['data'];
   settingDes: IDataSettingDes[];

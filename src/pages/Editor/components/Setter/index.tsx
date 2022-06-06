@@ -12,7 +12,7 @@ export interface ITabsContainerRefs {
 
 interface ISetterProps {
   type: string;
-  pageId: number;
+  pageId: string;
   spaceId: string;
   widgetId: string | null;
   settings: Settings;

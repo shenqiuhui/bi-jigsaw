@@ -6,7 +6,7 @@ import {
   PieWidget,
   ComplexWidget,
   TextWidget
-} from '@/core/widget-center/widgets';
+} from '@/core/component-center/widgets';
 import {
   // ITabsWidgetProps,
   ITableWidgetProps,
@@ -15,7 +15,7 @@ import {
   IPieWidgetProps,
   IComplexWidgetProps,
   ITextWidgetProps
-} from '@/core/widget-center/widgets/types';
+} from '@/core/component-center/widgets/types';
 import { IWidgetCommon } from '@/core/render-engine/types';
 import { IWidgetMap, IWidgetButtons } from '../types';
 import Register from '../methods';

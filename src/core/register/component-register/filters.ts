@@ -4,14 +4,14 @@ import {
   RangePickerItem,
   InputItem,
   InputNumberItem
-} from '@/core/widget-center/filters';
+} from '@/core/component-center/filters';
 import {
   ISelectProps,
   IPickerProps,
   IRangePickerProps,
   IInputProps,
   IInputNumberProps
-} from '@/core/widget-center/filters/types';
+} from '@/core/component-center/filters/types';
 import { IOption } from '@/core/render-engine/types';
 import { IFilterComponentMap, IFilterComponent } from '../types';
 import Register from '../methods';

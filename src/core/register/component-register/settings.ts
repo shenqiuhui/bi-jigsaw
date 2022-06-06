@@ -7,7 +7,7 @@ import {
   PieSetting,
   ComplexSetting,
   TextSetting
-} from '@/core/widget-center/settings';
+} from '@/core/component-center/settings';
 import {
   IPageSettingProps,
   // ITabSettingProps,
@@ -17,7 +17,7 @@ import {
   IPieSettingProps,
   IComplexSettingProps,
   ITextSettingProps
-} from '@/core/widget-center/settings/types';
+} from '@/core/component-center/settings/types';
 import { IWidgetSettingMap, IWidgetSetting } from '../types';
 import Register from '../methods';
 

@@ -25,7 +25,7 @@ export interface IWatchHandlers {
 
 /* 过滤器 JSON Scheme */
 export interface IFilterConfig {
-  pageId: number;
+  pageId: string;
   list: IListRecord[];
 }
 
@@ -58,7 +58,7 @@ export interface IFieldData {
 
 /* 页面 JSON Scheme */
 export interface IPageConfig {
-  pageId: number;
+  pageId: string;
   spaceId: string;
   name: string;
   description: string;
@@ -295,7 +295,7 @@ export interface IWidgetCommon extends IRegister, IWidgetSize {
 }
 
 export interface IWidgetDefaultProps extends IWidgetCommon, Omit<IWidget, 'type'> {
-  pageId: number;
+  pageId: string;
   isEdit: boolean;
   isSelected: string;
   filterValues: IFilterForm;
