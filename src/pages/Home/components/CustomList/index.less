@@ -1,0 +1,24 @@
+.custom-list-wrapper {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+
+  .custom-list {
+    height: 100%;
+
+    .update-user, .update-time {
+      text-align: right;
+      color: rgba(0, 0, 0, 0.45);
+    }
+
+    .ant-spin-nested-loading {
+      height: calc(100% - 56px);
+      overflow: auto;
+
+      .ant-spin {
+        max-height: none;
+      }
+    }
+  }
+}
+

@@ -1,16 +1,34 @@
-.card-info {
-  margin: 8px 0 !important;
 
-  .description {
-    height: 45px;
-    margin-bottom: 10px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
+.custom-card-wrapper {
+  width: 100%;
+  flex: 1;
 
-  .update-user, .update-time {
-    text-align: right;
+  .custom-card {
+    height: 100%;
+
+    .card-info {
+      margin: 8px 0 !important;
+
+      .description {
+        height: 45px;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      .update-user, .update-time {
+        text-align: right;
+      }
+    }
+
+    .ant-spin-nested-loading {
+      height: 100%;
+
+      .ant-spin {
+        max-height: none;
+      }
+    }
   }
 }

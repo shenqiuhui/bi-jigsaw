@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
 import { Card, Button, Select, Collapse, Radio, RadioChangeEvent } from 'antd';
 import { useHistory } from 'react-router-dom';
-import classNames from 'classnames';
 import { AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
 import { IOption } from '@/core/render-engine/types';
@@ -33,25 +32,25 @@ export const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 const { Panel } = Collapse;
 
 const Home = () => {
-  const history = useHistory();
-
   const [mode, setMode] = useState('card');
   const [spaceList, setSpaceList] = useState<ISpaceItem[]>([]);
-  const [spaceId, setSpaceId] = useState('');
+  const [spaceId, setSpaceId] = useState('all');
   const [dashboardList, setDashboardList] = useState<IDashboardItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const spaceOptions = useMemo<IOption[]>(() => spaceList?.map(({ spaceId, spaceName }) => ({
+  const spaceOptions = useMemo<IOption[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
     value: spaceId,
     label: spaceName
-  })), [spaceList]);
+  }), memo), [{
+    value: 'all',
+    label: '全部'
+  }]), [spaceList]);
 
   const fetchSpaceList = async () => {
     try {
       const res: any = await getSpaceList();
 
       setSpaceList(res);
-      setSpaceId(res?.[0]?.spaceId);
     } catch (err) {}
   }
 
@@ -157,6 +156,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchSpaceList();
+    fetchDashboardList();
   }, []);
 
   return (
@@ -171,28 +171,24 @@ const Home = () => {
           <div className="tips">
             {tipsRender()}
           </div>
-          <div
-            className={classNames({
-              'list-container': true,
-              'list-empty': !dashboardList?.length
-            })}
-          >
-            {mode === 'card' && (
-              <CustomCard
-                loading={loading}
-                dataSource={dashboardList}
-                onPreview={handlePreview}
-                onIframePreview={handleIframePreview}
-                onEdit={handleEdit}
-              />
-            )}
-            {mode === 'list' && (
-              <CustomList
-                loading={loading}
-                dataSource={dashboardList}
-              />
-            )}
-          </div>
+          {mode === 'card' && (
+            <CustomCard
+              loading={loading}
+              dataSource={dashboardList}
+              onPreview={handlePreview}
+              onIframePreview={handleIframePreview}
+              onEdit={handleEdit}
+            />
+          )}
+          {mode === 'list' && (
+            <CustomList
+              loading={loading}
+              dataSource={dashboardList}
+              onPreview={handlePreview}
+              onIframePreview={handleIframePreview}
+              onEdit={handleEdit}
+            />
+          )}
         </div>
       </Card>
     </div>

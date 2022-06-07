@@ -1,4 +1,5 @@
 import { List, Card, Button, Avatar, Tooltip } from 'antd';
+import classNames from 'classnames';
 import { IDashboardItem, colorList } from '@/pages/Home';
 
 import './index.less';
@@ -96,15 +97,23 @@ const CustomCard: React.FC<ICustomCardProps> = (props) => {
   );
 
   return (
-    <List
-      grid={grid}
-      loading={{
-        size: "large",
-        spinning: loading
-      }}
-      dataSource={dataSource}
-      renderItem={renderItem}
-    />
+    <div
+      className={classNames({
+        'custom-card-wrapper': true,
+        'list-empty': !dataSource?.length
+      })}
+    >
+      <List
+        className="custom-card"
+        grid={grid}
+        loading={{
+          size: "large",
+          spinning: loading
+        }}
+        dataSource={dataSource}
+        renderItem={renderItem}
+      />
+    </div>
   );
 }
 
