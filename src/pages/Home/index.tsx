@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
 import { Card, Button, Select, Collapse, Radio, RadioChangeEvent } from 'antd';
-import { useHistory } from 'react-router-dom';
 import { AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
 import { IOption } from '@/core/render-engine/types';

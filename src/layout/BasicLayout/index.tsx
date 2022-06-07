@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Layout, Avatar } from 'antd';
+import { Layout, Alert, Avatar } from 'antd';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined } from '@ant-design/icons';
@@ -42,6 +42,11 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
           </div>
         )}
       </Header>
+      <Alert
+        banner
+        closable
+        message="主要用来展示可视化看板搭建思路，仪表板均为 Mock 数据，保存功能不生效！"
+      />
       <Content className="base-content">
         {renderRoutes(route?.routes)}
       </Content>
