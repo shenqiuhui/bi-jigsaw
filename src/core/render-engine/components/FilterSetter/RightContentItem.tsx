@@ -2,7 +2,7 @@ import React, { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
 import { find } from 'lodash'
 import Register, { widgetMap, filterComponentMap, selectDataSource } from '@/core/register';
-import Container from './Container';
+import Connective from './Connective';
 import ColumnSelect from './ColumnSelect';
 import { dynamicEnumList, presetShortcutEnumList } from './config';
 import { IWidget, IListRecord, DefaultValueType } from '../../types';
@@ -190,7 +190,7 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
     <>
       {activeId === data?.id && (
         <div className="active-content" key={data?.id}>
-          <Container
+          <Connective
             border="none"
             title="关联图表及字段"
             width="50%"
@@ -207,8 +207,8 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                 onChange: (keys) => handleSelectKeysChange(data?.id, keys)
               }}
             />
-          </Container>
-          <Container
+          </Connective>
+          <Connective
             border="left"
             title="查询组件配置"
             width="50%"
@@ -298,7 +298,7 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
                   </Item>
                 )}
             </Form>
-          </Container>
+          </Connective>
         </div>
       )}
     </>

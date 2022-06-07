@@ -5,13 +5,13 @@ import { useMount, useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
 import Register from '@/core/register';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
-import LeftMenu from './LeftMenu';
+import ConditionList from './ConditionList';
 import RightContent from './RightContent';
 import { IPageConfig, IWidgetField, IFilterConfig, IListRecord, DefaultValueType } from '../../types';
 
 import './index.less';
 
-interface IFilterModalProps {
+interface IFilterSetterProps {
   visible: boolean;
   pageConfig: IPageConfig;
   onVisibleChange?: (visible: boolean) => void;
@@ -20,7 +20,7 @@ interface IFilterModalProps {
 
 const { hasComponent } = Register;
 
-const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
+const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
   const { visible, pageConfig, onVisibleChange, onConditionSaved } = props;
 
   const [data, setData] = useState<IFilterConfig>({} as IFilterConfig);
@@ -42,6 +42,17 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
     if (!validateHasEditItem(data?.list)) {
       setActiveId(id);
     }
+  }
+
+  // 拖拽后更改顺序
+  const handleReorder = (startIndex: number, endIndex: number) => {
+    setData((data) => {
+      const list = Array.from(data?.list);
+      const [remove] = list?.splice(startIndex, 1);
+      list.splice(endIndex, 0, remove);
+
+      return { ...data, list };
+    });
   }
 
   // 切换启用状态
@@ -285,7 +296,7 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
       }
     >
       <div className="list-container">
-        <LeftMenu
+        <ConditionList
           data={data?.list}
           activeId={activeId}
           onAdd={handleAdd}
@@ -294,6 +305,7 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
           onActiveChange={handleActiveChange}
           onDisableChange={handleDisableChange}
           onDelete={handleDelete}
+          onReorder={handleReorder}
         />
         <RightContent
           data={data?.list}
@@ -313,4 +325,4 @@ const FilterModal: React.FC<IFilterModalProps> = memo((props) => {
   );
 });
 
-export default FilterModal;
+export default FilterSetter;

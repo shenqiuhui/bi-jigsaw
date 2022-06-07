@@ -4,7 +4,7 @@ import { useUpdateEffect } from 'ahooks';
 import { PlusOutlined } from '@ant-design/icons';
 import { omit, throttle } from 'lodash';
 import Register, { filterComponentMap } from '@/core/register';
-import FilterModal from '../FilterModal';
+import FilterSetter from '../FilterSetter';
 import { IFilterForm, IFilterCondition, IPageConfig } from '../../types';
 
 import './index.less'
@@ -114,7 +114,7 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
         )}
       </Form>
       {visible && (
-        <FilterModal
+        <FilterSetter
           visible={visible}
           pageConfig={pageConfig}
           onVisibleChange={handleVisibleChange}

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './index.less';
 
-interface IContainer {
+interface IConnectiveProps {
   title?: string | React.ReactNode;
   width?: number | string;
   children?: React.ReactNode;
@@ -19,13 +19,13 @@ const borderClassName = {
   'none': ''
 };
 
-const Container: React.FC<IContainer> = memo((props) => {
+const Connective: React.FC<IConnectiveProps> = memo((props) => {
   const { title, width, border = 'both', children, renderOperator } = props;
 
   return (
     <div
       className={classNames({
-        'container-up-down': true,
+        'connective-up-down': true,
         [borderClassName[border]]: true
       })}
       style={ width ? { width } : {}}
@@ -45,4 +45,4 @@ const Container: React.FC<IContainer> = memo((props) => {
   );
 });
 
-export default Container;
+export default Connective;
