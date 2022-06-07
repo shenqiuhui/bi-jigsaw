@@ -64,10 +64,10 @@ const ConditionItem: React.FC<IConditionItemProps> = memo((props) => {
 
   return (
     <Draggable key={item?.id} draggableId={item.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <li
           className={classNames({
-            active: activeId === item?.id,
+            active: activeId === item?.id || snapshot?.isDragging,
             'item-not-show': !hasComponent('filters', item?.filterItemType as string)
           })}
           ref={provided.innerRef}
