@@ -1,7 +1,6 @@
-import { memo, forwardRef, useState, useCallback } from 'react';
+import { memo, forwardRef, useEffect, useState, useCallback } from 'react';
 import { Empty } from 'antd';
 import { isEmpty } from 'lodash';
-import { useMount } from 'ahooks';
 import Filter from '../Filter';
 import Gird from '../Grid';
 import { IFilterForm, IRenderEngine, IGridRef } from '../../types';
@@ -30,13 +29,13 @@ const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
     setFormValues(form);
   }, []);
 
-  useMount(() => {
+  useEffect(() => {
     const initialValues = config?.filters?.conditions?.reduce((result, { fieldValue, initialValue }) => {
       return (result[fieldValue] = initialValue, result);
     }, {} as IFilterForm);
 
     setFormValues(initialValues);
-  });
+  }, [config?.filters?.conditions]);
 
   return (
     <div id="widgets-viewport" className="render-engine-container">
