@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { List, Button, Avatar } from 'antd';
+import { List, Button, Space, Avatar } from 'antd';
 import classNames from 'classnames';
 import { IDashboardItem, colorList } from '@/pages/Home';
 
@@ -66,14 +66,24 @@ const CustomList: React.FC<ICustomListProps> = (props) => {
           </Avatar>
         }
       />
-      <div>
-        <div className="update-user">
-          {item?.updateUser}
+      <Space size={56}>
+        <div>
+          <div className="create-user">
+            {item?.createUser}
+          </div>
+          <div className="create-time">
+            创建于：{item?.createTime}
+          </div>
         </div>
-        <div className="update-time">
-          {item?.updateTime}
+        <div>
+          <div className="update-user">
+            {item?.updateUser}
+          </div>
+          <div className="update-time">
+            更新于：{item?.updateTime}
+          </div>
         </div>
-      </div>
+      </Space>
     </Item>
   );
 

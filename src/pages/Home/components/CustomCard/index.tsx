@@ -78,7 +78,7 @@ const CustomCard: React.FC<ICustomCardProps> = (props) => {
                 {item?.updateUser}
               </div>
               <div className="update-time">
-                {item?.updateTime}
+                更新于：{item?.updateTime}
               </div>
             </div>
           }
