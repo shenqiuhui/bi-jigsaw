@@ -58,7 +58,7 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     try {
       const res: any = await getTableData({
         type,
-        page,
+        page: watchInfo?.page || page,
         pageSize: (isEdit ? settings?.style?.pageSize : watchInfo?.pageSize) || pageSize,
         pageId,
         widgetId,
