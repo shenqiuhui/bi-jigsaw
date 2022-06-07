@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Spin } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Spin, Layout } from 'antd';
+import { useParams, useLocation } from 'react-router-dom';
+import qs from 'qs';
 import { renderEngine } from '@/core/render-engine';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
@@ -11,10 +12,20 @@ import './index.less';
 
 interface IPreviewProps {}
 
+const { Header, Content } = Layout;
+
 const Preview: React.FC<IPreviewProps> = () => {
+  const location = useLocation();
   const { pageId } = useParams<IDashboardParams>();
+
   const [loading, setLoading] = useState(false);
   const [pageConfig, setPageConfig] = useState<IPageConfig>({} as IPageConfig);
+
+  const query = qs.parse(location?.search.slice(1));
+
+  const header = useMemo(() => {
+    return query?.header && query?.header === 'false' ? false : true;
+  }, [query?.header]);
 
   // 获取页面配置数据
   const fetchPageConfig = async () => {
@@ -38,13 +49,20 @@ const Preview: React.FC<IPreviewProps> = () => {
   }, []);
 
   return (
-    <div className="preview-container">
-      <Spin size="large" spinning={loading}>
-        {renderEngine({
-          config: pageConfig
-        })}
-      </Spin>
-    </div>
+    <Layout className="preview-container">
+      {header && (
+        <Header className="preview-header">
+          {pageConfig?.name}
+        </Header>
+      )}
+      <Content className="preview-content">
+        <Spin size="large" spinning={loading}>
+          {renderEngine({
+            config: pageConfig
+          })}
+        </Spin>
+      </Content>
+    </Layout>
   );
 }
 

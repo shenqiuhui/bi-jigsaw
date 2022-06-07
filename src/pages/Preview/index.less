@@ -1,17 +1,30 @@
 .preview-container {
   height: 100%;
-  background: #f0f2f5;
-  padding-top: 10px;
+  background-color: #f0f2f5;
 
-  .ant-spin-nested-loading {
-    height: 100%;
+  .preview-header {
+    height: 56px;
+    line-height: 56px;
+    background-color: #010717;
+    color: #FFFFFF;
+    font-size: 22px;
+    text-align: center;
+    padding: 0 20px;
+  }
 
-    .ant-spin {
-      max-height: none;
-    }
+  .preview-content {
+    margin-top: 10px;
 
-    .ant-spin-container {
+    .ant-spin-nested-loading {
       height: 100%;
+
+      .ant-spin {
+        max-height: none;
+      }
+
+      .ant-spin-container {
+        height: 100%;
+      }
     }
   }
 }
