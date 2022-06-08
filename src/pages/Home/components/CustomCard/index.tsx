@@ -7,6 +7,7 @@ import './index.less';
 interface ICustomCardProps {
   loading: boolean;
   dataSource: IDashboardItem[];
+  highlightRender?: (text: string) => React.ReactElement | string;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
   onEdit?: (spaceId: string, pageId: string) => void;
@@ -26,7 +27,7 @@ const grid = {
 };
 
 const CustomCard: React.FC<ICustomCardProps> = (props) => {
-  const { loading, dataSource, onPreview, onIframePreview, onEdit } = props;
+  const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
 
   const renderItem = (item: IDashboardItem, index: number) => (
     <Item>
@@ -66,7 +67,7 @@ const CustomCard: React.FC<ICustomCardProps> = (props) => {
           className="card-info"
           title={
             <Tooltip title={item?.name}>
-              {item?.name}
+              {highlightRender?.(item?.name)}
             </Tooltip>
           }
           description={
@@ -100,7 +101,8 @@ const CustomCard: React.FC<ICustomCardProps> = (props) => {
     <div
       className={classNames({
         'custom-card-wrapper': true,
-        'list-empty': !dataSource?.length
+        'list-empty': !dataSource?.length,
+        'in-search': loading
       })}
     >
       <List

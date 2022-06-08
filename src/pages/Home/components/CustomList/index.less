@@ -3,6 +3,21 @@
   flex: 1;
   overflow: hidden;
 
+  &.in-search {
+    .ant-spin-nested-loading {
+      overflow: hidden;
+    }
+  }
+
+  &.list-empty {
+    .ant-spin-nested-loading {
+      height: 100% !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   .custom-list {
     height: 100%;
 

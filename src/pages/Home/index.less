@@ -4,8 +4,32 @@
   .dashboard-list-card {
     height: 100%;
 
-    .space-select {
+    .title-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .space-select {
+        width: 200px;
+      }
+
+      .search-input-wrapper {
+        flex: 1;
+        text-align: center;
+
+        .search-input {
+          width: 600px;
+
+          .search-input-icon {
+            color: rgba(0, 0, 0, .45);
+          }
+        }
+      }
+    }
+
+    .layout-controller {
       width: 200px;
+      text-align: right;
     }
 
     .list-wrapper {
@@ -30,12 +54,8 @@
         }
       }
 
-      .list-empty {
-        .ant-spin-nested-loading {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+      .keyword-highlight {
+        color: red;
       }
     }
   }

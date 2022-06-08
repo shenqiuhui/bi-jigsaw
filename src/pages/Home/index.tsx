@@ -1,7 +1,8 @@
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
-import { Card, Button, Select, Collapse, Radio, RadioChangeEvent } from 'antd';
-import { AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
+import { debounce } from 'lodash';
+import { Card, Button, Select, Input, Collapse, Radio, RadioChangeEvent } from 'antd';
+import { SearchOutlined, AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
 import { IOption } from '@/core/render-engine/types';
 import CustomCard from './components/CustomCard';
@@ -31,10 +32,12 @@ export const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 const { Panel } = Collapse;
 
 const Home = () => {
+  const [keyword, setKeyword] = useState('');
   const [mode, setMode] = useState('card');
   const [spaceList, setSpaceList] = useState<ISpaceItem[]>([]);
   const [spaceId, setSpaceId] = useState('all');
   const [dashboardList, setDashboardList] = useState<IDashboardItem[]>([]);
+  const [dataSource, setDataSource] = useState<IDashboardItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   const spaceOptions = useMemo<IOption[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
@@ -62,9 +65,26 @@ const Home = () => {
       });
 
       setDashboardList(res);
+      setDataSource(res);
     } catch (err) {}
 
     setLoading(false);
+  }
+
+  // 过滤函数
+  const dashboardListFilter = (keyword: string, list: IDashboardItem[]) => {
+    const filterList = list?.filter((dashboard) => dashboard?.name?.includes(keyword));
+    setDataSource(filterList);
+    setLoading(false);
+  }
+
+  const dashboardListFilterDebounce = useCallback(debounce(dashboardListFilter, 300), []);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event?.target?.value?.trim();
+    setKeyword(value);
+    setLoading(true);
+    dashboardListFilterDebounce(value, dashboardList);
   }
 
   const handleModeChange = (event: RadioChangeEvent) => {
@@ -73,6 +93,7 @@ const Home = () => {
 
   const handleSpaceChange = (value: string) => {
     setSpaceId(value);
+    setKeyword('');
   }
 
   const handlePreview = (spaceId: string, pageId: string) => {
@@ -90,32 +111,46 @@ const Home = () => {
     window.open(`${pathname}#/editor/${spaceId}/${pageId}`);
   }
 
-  const spaceSelectorRender = () => (
-    <Select
-      className="space-select"
-      placeholder="请选择"
-      optionFilterProp="label"
-      value={spaceId}
-      showSearch
-      filterOption
-      options={spaceOptions}
-      onChange={handleSpaceChange}
-    />
+  const titleRender = () => (
+    <div className="title-container">
+      <Select
+        className="space-select"
+        placeholder="请选择"
+        optionFilterProp="label"
+        value={spaceId}
+        showSearch
+        filterOption
+        options={spaceOptions}
+        onChange={handleSpaceChange}
+      />
+      <div className="search-input-wrapper">
+        <Input
+          className="search-input"
+          placeholder="请输入关键字"
+          value={keyword}
+          allowClear
+          suffix={<SearchOutlined className="search-input-icon" />}
+          onChange={handleSearch}
+        />
+      </div>
+    </div>
   );
 
   const layoutControllerRender = () => (
-    <Radio.Group
-      buttonStyle="solid"
-      value={mode}
-      onChange={handleModeChange}
-    >
-      <Radio.Button value="card">
-        <AppstoreOutlined />
-      </Radio.Button>
-      <Radio.Button value="list">
-        <BarsOutlined />
-      </Radio.Button>
-    </Radio.Group>
+    <div className="layout-controller">
+      <Radio.Group
+        buttonStyle="solid"
+        value={mode}
+        onChange={handleModeChange}
+      >
+        <Radio.Button value="card">
+          <AppstoreOutlined />
+        </Radio.Button>
+        <Radio.Button value="list">
+          <BarsOutlined />
+        </Radio.Button>
+      </Radio.Group>
+    </div>
   );
 
   const tipsRender = () => (
@@ -149,6 +184,22 @@ const Home = () => {
     </Collapse>
   );
 
+  const highlightRender = (text: string) => {
+    const index = text?.indexOf(keyword);
+    const beforeStr = text?.substring(0, index);
+    const afterStr = text?.slice(index + keyword?.length);
+
+    return keyword && index > -1 ? (
+      <span>
+        {beforeStr}
+        <span className="keyword-highlight">
+          {keyword}
+        </span>
+        {afterStr}
+      </span>
+    ) : text;
+  }
+
   useUpdateEffect(() => {
     fetchDashboardList();
   }, [spaceId]);
@@ -163,7 +214,7 @@ const Home = () => {
       <Card
         className="dashboard-list-card"
         bodyStyle={{ padding: 0, height: 'calc(100% - 64px)'}}
-        title={spaceSelectorRender()}
+        title={titleRender()}
         extra={layoutControllerRender()}
       >
         <div className="list-wrapper">
@@ -173,7 +224,8 @@ const Home = () => {
           {mode === 'card' && (
             <CustomCard
               loading={loading}
-              dataSource={dashboardList}
+              dataSource={dataSource}
+              highlightRender={highlightRender}
               onPreview={handlePreview}
               onIframePreview={handleIframePreview}
               onEdit={handleEdit}
@@ -182,7 +234,8 @@ const Home = () => {
           {mode === 'list' && (
             <CustomList
               loading={loading}
-              dataSource={dashboardList}
+              dataSource={dataSource}
+              highlightRender={highlightRender}
               onPreview={handlePreview}
               onIframePreview={handleIframePreview}
               onEdit={handleEdit}

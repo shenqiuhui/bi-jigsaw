@@ -3,6 +3,18 @@
   width: 100%;
   flex: 1;
 
+  &.in-search {
+    overflow: hidden;
+  }
+
+  &.list-empty {
+    .ant-spin-nested-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   .custom-card {
     height: 100%;
 

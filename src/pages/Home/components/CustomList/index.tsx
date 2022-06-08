@@ -8,6 +8,7 @@ import './index.less';
 interface ICustomListProps {
   loading: boolean;
   dataSource: IDashboardItem[];
+  highlightRender?: (text: string) => React.ReactElement | string;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
   onEdit?: (spaceId: string, pageId: string) => void;
@@ -17,7 +18,7 @@ const { Item } = List;
 const { Meta } = Item;
 
 const CustomList: React.FC<ICustomListProps> = (props) => {
-  const { loading, dataSource, onPreview, onIframePreview, onEdit } = props;
+  const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
   const [page, setPage] = useState(1);
 
   const handlePageChange = (page: number) => {
@@ -54,7 +55,7 @@ const CustomList: React.FC<ICustomListProps> = (props) => {
       ]}
     >
       <Meta
-        title={item?.name}
+        title={highlightRender?.(item?.name)}
         description={item?.description}
         avatar={
           <Avatar
@@ -95,7 +96,8 @@ const CustomList: React.FC<ICustomListProps> = (props) => {
     <div
       className={classNames({
         'custom-list-wrapper': true,
-        'list-empty': !dataSource?.length
+        'list-empty': !dataSource?.length,
+        'in-search': loading
       })}
     >
       <List
@@ -108,7 +110,6 @@ const CustomList: React.FC<ICustomListProps> = (props) => {
         pagination={{
           current: page,
           pageSize: 8,
-          hideOnSinglePage: true,
           onChange: handlePageChange,
         }}
         dataSource={dataSource}
