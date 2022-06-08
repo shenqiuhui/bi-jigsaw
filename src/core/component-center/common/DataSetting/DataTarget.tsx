@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { IFieldData, IDataSetting, IDragItem } from '@/core/render-engine/types';
 import FieldItem from './FieldItem';
-import FieldModal from './FieldModal';
+import FieldSetter from './FieldSetter';
 
 import './index.less';
 
@@ -74,7 +74,9 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
                   )}
                 </Draggable>
               )) : (
-                <div className="tips">拖动数据字段至此处</div>
+                <div className="tips">
+                  拖动数据字段至此处
+                </div>
               )}
               {provided.placeholder}
             </ul>
@@ -82,7 +84,7 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
         </Droppable>
       </div>
       {visible && (
-        <FieldModal
+        <FieldSetter
           data={curField}
           fields={fields}
           index={curIndex}

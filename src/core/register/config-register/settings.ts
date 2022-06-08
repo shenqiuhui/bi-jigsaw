@@ -18,7 +18,7 @@ Register.configRegister<IDataSetting>({
   formatType: '1',
   filterMethodType: '2',
   enumFilterType: '1',
-  enumFilterValue: '',
+  enumFilterValue: null,
   enumFilterValues: [],
   conditionFilterType: '1',
   conditionFilterValue: '',

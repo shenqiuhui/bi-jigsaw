@@ -5,7 +5,7 @@ import { getFilterSelectList } from '@/service/apis/dashboard';
 import { IDataSetting, IDragItem, IOption, IFieldData } from '@/core/render-engine/types';
 import { ratioAggregatefuncOptions, formatTypeOptions, conditionFilterTypeOptions, enumFilterTypeOptions } from './config';
 
-interface IFieldModalProps {
+interface IFieldSetterProps {
   widgetId?: string;
   planId: number;
   type: string;
@@ -26,7 +26,7 @@ const formLayout = {
   wrapperCol: { span: 18 },
 };
 
-const FieldModal: React.FC<IFieldModalProps> = (props) => {
+const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
   const {
     planId,
     widgetId,
@@ -39,6 +39,8 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
     onVisibleChange,
     onFieldInfoSave
   } = props;
+  console.log('%c 🍪 data: ', 'font-size:20px;background-color: #42b983;color:#fff;', data);
+
 
   const [form] = useForm();
   const [filterValues, setFilterValues] = useState<IOption[]>([]);
@@ -295,4 +297,4 @@ const FieldModal: React.FC<IFieldModalProps> = (props) => {
   );
 }
 
-export default FieldModal;
+export default FieldSetter;

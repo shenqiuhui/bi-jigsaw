@@ -45,7 +45,7 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
       <Alert
         banner
         closable
-        message="主要用来展示可视化看板搭建思路，仪表板均为 Mock 数据，保存功能不生效！"
+        message="主要用来展示可视化看板低代码搭建思路，仪表板均为 Mock 数据，保存暂不生效！"
       />
       <Content className="base-content">
         {renderRoutes(route?.routes)}

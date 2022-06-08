@@ -237,7 +237,7 @@ export interface IDataSetting extends IDragItem {
   formatType: string;
   filterMethodType: string;
   enumFilterType: string;
-  enumFilterValue: string;
+  enumFilterValue: string | null;
   enumFilterValues: string[];
   conditionFilterType: string;
   conditionFilterValue: string;
