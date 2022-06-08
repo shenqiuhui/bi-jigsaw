@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { PlusOutlined } from '@ant-design/icons';
-import ConditionItem from './ConditionItem';
+import ConditionMenuItem from './ConditionMenuItem';
 import { IListRecord } from '../../types';
 
 import './index.less';
 
-interface IConditionListProps {
+interface IConditionMenuListProps {
   data: IListRecord[];
   activeId: string;
   onAdd?: () => void;
@@ -18,7 +18,7 @@ interface IConditionListProps {
   onReorder?: (startIndex: number, endIndex: number) => void;
 }
 
-const ConditionList: React.FC<IConditionListProps> = memo((props) => {
+const ConditionMenuList: React.FC<IConditionMenuListProps> = memo((props) => {
   const { data, activeId, onAdd, onReorder, ...otherProps } = props;
 
   const handleDragEnd = (result: DropResult) => {
@@ -42,7 +42,7 @@ const ConditionList: React.FC<IConditionListProps> = memo((props) => {
           {(provided) => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
               {data?.map((item, index) => (
-                <ConditionItem
+                <ConditionMenuItem
                   key={item?.id}
                   index={index}
                   item={item}
@@ -59,4 +59,4 @@ const ConditionList: React.FC<IConditionListProps> = memo((props) => {
   );
 });
 
-export default ConditionList;
+export default ConditionMenuList;

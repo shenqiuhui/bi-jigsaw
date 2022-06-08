@@ -1,13 +1,14 @@
 import React, { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
 import { find } from 'lodash'
+import classNames from 'classnames';
 import Register, { widgetMap, filterComponentMap, selectDataSource } from '@/core/register';
 import Connective from './Connective';
-import ColumnSelect from './ColumnSelect';
+import FieldCell from './FieldCell';
 import { dynamicEnumList, presetShortcutEnumList } from './config';
 import { IWidget, IListRecord, DefaultValueType } from '../../types';
 
-interface IRightContentItem {
+interface IConditionInfoProps {
   data: IListRecord;
   activeId: string;
   widgets?: IWidget[];
@@ -30,7 +31,7 @@ const formLayout = {
   wrapperCol: { span: 19 }
 };
 
-const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
+const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
   const {
     data,
     activeId,
@@ -161,18 +162,21 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
     {
       title: '字段',
       dataIndex: 'address',
-      render: (_text: string, record: IWidget) => (
-        <ColumnSelect
-          value={find(data?.widgetFieldList, ['widgetId', record?.id])?.field as string}
-          planId={record?.settings?.data?.planId as number}
-          onChange={(field) => handleSelectChange(
-            data?.id,
-            record?.id,
-            record?.settings?.data?.planId as number,
-            field
-          )}
-        />
-      )
+      render: (_text: string, record: IWidget) => {
+        const field = find(data?.widgetFieldList, ['widgetId', record?.id])?.field;
+        return (
+          <FieldCell
+            value={field as string}
+            planId={record?.settings?.data?.planId as number}
+            onChange={(field) => handleSelectChange(
+              data?.id,
+              record?.id,
+              record?.settings?.data?.planId as number,
+              field
+            )}
+          />
+        );
+      }
     }
   ]), [data?.id, data?.widgetFieldList, handleSelectChange]);
 
@@ -189,7 +193,7 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   return (
     <>
       {activeId === data?.id && (
-        <div className="active-content" key={data?.id}>
+        <div className="active-condition-info" key={data?.id}>
           <Connective
             border="none"
             title="关联图表及字段"
@@ -305,4 +309,4 @@ const RightContentItem: React.FC<IRightContentItem> = memo((props) => {
   );
 });
 
-export default RightContentItem;
+export default ConditionInfo;

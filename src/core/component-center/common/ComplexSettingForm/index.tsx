@@ -98,7 +98,6 @@ const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
     onStyleSettingChange?.(form);
   }, [onStyleSettingChange, type]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChangeDebounce = useCallback(debounce(handleChange, 300), [handleChange]);
 
   useEffect(() => {

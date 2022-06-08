@@ -42,7 +42,6 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
     setConditionSaved(true);
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFinishThrottle = useCallback(throttle(handleFinish, 600), [handleFinish]);
 
   const handleFinishFailed = (errorInfo: any) => {
@@ -113,15 +112,13 @@ const Filter: React.FC<IFilterProps> = memo((props) => {
           </Button>
         )}
       </Form>
-      {visible && (
-        <FilterSetter
-          visible={visible}
-          pageConfig={pageConfig}
-          onVisibleChange={handleVisibleChange}
-          onConditionSaved={handleConditionSaved}
-          {...otherProps}
-        />
-      )}
+      <FilterSetter
+        visible={visible}
+        pageConfig={pageConfig}
+        onVisibleChange={handleVisibleChange}
+        onConditionSaved={handleConditionSaved}
+        {...otherProps}
+      />
     </div>
   );
 });

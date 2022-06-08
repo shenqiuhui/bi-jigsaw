@@ -39,7 +39,6 @@ const PageSetting: React.FC<IPageSettingProps> = (props) => {
     onPageSettingChange?.({ ...settings, [filedName]: value });
   }, [onPageSettingChange]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChangeDebounce = useCallback(debounce(handleChange, 300), [handleChange]);
 
   useEffect(() => {

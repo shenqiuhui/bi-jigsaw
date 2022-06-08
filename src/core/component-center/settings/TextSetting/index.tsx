@@ -36,7 +36,6 @@ const TextSetting: React.FC<ITextSettingProps> = (props) => {
     onStyleSettingChange?.({ ...settings, [filedName]: value });
   }, [onStyleSettingChange]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChangeDebounce = useCallback(debounce(handleChange, 300), [handleChange]);
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { Empty } from 'antd';
-import RightContentItem from './RightContentItem';
+import ConditionInfo from './ConditionInfo';
 import { IWidget, IListRecord, DefaultValueType } from '../../types';
 
-interface IRightContentProps {
+interface IConditionContentProps {
   data: IListRecord[];
   activeId: string;
   widgets?: IWidget[];
@@ -17,19 +17,19 @@ interface IRightContentProps {
   onPresetShortcutsChange?: (id: string, value: React.Key[]) => void;
 }
 
-const RightContent: React.FC<IRightContentProps> = memo((props) => {
+const ConditionContent: React.FC<IConditionContentProps> = memo((props) => {
   const { data, ...otherProps } = props;
 
   return (
-    <div className="active-content-container">
+    <div className="condition-content-container">
       {data?.length ? (
         <>
           {data?.map(item => (
-            <RightContentItem key={item?.id} data={item} {...otherProps} />
+            <ConditionInfo key={item?.id} data={item} {...otherProps} />
           ))}
         </>
       ) : (
-        <div className="active-content-no-data">
+        <div className="condition-content-no-data">
           <Empty description="暂无查询条件" />
         </div>
       )}
@@ -37,4 +37,4 @@ const RightContent: React.FC<IRightContentProps> = memo((props) => {
   );
 });
 
-export default RightContent;
+export default ConditionContent;

@@ -303,7 +303,6 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   useEffect(() => {
     fetchPlans();
     fetchFields(dataSetting?.planId as number);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

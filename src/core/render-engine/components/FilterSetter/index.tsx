@@ -1,12 +1,12 @@
 import { memo, useState, useMemo } from 'react';
-import { Modal, Button, Space, Popconfirm, message } from 'antd';
+import { Modal, Spin, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
-import { useMount, useUpdateEffect } from 'ahooks';
+import { useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
 import Register from '@/core/register';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
-import ConditionList from './ConditionList';
-import RightContent from './RightContent';
+import ConditionMenuList from './ConditionMenuList';
+import ConditionContent from './ConditionContent';
 import { IPageConfig, IWidgetField, IFilterConfig, IListRecord, DefaultValueType } from '../../types';
 
 import './index.less';
@@ -25,7 +25,8 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
 
   const [data, setData] = useState<IFilterConfig>({} as IFilterConfig);
   const [activeId, setActiveId] = useState(data?.list?.[0]?.id);
-  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   // 过滤器 uuid 集合，用于重复检测
   const uuidMaps = useMemo(() => {
@@ -219,10 +220,16 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
     });
   }
 
+  // 关闭弹窗的回调
+  const handleAfterClose = () => {
+    if (saved) {
+      onConditionSaved?.();
+      setSaved(false);
+    }
+  }
+
   // 提交过滤器配置
   const handleSubmitFilterConfig = async () => {
-    setSubmitLoading(true);
-
     try {
       const res: any = await setPageConfig(pageConfig);
 
@@ -234,14 +241,16 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
 
         await setFilterConfig({ ...data, list });
         message.success('设置成功');
+        setSaved(true);
+        onVisibleChange?.(false);
       }
     } catch (err) {}
-
-    setSubmitLoading(false);
   }
 
   // 拉取过滤器配置数据
   const fetchFilterConfig = async () => {
+    setLoading(true);
+
     try {
       const res: any = await getFilterConfig({
         pageId: pageConfig?.pageId
@@ -253,19 +262,14 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
       setData({ ...res, list });
       setActiveId(filterList?.[0]?.id);
     } catch (err) {}
+
+    setLoading(false);
   }
 
-  useUpdateEffect(() => {
-    if (!submitLoading) {
-      onVisibleChange?.(false);
-      onConditionSaved?.();
-    }
-  }, [submitLoading]);
-
   // 页面初始化请求接口
-  useMount(() => {
-    fetchFilterConfig();
-  });
+  useUpdateEffect(() => {
+    visible && fetchFilterConfig();
+  }, [visible]);
 
   return (
     <Modal
@@ -276,6 +280,7 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
       width={1200}
       visible={visible}
       maskClosable={false}
+      afterClose={handleAfterClose}
       onCancel={() => onVisibleChange?.(false)}
       footer={
         <Space size={16}>
@@ -288,39 +293,43 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
             disabled={validateHasEditItem(data?.list)}
             onConfirm={handleSubmitFilterConfig}
           >
-            <Button type="primary" loading={submitLoading}>
+            <Button type="primary">
               保存
             </Button>
           </Popconfirm>
         </Space>
       }
     >
-      <div className="list-container">
-        <ConditionList
-          data={data?.list}
-          activeId={activeId}
-          onAdd={handleAdd}
-          onEditConfirm={handleEditConfirm}
-          onEditStatusChange={handleEditStatusChange}
-          onActiveChange={handleActiveChange}
-          onDisableChange={handleDisableChange}
-          onDelete={handleDelete}
-          onReorder={handleReorder}
-        />
-        <RightContent
-          data={data?.list}
-          activeId={activeId}
-          widgets={pageConfig?.widgets}
-          onClear={handleClear}
-          onFieldChange={handleFieldChange}
-          onCheckedWidgetsChange={handleCheckedWidgetsChange}
-          onFilterItemTypeChange={handleFilterItemTypeChange}
-          onDefaultValueChange={handleDefaultValueChange}
-          onDateRangeTypeChange={handleDateRangeTypeChange}
-          onDateRangeDynamicValueChange={handleDateRangeDynamicValueChange}
-          onPresetShortcutsChange={handlePresetShortcutsChange}
-        />
-      </div>
+      <Spin size="large" spinning={loading}>
+        {!loading && (
+          <div className="list-container">
+            <ConditionMenuList
+              data={data?.list}
+              activeId={activeId}
+              onAdd={handleAdd}
+              onEditConfirm={handleEditConfirm}
+              onEditStatusChange={handleEditStatusChange}
+              onActiveChange={handleActiveChange}
+              onDisableChange={handleDisableChange}
+              onDelete={handleDelete}
+              onReorder={handleReorder}
+            />
+            <ConditionContent
+              data={data?.list}
+              activeId={activeId}
+              widgets={pageConfig?.widgets}
+              onClear={handleClear}
+              onFieldChange={handleFieldChange}
+              onCheckedWidgetsChange={handleCheckedWidgetsChange}
+              onFilterItemTypeChange={handleFilterItemTypeChange}
+              onDefaultValueChange={handleDefaultValueChange}
+              onDateRangeTypeChange={handleDateRangeTypeChange}
+              onDateRangeDynamicValueChange={handleDateRangeDynamicValueChange}
+              onPresetShortcutsChange={handlePresetShortcutsChange}
+            />
+          </div>
+        )}
+      </Spin>
     </Modal>
   );
 });

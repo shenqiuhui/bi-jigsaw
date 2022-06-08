@@ -39,8 +39,6 @@ const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
     onVisibleChange,
     onFieldInfoSave
   } = props;
-  console.log('%c 🍪 data: ', 'font-size:20px;background-color: #42b983;color:#fff;', data);
-
 
   const [form] = useForm();
   const [filterValues, setFilterValues] = useState<IOption[]>([]);
@@ -84,12 +82,11 @@ const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
     if (droppableId === 'filters') {
       fetchFilterSelectList();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Modal
-      title={`设置字段(${data?.field})`}
+      title="设置字段"
       destroyOnClose
       keyboard
       width={800}

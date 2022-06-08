@@ -8,7 +8,7 @@ import { IListRecord } from '../../types';
 
 import './index.less';
 
-interface IConditionItemProps {
+interface IConditionMenuItemProps {
   item: IListRecord;
   index: number;
   activeId: string;
@@ -21,7 +21,7 @@ interface IConditionItemProps {
 
 const { hasComponent } = Register;
 
-const ConditionItem: React.FC<IConditionItemProps> = memo((props) => {
+const ConditionMenuItem: React.FC<IConditionMenuItemProps> = memo((props) => {
   const {
     item,
     index,
@@ -131,4 +131,4 @@ const ConditionItem: React.FC<IConditionItemProps> = memo((props) => {
   );
 });
 
-export default ConditionItem;
+export default ConditionMenuItem;

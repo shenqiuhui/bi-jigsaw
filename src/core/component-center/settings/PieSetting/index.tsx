@@ -61,7 +61,6 @@ const PieSetting: React.FC<IPieSettingProps> = (props) => {
     onStyleSettingChange?.({ ...styleSettings, [filedName]: value });
   }, [onStyleSettingChange]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChangeDebounce = useCallback(debounce(handleChange, 300), [handleChange]);
 
   useEffect(() => {
