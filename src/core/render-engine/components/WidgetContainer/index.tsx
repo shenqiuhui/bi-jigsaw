@@ -1,4 +1,4 @@
-import { memo, forwardRef, useState, useRef, useEffect, useMemo, useCallback, useImperativeHandle } from 'react';
+import { memo, forwardRef, useState, useRef, useMemo, useCallback, useImperativeHandle } from 'react';
 import { Menu, Dropdown, Spin, Space } from 'antd';
 import {
   MoreOutlined,
@@ -287,11 +287,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     );
   }
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (selectedWidgetId === data?.id) {
       onWidgetSelect?.(selectedWidgetId, data?.type, data?.settings);
     }
-  }, [data, onWidgetSelect, selectedWidgetId]);
+  }, [data, selectedWidgetId]);
 
   useUpdateEffect(() => {
     setLoaded(false);

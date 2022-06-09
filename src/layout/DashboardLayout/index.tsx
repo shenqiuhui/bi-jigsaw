@@ -74,7 +74,8 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
     const scrollContainer = document.getElementById('widgets-viewport');
 
     setTimeout(() => scrollContainer?.scrollTo({
-      top: scrollContainer?.scrollHeight
+      top: scrollContainer?.scrollHeight,
+      behavior: 'smooth'
     }), 0);
   }
 

@@ -1,4 +1,5 @@
-import { memo, forwardRef, useEffect, useState, useCallback } from 'react';
+import { memo, forwardRef, useState, useCallback } from 'react';
+import { useDeepCompareEffect } from 'ahooks';
 import { Empty } from 'antd';
 import { isEmpty } from 'lodash';
 import Filter from '../Filter';
@@ -29,7 +30,7 @@ const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
     setFormValues(form);
   }, []);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const initialValues = config?.filters?.conditions?.reduce((result, { fieldValue, initialValue }) => {
       return (result[fieldValue] = initialValue, result);
     }, {} as IFilterForm);
