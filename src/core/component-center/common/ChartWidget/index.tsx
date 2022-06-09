@@ -1,10 +1,11 @@
-import { memo, useState, useEffect, useRef } from 'react';
+import { memo, useState, useMemo, useEffect, useRef } from 'react';
 import { message } from 'antd';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { EChartsOption } from 'echarts-for-react';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
 import { Settings, IWidgetDefaultProps, IFilterForm } from '@/core/render-engine/types';
@@ -12,19 +13,28 @@ import InnerChart, { ICharInstanceRef } from './InnerChart';
 
 import './index.less';
 
-const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
+interface IChartWidgetProps extends IWidgetDefaultProps {
+  optionBuilder?: (data: any) => EChartsOption;
+}
+
+const ChartWidget: React.FC<IChartWidgetProps> = memo((props) => {
   const {
     type,
     pageId,
     api,
     id: widgetId,
     settings,
+    optionBuilder,
     emptyRender,
     methodsRegister
   } = props;
 
-  const [option, setOption] = useState({});
+  const [data, setData] = useState({});
   const chartRef = useRef<ICharInstanceRef>(null);
+
+  const charOption = useMemo(() => {
+    return optionBuilder?.(data);
+  }, [data, settings]);
 
   const fetchData = async (form: IFilterForm, settings: Settings) => {
     try {
@@ -40,7 +50,7 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
         },
       });
 
-      setOption(res || {});
+      setData(res || {});
     } catch (err) {}
   }
 
@@ -64,7 +74,7 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
   }
 
   const downloadImage = () => {
-    if (isEmpty(option)) {
+    if (isEmpty(data)) {
       return message.warning('图表数据为空');
     }
 
@@ -90,13 +100,13 @@ const ChartWidget: React.FC<IWidgetDefaultProps> = memo((props) => {
     <div className="chart-widget-container">
       <AutoSizer
         className={classNames({
-          'chart-widget-auto-size': isEmpty(option)
+          'chart-widget-auto-size': isEmpty(data)
         })}
       >
         {({ height, width }) => {
-          return !isEmpty(option) ? (
+          return !isEmpty(data) ? (
             <InnerChart
-              option={option}
+              option={charOption}
               ref={chartRef}
               height={height}
               width={width}

@@ -22,3 +22,7 @@ export interface IPieWidgetProps extends IWidgetDefaultProps {}
 export interface IComplexWidgetProps extends IWidgetDefaultProps {}
 
 export interface ITextWidgetProps extends IWidgetDefaultProps {}
+
+export type ShowType = '1' | '2' | '3';
+
+export type LegendType = 'top' | 'right' | 'bottom' | 'left';

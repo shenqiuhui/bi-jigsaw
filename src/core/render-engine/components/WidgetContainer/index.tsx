@@ -106,7 +106,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
 
   // 阻止事件冒泡
   const handleStopPropagation = (event: React.MouseEvent) => {
-    event.stopPropagation();
+    event?.stopPropagation();
   }
 
   // 选中组件

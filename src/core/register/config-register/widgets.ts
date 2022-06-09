@@ -149,6 +149,7 @@ Register.configRegister<INewWidget>({
     style: {
       title: '饼图',
       showTitle: true,
+      legend: 'top',
       showType: '1',
       radiusPercentage: 10,
       labels: []

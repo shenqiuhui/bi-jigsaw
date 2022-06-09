@@ -10,6 +10,7 @@ import { IPieSettingProps } from '../types';
 import './index.less';
 
 const { Item, useForm } = Form;
+const { Group } = Radio;
 
 const settingDes = [
   { type: 'dimensions', title: '扇区标签/维度' },
@@ -123,6 +124,21 @@ const PieSetting: React.FC<IPieSettingProps> = (props) => {
               >
                 显示标题
               </Checkbox>
+            </Item>
+          </ItemGroup>
+          <ItemGroup label={<LabelRender name="图例位置" />}>
+            <Item name="legend">
+              <Group
+                size="small"
+                onChange={(event) => {
+                  handleChange('legend', event?.target?.value, settings?.style);
+                }}
+              >
+                <Radio value="top">上</Radio>
+                <Radio value="right">右</Radio>
+                <Radio value="bottom">下</Radio>
+                <Radio value="left">左</Radio>
+              </Group>
             </Item>
           </ItemGroup>
           <ItemGroup label={<LabelRender name="可视化类型" />}>

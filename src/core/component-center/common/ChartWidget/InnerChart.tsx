@@ -1,9 +1,9 @@
 import { memo, forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
-import ReactECharts, { EChartsInstance } from 'echarts-for-react';
+import ReactECharts, { EChartsInstance, EChartsOption } from 'echarts-for-react';
 import { isEmpty } from 'lodash';
 
 interface IInnerChartProps {
-  option: Object;
+  option: EChartsOption;
   height: number;
   width: number;
 }

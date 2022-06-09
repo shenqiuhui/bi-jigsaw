@@ -207,6 +207,7 @@ export interface IPieSetting {
   style: {
     title?: string;
     showTitle?: boolean;
+    legend?: string;
     showType?: string;
     radiusPercentage?: number;
     labels?: string[];
