@@ -13,11 +13,11 @@ const CustomTabs: React.FC<ICustomTabsProps> = (props) => {
   const { id, tabProps, onActiveKeyChange } = props;
   const { panes, extra, activeKey, position } = tabProps;
 
-  const [curWidth, setCurWidth] = useState<number>();
-  const [curOffset, setCurOffset] = useState<number>();
-  const [isScroll, setIsScroll] = useState<boolean>(false);
-  const [isShowLeft, setIsShowLeft] = useState<boolean>(false);
-  const [isShowRight, setIsShowRight] = useState<boolean>(true);
+  const [curWidth, setCurWidth] = useState(0);
+  const [curOffset, setCurOffset] = useState(0);
+  const [isScroll, setIsScroll] = useState(false);
+  const [isShowLeft, setIsShowLeft] = useState(false);
+  const [isShowRight, setIsShowRight] = useState(true);
 
   const handleTabChange = useCallback((dom: HTMLElement, key?: string) => {
     key && onActiveKeyChange?.(key);
@@ -75,7 +75,7 @@ const CustomTabs: React.FC<ICustomTabsProps> = (props) => {
             ))}
             <div
               className="tabs-ink-bar"
-              style={{ width: curWidth as number, left: curOffset as number }}
+              style={{ width: curWidth, left: curOffset }}
             />
           </ul>
         </div>

@@ -45,10 +45,10 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
   } = props;
 
   const [maskVisibleMap, setMaskVisibleMap] = useState<IMaskVisibleMap>({});
-  const [pointX, setPointX] = useState<number>(0);
-  const [pointY, setPointY] = useState<number>(0);
-  const [showWidgets, setShowWidgets] = useState<boolean>(false);
-  const [currentClickId, setCurrentClickId] = useState<string>('');
+  const [pointX, setPointX] = useState(0);
+  const [pointY, setPointY] = useState(0);
+  const [showWidgets, setShowWidgets] = useState(false);
+  const [currentClickId, setCurrentClickId] = useState('');
   const [activeTabsInfo, setActiveTabsInfo] = useState<ITabsInfo>({});
 
   const widgetContainerRef = useRef<IWatchHandlers>({});

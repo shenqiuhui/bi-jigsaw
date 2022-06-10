@@ -37,7 +37,7 @@ const Setter: React.FC<ISetterProps> = memo((props) => {
     onStyleSettingChange
   } = props;
 
-  const [activeTab, setActiveTab] = useState<string>('data');
+  const [activeTab, setActiveTab] = useState('data');
   const tabsRef = useRef<ITabsContainerRefs>(null);
 
   const hasTab = useMemo<boolean>(() => {

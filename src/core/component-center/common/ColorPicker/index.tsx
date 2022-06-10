@@ -12,7 +12,7 @@ interface IColorPickerProps extends SketchPickerProps {
 
 const ColorPicker: React.FC<IColorPickerProps> = (props) => {
   const { value, placement = 'bottomLeft', onChange, ...otherProps } = props;
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
 
   const handleToggle = () => {
     setVisible(visible => !visible);

@@ -29,7 +29,7 @@ const FieldItem = forwardRef<any, IFieldItemProps>((props, ref) => {
 
   const { rename, name, aggregatefunc } = item as IDataSetting;
 
-  const [isEllipsis, setIsEllipsis] = useState<boolean>(false);
+  const [isEllipsis, setIsEllipsis] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
 
   // 自动设置是否出现 tooltip 溢出提示

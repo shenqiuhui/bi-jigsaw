@@ -67,11 +67,11 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     onWidgetDelete
   } = props;
 
-  const [offset, setOffset] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [exportDisabled, setExportDisabled] = useState<boolean>(false);
-  const [refreshDisabled, setRefreshDisabled] = useState<boolean>(false);
-  const [watchInfo, setWatchInfo] = useState<any>();
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [exportDisabled, setExportDisabled] = useState(false);
+  const [refreshDisabled, setRefreshDisabled] = useState(false);
+  const [watchInfo, setWatchInfo] = useState();
   const [methods, setMethods] = useState<IWidgetMethods>({});
   const [skip, setSkip] = useState(false);
   const [loaded, setLoaded] = useState(false);

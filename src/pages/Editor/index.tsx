@@ -31,8 +31,8 @@ const Editor: React.FC<IEditorProps> = memo(() => {
 
   const { pageConfig, pageStatus } = dashboardState;
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [type, setType] = useState<string>('page');
+  const [loading, setLoading] = useState(false);
+  const [type, setType] = useState('page');
   const [settings, setSettings] = useState<Settings>({});
   const [selectedWidgetId, setSelectWidgetId] = useState<string | null>(null);
 

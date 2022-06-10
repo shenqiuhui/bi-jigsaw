@@ -29,8 +29,8 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
     ...otherProps
   } = props;
 
-  const [visible, setVisible] = useState<boolean>(false);
-  const [curIndex, setCurIndex] = useState<number>(0);
+  const [visible, setVisible] = useState(false);
+  const [curIndex, setCurIndex] = useState(0);
   const [curField, setCurField] = useState<IDataSetting | IDragItem>({} as (IDataSetting | IDragItem));
 
   const handleFieldDelete = (field: string) => {

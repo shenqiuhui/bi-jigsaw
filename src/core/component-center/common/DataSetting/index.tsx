@@ -43,7 +43,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   const [allFields, setAllFields] = useState<IDragItem[]>([]);
   const [fields, setFields] = useState<IDragItem[]>([]);
   const [plans, setPlans] = useState<IPlanData[]>([]);
-  const [activeField, setActiveField] = useState<string>('');
+  const [activeField, setActiveField] = useState('');
 
   const settingDesFilter = useMemo(() => {
     return dataSetting?.showType === '1' ? settingDes?.filter((des) => des.type !== 'indicators') : settingDes;

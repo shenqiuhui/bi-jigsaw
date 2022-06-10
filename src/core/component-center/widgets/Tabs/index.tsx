@@ -33,7 +33,7 @@ const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
     onTabsInfoChange
   } = props;
 
-  const [activeKey, setActiveKey] = useState<string>('');
+  const [activeKey, setActiveKey] = useState('');
 
   const currentActiveKey = useMemo(() => {
     if (find(tabs, ['key', activeKey])) {

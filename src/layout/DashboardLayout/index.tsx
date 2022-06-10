@@ -30,7 +30,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
   const { pageId } = useParams<IDashboardParams>();
   const [activeButtonValue, setActiveButtonValue] = useState('edit');
-  const [saveLoading, setSaveLoading] = useState<boolean>(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const [defaultPlan, setDefaultPlan] = useState<IPlanData>({} as IPlanData);
 
   const dispatch = useDispatch();

@@ -29,9 +29,9 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     methodsRegister
   } = props;
 
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number | undefined>(settings?.style?.pageSize);
-  const [total, setTotal] = useState<number>(0);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(settings?.style?.pageSize);
+  const [total, setTotal] = useState(0);
   const [columns, setColumns] = useState<IColumns[]>([]);
   const [dataSource, setDataSource] = useState([]);
 

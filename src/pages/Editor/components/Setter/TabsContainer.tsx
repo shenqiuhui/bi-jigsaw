@@ -18,7 +18,7 @@ const tabs = [
 const TabsContainer = memo(forwardRef<ITabsContainerRefs, ITabsContainerProps>((props, ref) => {
   const { hasTab = false, children, onTabChange } = props;
 
-  const [activeKey, setActiveKey] = useState<string>('data');
+  const [activeKey, setActiveKey] = useState('data');
 
   const handleTabChange = (key: string) => {
     setActiveKey(key);

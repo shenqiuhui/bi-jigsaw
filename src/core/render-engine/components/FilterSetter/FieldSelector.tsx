@@ -16,7 +16,7 @@ const FieldSelector: React.FC<IFieldSelectorProps> = memo((props) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [fields, setFields] = useState<IFieldData[]>([]);
-  const [curField, setCurField] = useState<string>(value);
+  const [curField, setCurField] = useState(value);
 
   const fieldsOptions = useMemo(() => {
     return fields?.map(({ field, name }) => ({ value: field, label: name }));
