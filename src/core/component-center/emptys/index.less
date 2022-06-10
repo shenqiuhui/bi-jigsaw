@@ -6,8 +6,14 @@
   align-items: center;
   font-size: 24px;
   color: #808080;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
 
   .empty-tips {
+    position: absolute;
     font-size: 12px;
     height: 34px;
     line-height: 34px;
@@ -19,35 +25,44 @@
   }
 
   &.empty-container-tabs {
-    background: url('@/assets/images/tabs-empty.png')no-repeat center center;
+    img {
+      max-width: 150px;
+    }
   }
 
   &.empty-container-table {
-    background: url('@/assets/images/table-empty.png') no-repeat center center;
-    background-size: 85%;
+    img {
+      max-width: 860px;
+    }
   }
 
   &.empty-container-line {
-    background: url('@/assets/images/line-empty.png') no-repeat center center;
-    background-size: 60%;
+    img {
+      max-width: 400px;
+    }
   }
 
   &.empty-container-bar {
-    background: url('@/assets/images/bar-empty.png') no-repeat center center;
-    background-size: 60%;
+    img {
+      max-width: 420px;
+    }
   }
 
   &.empty-container-pie {
-    background: url('@/assets/images/pie-empty.png') no-repeat center center;
-    background-size: 66%;
+    img {
+      max-width: 440px;
+    }
   }
 
   &.empty-container-complex {
-    background: url('@/assets/images/complex-empty.png') no-repeat center center;
-    background-size: 60%;
+    img {
+      max-width: 420px;
+    }
   }
 
   &.empty-container-text {
-    background: url('@/assets/images/text-empty.png') no-repeat center center;
+    img {
+      max-width: 32px;
+    }
   }
 }

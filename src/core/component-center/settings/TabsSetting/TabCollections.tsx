@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { ITab } from '@/core/render-engine/types';
@@ -63,13 +64,14 @@ const TabCollections: React.FC<ITabCollectionsProps> = (props) => {
           })}
         </div>
       )}
-      <div
+      <Button
         className="add-tab-button"
+        type="primary"
+        icon={<PlusOutlined />}
         onClick={handleAdd}
       >
-        <PlusOutlined className="add-icon" />
         新增标签
-      </div>
+      </Button>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Form, Input, Checkbox, Radio, message } from 'antd';
 import { debounce } from 'lodash';
 import { ITab } from '@/core/render-engine/types';
 import TabCollections from './TabCollections';
+import ItemGroup from '../../common/ItemGroup';
 import LabelRender from '../../common/LabelRender';
 import { ITabsSettingProps } from '../types';
 
@@ -46,54 +47,56 @@ const TabsSetting: React.FC<ITabsSettingProps> = (props) => {
         form={form}
         initialValues={settings?.style}
       >
-        <Item
-          name="title"
-          className="item-title"
+        <ItemGroup
           label={<LabelRender name="标题" />}
+          padding={[15, 12, 12]}
         >
-          <Input
-            placeholder="请输入标题"
-            autoComplete="off"
-            onChange={(event) => {
-              handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
-            }}
-          />
-        </Item>
-        <Item name="showTitle" valuePropName="checked">
-          <Checkbox
-            onChange={(event) => {
-              handleChange('showTitle', event?.target?.checked, settings?.style);
-            }}
+          <Item
+            name="title"
+            className="item-title"
           >
-            显示标题
-          </Checkbox>
-        </Item>
-        <Item
-          name="align"
-          label={<LabelRender name="标签页位置" />}
-        >
-          <Group
-            size="small"
-            onChange={(event) => {
-              handleChange('align', event?.target?.value, settings?.style);
-            }}
-          >
-            <Radio value="left">居左</Radio>
-            <Radio value="center">居中</Radio>
-            <Radio value="right">居右</Radio>
-          </Group>
-        </Item>
-        <Item
-          name="tabs"
-          label={<LabelRender name="标签" />}
-        >
-          <TabCollections
-            validateHasEditItem={validateHasEditItem}
-            onChange={(value) => {
-              handleChange('tabs', value, settings?.style)
-            }}
-          />
-        </Item>
+            <Input
+              placeholder="请输入标题"
+              autoComplete="off"
+              onChange={(event) => {
+                handleChangeDebounce('title', event?.target?.value?.trim(), settings?.style);
+              }}
+            />
+          </Item>
+          <Item name="showTitle" valuePropName="checked">
+            <Checkbox
+              onChange={(event) => {
+                handleChange('showTitle', event?.target?.checked, settings?.style);
+              }}
+            >
+              显示标题
+            </Checkbox>
+          </Item>
+        </ItemGroup>
+        <ItemGroup label={<LabelRender name="标签页位置" />}>
+          <Item name="align">
+            <Group
+              size="small"
+              onChange={(event) => {
+                handleChange('align', event?.target?.value, settings?.style);
+              }}
+            >
+              <Radio value="left">居左</Radio>
+              <Radio value="center">居中</Radio>
+              <Radio value="right">居右</Radio>
+            </Group>
+          </Item>
+        </ItemGroup>
+        <ItemGroup label={<LabelRender name="标签" />}>
+          <Item name="tabs">
+            <TabCollections
+              validateHasEditItem={validateHasEditItem}
+              onChange={(value) => {
+                handleChangeDebounce('tabs', value, settings?.style)
+              }}
+            />
+          </Item>
+        </ItemGroup>
       </Form>
     </div>
   );

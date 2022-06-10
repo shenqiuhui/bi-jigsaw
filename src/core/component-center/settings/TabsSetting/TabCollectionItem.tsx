@@ -40,7 +40,6 @@ const TabCollectionItem: React.FC<ITabCollectionItemProps> = (props) => {
     <div className="tab-item" >
       <Input
         className="tab-item-input"
-        size="small"
         placeholder="请输入标签页名称"
         ref={inputRef}
         value={value?.name}

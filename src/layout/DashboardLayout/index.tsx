@@ -151,8 +151,6 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
             }
           }
         });
-
-        scrollToBottom();
       } else {
         const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab: ITab) => {
           const key = uuidv4();
@@ -175,6 +173,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
         });
       }
 
+      scrollToBottom();
       dispatch(setDashboardConfig({ ...pageConfig, widgets }));
     }
   }

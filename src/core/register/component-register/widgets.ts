@@ -21,7 +21,7 @@ import { IWidgetMap, IWidgetButtons } from '../types';
 import Register from '../methods';
 
 // 注册标签页组件
-// Register.componentRegister<IWidget, ITabsWidgetProps>(TabsWidget, {
+// Register.componentRegister<IWidgetCommon, ITabsWidgetProps>(TabsWidget, {
 //   namespace: 'widgets',
 //   type: 'tabs',
 //   name: '标签页'
@@ -30,7 +30,6 @@ import Register from '../methods';
 //   minH: 18,
 //   defaultW: 12,
 //   defaultH: 20,
-//   hasRef: false,
 //   showHeader: false,
 //   useLoading: false,
 //   showInFilter: false

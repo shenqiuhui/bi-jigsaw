@@ -10,7 +10,7 @@ import {
 } from '@/core/component-center/settings';
 import {
   IPageSettingProps,
-  // ITabSettingProps,
+  // ITabsSettingProps,
   ITableSettingProps,
   ILineSettingProps,
   IBarSettingProps,
@@ -31,7 +31,7 @@ Register.componentRegister<IWidgetSetting, IPageSettingProps>(PageSetting, {
 });
 
 // 注册标签页设置组件
-// Register.componentRegister<IWidgetSetting, ITabSettingProps>(TabsSetting, {
+// Register.componentRegister<IWidgetSetting, ITabsSettingProps>(TabsSetting, {
 //   namespace: 'settings',
 //   type: 'tabs',
 //   name: '标签页设置'
