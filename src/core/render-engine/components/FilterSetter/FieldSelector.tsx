@@ -19,7 +19,7 @@ const FieldSelector: React.FC<IFieldSelectorProps> = memo((props) => {
   const [curField, setCurField] = useState<string>(value);
 
   const fieldsOptions = useMemo(() => {
-    return fields.map(({ field, name }) => ({ value: field, label: name }));
+    return fields?.map(({ field, name }) => ({ value: field, label: name }));
   }, [fields]);
 
   // 拉取字段列表数据

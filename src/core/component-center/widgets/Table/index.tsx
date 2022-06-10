@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/apis/chart';
-import { Settings, IFilterForm } from '@/core/render-engine/types';
+import { Settings, IFilterForm, IDataSetting } from '@/core/render-engine/types';
 import { ITableWidgetProps } from '../types';
 
 import './index.less';
@@ -39,6 +39,22 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
   const hasData = useMemo(() => {
     return columns?.length && dataSource?.length;
   }, [columns, dataSource]);
+
+  // 根据设置生成 columns 信息
+  const tableColumns = useMemo(() => {
+    const { dimensions = [], indicators = [] } = settings?.data;
+    const fields = [ ...dimensions, ...indicators ];
+
+    const fieldsMap = fields?.reduce((result: any, current: IDataSetting) => {
+      return ((result[current.field] = current), result);
+    }, {});
+
+    return columns?.map((column) => ({
+      width: 200,
+      align: fieldsMap[column?.dataIndex]?.align,
+      ...column,
+    }));
+  }, [settings?.data, columns]);
 
   const handleChange = (page: number, pageSize: number | undefined) => {
     setPage(page);
@@ -116,7 +132,7 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
             rowKey="id"
             size="small"
             tableLayout="fixed"
-            columns={columns}
+            columns={tableColumns}
             dataSource={dataSource}
             scroll={{
               y: (isEdit && isSelected ? height + 2 : height) - 56 - 40,
