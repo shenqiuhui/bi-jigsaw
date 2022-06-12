@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Modal, Form, Input, Radio, Select, Row, Col } from 'antd';
+import { Modal, Space, Button, Form, Input, Radio, Select, Row, Col } from 'antd';
 import { dataSettingConfig } from '@/core/register';
 import { getFilterSelectList } from '@/service/apis/dashboard';
 import { IDataSetting, IDragItem, IOption, IFieldData } from '@/core/render-engine/types';
@@ -93,7 +93,16 @@ const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
       visible={visible}
       maskClosable={false}
       onCancel={() => onVisibleChange?.(false)}
-      onOk={handleSave}
+      footer={
+        <Space size={16}>
+          <Button onClick={() => onVisibleChange?.(false)}>
+            取消
+          </Button>
+          <Button type="primary" onClick={handleSave}>
+            确定
+          </Button>
+        </Space>
+      }
     >
       <Form
         form={form}

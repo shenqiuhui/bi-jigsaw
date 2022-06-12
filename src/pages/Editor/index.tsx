@@ -2,7 +2,7 @@ import { memo, useState, useEffect, useCallback, useRef } from 'react';
 import { Spin } from 'antd';
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { pick, cloneDeep } from 'lodash';
+import { pick, cloneDeep, isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { getPageConfig } from '@/service/apis/dashboard';
 import { renderEngine } from '@/core/render-engine';
@@ -207,7 +207,7 @@ const Editor: React.FC<IEditorProps> = memo(() => {
                 config: pageConfig,
               })}
             </div>
-            {pageStatus === 'edit' && (
+            {pageStatus === 'edit' && !isEmpty(settings) && (
               <div
                 className={classNames({
                   'editor-setter-container': true,

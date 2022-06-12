@@ -65,35 +65,29 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
   }
 
   const formatterBuilder = (params: any | Array<any>, data: any) => {
-    let name: string;
-    let value: string | number;
-    let unit: string;
-
     if (Array.isArray(params)) {
       return params?.reduce((result, param) => {
-        name = param?.dimensionNames?.[param?.encode?.y?.[0]];
-        value = param?.value?.[name];
-        unit = data?.unit?.[name];
+        const index = param?.encode?.y?.[0];
+        const unit = data?.unit?.[index];
 
         return `
           <div>
             <div>${result}</div>
             <div class="char-tooltip-content">
               <div>
-                <span>${param.marker}</span>
-                <span>${name}:</span>
+                <span>${param?.marker}</span>
+                <span>${param?.dimensionNames?.[index]}:</span>
               </div>
               <span class="char-tooltip-value char-tooltip-value-margin">
-                ${value}${unit ? `(${unit})` : ''}
+                ${param?.value?.[index]}${unit ? `(${unit})` : ''}
               </span>
             </div>
           </div>
         `;
       }, `${params?.[0]?.name}`);
     } else {
-      name = params?.dimensionNames?.[params?.encode?.y[0]];
-      value = params?.value[name];
-      unit = data?.unit?.[name];
+      const index = params?.encode?.y?.[0];
+      const unit = data?.unit?.[index];
 
       return `
         <div>
@@ -101,10 +95,10 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
           <div class="char-tooltip-content">
             <div>
               <span>${params?.marker}</span>
-              <span>${name}:</span>
+              <span>${params?.dimensionNames?.[index]}:</span>
             </div>
             <span class="char-tooltip-value char-tooltip-value-margin">
-              ${value}${unit ? `(${unit})` : ''}
+              ${params?.value?.[index]}${unit ? `(${unit})` : ''}
             </span>
           </div>
         </div>
@@ -120,7 +114,6 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
         formatter: (params: any | Array<any>) => formatterBuilder(params, data)
       },
       dataset: {
-        dimensions: data?.dimensions,
         source: data?.source
       },
       legend: legendBuilder(settings),

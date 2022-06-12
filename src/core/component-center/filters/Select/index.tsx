@@ -15,6 +15,7 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
     ...otherProps
   } = props;
 
+  const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState<IOption[]>([]);
 
   const filterWidgetFieldList = useMemo<IWidgetField[]>(() => {
@@ -22,6 +23,8 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
   }, [widgetFieldList, checkedWidgets]);
 
   const fetchOptions = useCallback(async () => {
+    setLoading(true);
+
     try {
       const data: any = await getFilterSelectList({
         api,
@@ -32,6 +35,8 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
       });
       setOptions(data);
     } catch (err) {}
+
+    setLoading(false);
   }, [api, method, filterWidgetFieldList]);
 
   useEffect(() => {
@@ -43,7 +48,12 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
   }, [dataSource]);
 
   return (
-    <Select style={ width ? { width } : {} } options={options} {...otherProps} />
+    <Select
+      style={ width ? { width } : {} }
+      loading={loading}
+      options={options}
+      {...otherProps}
+    />
   );
 }
 

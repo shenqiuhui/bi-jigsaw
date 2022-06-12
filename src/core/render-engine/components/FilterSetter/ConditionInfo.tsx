@@ -107,7 +107,7 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
   const handleDateRangeTypeChange = (value: string) => {
     onDateRangeTypeChange?.(data?.id, value);
 
-    if (value === 'dynamic') {
+    if (value === 'dynamic' && !data?.dateRangeDynamicValue) {
       onDateRangeDynamicValueChange?.(data?.id, 'yesterday');
     }
   }

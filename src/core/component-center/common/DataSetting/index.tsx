@@ -38,12 +38,13 @@ type DroppableId = 'dimensions' | 'indicators' | 'legends' | 'filters';
 const { Group } = Radio;
 
 const DataSetting: React.FC<IDataSettingProps> = (props) => {
-  const { type, dataSetting, settingDes, validator, onDataSettingChange, ...otherProps } = props;
+  const { type, widgetId, dataSetting, settingDes, validator, onDataSettingChange, ...otherProps } = props;
 
   const [allFields, setAllFields] = useState<IDragItem[]>([]);
   const [fields, setFields] = useState<IDragItem[]>([]);
   const [plans, setPlans] = useState<IPlanData[]>([]);
   const [activeField, setActiveField] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const settingDesFilter = useMemo(() => {
     return dataSetting?.showType === '1' ? settingDes?.filter((des) => des.type !== 'indicators') : settingDes;
@@ -282,10 +283,14 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
 
   // 拉取查询条件数据
   const fetchPlans = async () => {
+    setLoading(true);
+
     try {
       const res: any = await getPlanList({});
       setPlans(res);
     } catch (err) {}
+
+    setLoading(false);
   };
 
   // 拉取字段数据
@@ -303,7 +308,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   useEffect(() => {
     fetchPlans();
     fetchFields(dataSetting?.planId as number);
-  }, []);
+  }, [widgetId]);
 
   return (
     <div className="data-setting-container">
@@ -344,10 +349,11 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
         <div className="data-source">
           <Select
             className="plan-select"
+            optionFilterProp="label"
             value={dataSetting?.planId as number}
+            loading={loading}
             showSearch
             filterOption
-            optionFilterProp="label"
             options={planOptions}
             onChange={(planId, option) => handlePlanInfoChange(planId, option as IOption)}
           />

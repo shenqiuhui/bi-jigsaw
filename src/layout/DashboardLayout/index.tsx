@@ -245,63 +245,67 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   return (
     <Layout className="dashboard-layout">
       <Header className="dashboard-header">
-        <div className="dashboard-operator-exit">
-          <IconFont
-            className="dashboard-operator-exit-icon"
-            type="icon-back"
-            onClick={handleExitLayout}
-          />
-        </div>
-        <div className="dashboard-header-right">
-          <h1 className="dashboard-title ellipsis">
-            {pageConfig?.name}
-          </h1>
-          {activeButtonValue === 'edit' && (
-            <ul className="dashboard-tabs">
-              {widgetButtons?.map((item) => (
-                <Tooltip key={item.type} title={item?.name}>
-                  <li onClick={() => handleAddWidget(item.type)}>
-                    <IconFont
-                      className="widget-add-button"
-                      type={`icon-widget-${item?.type}`}
-                    />
-                  </li>
-                </Tooltip>
-              ))}
-            </ul>
-          )}
-          <div className="dashboard-operator">
-            <ul className="switch-buttons">
-              {activeButtons?.map(({ type, name }) => (
-                <li
-                  key={type}
-                  className={classNames({
-                    active: type === activeButtonValue
-                  })}
-                  onClick={() => handleEditorStatusChange(type)}
-                >
-                  {name}
-                </li>
-              ))}
-              <li
-                className={classNames({
-                  'switch-buttons-mark': true,
-                  'edit-buttons-mark': activeButtonValue === 'edit',
-                  'preview-buttons-mark': activeButtonValue === 'preview',
-                })}
+        {!isEmpty(pageConfig) && (
+          <>
+            <div className="dashboard-operator-exit">
+              <IconFont
+                className="dashboard-operator-exit-icon"
+                type="icon-back"
+                onClick={handleExitLayout}
               />
-            </ul>
-            <Button
-              className="dashboard-operator-save"
-              type="primary"
-              shape="round"
-              loading={saveLoading}
-              onClick={handleSaveConfig}
-            >
-              保存
-            </Button>
-          </div>
-        </div>
+            </div>
+            <div className="dashboard-header-right">
+              <h1 className="dashboard-title ellipsis">
+                {pageConfig?.name}
+              </h1>
+              {activeButtonValue === 'edit' && (
+                <ul className="dashboard-tabs">
+                  {widgetButtons?.map((item) => (
+                    <Tooltip key={item.type} title={item?.name}>
+                      <li onClick={() => handleAddWidget(item.type)}>
+                        <IconFont
+                          className="widget-add-button"
+                          type={`icon-widget-${item?.type}`}
+                        />
+                      </li>
+                    </Tooltip>
+                  ))}
+                </ul>
+              )}
+              <div className="dashboard-operator">
+                <ul className="switch-buttons">
+                  {activeButtons?.map(({ type, name }) => (
+                    <li
+                      key={type}
+                      className={classNames({
+                        active: type === activeButtonValue
+                      })}
+                      onClick={() => handleEditorStatusChange(type)}
+                    >
+                      {name}
+                    </li>
+                  ))}
+                  <li
+                    className={classNames({
+                      'switch-buttons-mark': true,
+                      'edit-buttons-mark': activeButtonValue === 'edit',
+                      'preview-buttons-mark': activeButtonValue === 'preview',
+                    })}
+                  />
+                </ul>
+                <Button
+                  className="dashboard-operator-save"
+                  type="primary"
+                  shape="round"
+                  loading={saveLoading}
+                  onClick={handleSaveConfig}
+                >
+                  保存
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
       </Header>
       <Content className="dashboard-content">
         {renderRoutes(route?.routes)}

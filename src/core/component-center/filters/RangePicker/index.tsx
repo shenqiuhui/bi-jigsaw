@@ -20,8 +20,12 @@ const RangePickerItem: React.FC<IRangePickerProps> = (props) => {
 
   const ranges = useMemo<RangeMap>(() => {
     return presetShortcuts?.reduce((result, key) => {
-      const { name, range } = rangeDatePreset[key];
-      return ((result[name] = range), result);
+      if (rangeDatePreset[key]) {
+        const { name, range } = rangeDatePreset[key];
+        result[name] = range;
+      }
+
+      return result;
     }, {} as RangeMap);
   }, [rangeDatePreset, presetShortcuts]);
 
