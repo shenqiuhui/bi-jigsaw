@@ -15,46 +15,46 @@ import { useFullscreen, useUpdateEffect } from 'ahooks';
 import { useInView } from 'react-intersection-observer';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
-import { widgetEmptyMap } from '@/core/register';
+import { useComponent } from '@/core/register';
 import Grid from '../Grid';
 import {
-  IGridRef,
-  IWidgetMethods,
-  IFilterForm,
-  IWidgetContainerRef,
-  IWidget,
-  Settings,
-  IGirdProps
+  GridRefType,
+  WidgetMethodsType,
+  FilterFormType,
+  WidgetContainerRefType,
+  WidgetType,
+  SettingType,
+  GirdProps
 } from '../../types';
 
 import './index.less';
 
-interface IChildrenProps {
-  methodsRegister: (methods: IWidgetMethods) => void;
+interface ChildrenProps {
+  methodsRegister: (methods: WidgetMethodsType) => void;
   emptyRender: (offset?: number) => React.ReactNode;
   onWatchInfoChange: (info: any) => void;
 }
 
-interface ISubGridProps extends IGirdProps {
-  ref: React.MutableRefObject<IGridRef>,
+interface SubGridProps extends GirdProps {
+  ref: React.MutableRefObject<GridRefType>,
 }
 
-interface IWidgetContainerProps {
+interface WidgetContainerProps {
   inner?: boolean;
   showOperator?: boolean;
   showHeader?: boolean;
   useLoading?: boolean;
   selectedWidgetId?: string | null | undefined;
-  data: IWidget;
-  form: IFilterForm;
-  children?: (containerProps: IChildrenProps) => React.ReactNode;
-  onWidgetSelect?: (id: string, type: string, settings: Settings) => void;
+  data: WidgetType;
+  form: FilterFormType;
+  children?: (containerProps: ChildrenProps) => React.ReactNode;
+  onWidgetSelect?: (id: string, type: string, settings: SettingType) => void;
   onWidgetDelete?: (id: string) => void;
 }
 
 const { Item } = Menu;
 
-const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerProps>((props, ref) => {
+const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerProps>((props, ref) => {
   const {
     data,
     form,
@@ -67,12 +67,14 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
     onWidgetDelete
   } = props;
 
+  const [widgetEmptyMap] = useComponent('emptys');
+
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const [exportDisabled, setExportDisabled] = useState(false);
   const [refreshDisabled, setRefreshDisabled] = useState(false);
   const [watchInfo, setWatchInfo] = useState();
-  const [methods, setMethods] = useState<IWidgetMethods>({});
+  const [methods, setMethods] = useState<WidgetMethodsType>({});
   const [skip, setSkip] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -95,7 +97,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }));
 
   // 注册请求方法
-  const handleMethodsRegister = (methods: IWidgetMethods) => {
+  const handleMethodsRegister = (methods: WidgetMethodsType) => {
     setMethods(methods);
   }
 
@@ -121,7 +123,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }, [data, onWidgetDelete]);
 
   // 导出数据
-  const handleExportData = (data: IWidget) => {
+  const handleExportData = (data: WidgetType) => {
     setExportDisabled(true);
     methods?.exportData?.(form, data?.settings, watchInfo)?.finally(() => {
       setExportDisabled(false);
@@ -163,7 +165,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   }
 
   // 刷新数据
-  const handleRefresh = (event: React.MouseEvent, data: IWidget) => {
+  const handleRefresh = (event: React.MouseEvent, data: WidgetType) => {
     handleStopPropagation(event);
 
     if (!data?.newWidget && !refreshDisabled) {
@@ -280,7 +282,7 @@ const WidgetContainer = memo(forwardRef<IWidgetContainerRef, IWidgetContainerPro
   );
 
   // 栅格容器渲染
-  const gridContainerRender = (gridProps: ISubGridProps) => {
+  const gridContainerRender = (gridProps: SubGridProps) => {
     const { ref, ...otherProps } = gridProps;
     return (
       <Grid ref={ref} {...otherProps} />

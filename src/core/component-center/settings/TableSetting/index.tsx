@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import DataSetting from '../../common/DataSetting';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
-import { ITableSettingProps } from '../types';
+import { TableSettingProps } from '../types';
 
 import './index.less';
 
@@ -24,7 +24,7 @@ const settingDes = [
   { type: 'filters', title: '过滤项' }
 ];
 
-const TableSetting: React.FC<ITableSettingProps> = (props) => {
+const TableSetting: React.FC<TableSettingProps> = (props) => {
   const {
     type,
     activeTab,

@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Settings } from '@/core/render-engine/types';
+import { SettingType } from '@/core/render-engine';
 import ChartWidget from '../../common/ChartWidget';
-import { IPieWidgetProps, LegendType } from '../types';
+import { PieWidgetProps, LegendType } from '../types';
 
 const legendMap = {
   top: {},
@@ -10,10 +10,10 @@ const legendMap = {
   left: { orient: 'vertical', left: 0 }
 };
 
-const PieWidget: React.FC<IPieWidgetProps> = memo((props) => {
+const PieWidget: React.FC<PieWidgetProps> = memo((props) => {
   const { settings } = props;
 
-  const seriesBuilder = (settings: Settings, data: any) => {
+  const seriesBuilder = (settings: SettingType, data: any) => {
     return [
       {
         data: data?.source,
@@ -32,14 +32,14 @@ const PieWidget: React.FC<IPieWidgetProps> = memo((props) => {
     ];
   }
 
-  const legendBuilder = (settings: Settings) => {
+  const legendBuilder = (settings: SettingType) => {
     return {
       type: 'scroll',
       ...legendMap[settings?.style?.legend as LegendType]
     };
   }
 
-  const formatterBuilder = (settings: Settings, params: any | Array<any>) => {
+  const formatterBuilder = (settings: SettingType, params: any | Array<any>) => {
     const labels = settings?.style.labels;
     const hasName = labels?.includes('1');
     const hasValue = labels?.includes('2');

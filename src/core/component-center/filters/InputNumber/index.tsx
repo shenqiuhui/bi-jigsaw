@@ -1,7 +1,7 @@
 import { InputNumber } from 'antd';
-import { IInputNumberProps } from '../types';
+import { InputNumberProps } from '../types';
 
-const InputNumberItem: React.FC<IInputNumberProps> = (props) => {
+const InputNumberItem: React.FC<InputNumberProps> = (props) => {
   const { width } = props;
 
   return (

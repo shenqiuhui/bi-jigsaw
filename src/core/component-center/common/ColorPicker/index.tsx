@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 import './index.less';
 
-interface IColorPickerProps extends SketchPickerProps {
+interface ColorPickerProps extends SketchPickerProps {
   value?: string;
   placement?: 'topLeft' | 'top' | 'topRight' | 'bottomLeft' | 'bottom' | 'bottomRight';
   onChange?: (value: ColorResult) => void;
 }
 
-const ColorPicker: React.FC<IColorPickerProps> = (props) => {
+const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const { value, placement = 'bottomLeft', onChange, ...otherProps } = props;
   const [visible, setVisible] = useState(false);
 

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './index.less';
 
-interface IConnectiveProps {
+interface ConnectiveProps {
   title?: string | React.ReactNode;
   width?: number | string;
   children?: React.ReactNode;
@@ -19,7 +19,7 @@ const borderClassName = {
   'none': ''
 };
 
-const Connective: React.FC<IConnectiveProps> = memo((props) => {
+const Connective: React.FC<ConnectiveProps> = memo((props) => {
   const { title, width, border = 'both', children, renderOperator } = props;
 
   return (

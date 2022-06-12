@@ -1,21 +1,21 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Modal, Space, Button, Form, Input, Radio, Select, Row, Col } from 'antd';
-import { dataSettingConfig } from '@/core/register';
 import { getFilterSelectList } from '@/service/apis/dashboard';
-import { IDataSetting, IDragItem, IOption, IFieldData } from '@/core/render-engine/types';
+import { useConfig } from '@/core/register';
+import { DataSettingType, DragType, OptionType, FieldDataType } from '@/core/render-engine';
 import { ratioAggregatefuncOptions, formatTypeOptions, conditionFilterTypeOptions, enumFilterTypeOptions } from './config';
 
-interface IFieldSetterProps {
+interface FieldSetterProps {
   widgetId?: string;
   planId: number;
   type: string;
-  data: IDataSetting | IDragItem;
-  fields: IFieldData[];
+  data: DataSettingType | DragType;
+  fields: FieldDataType[];
   visible: boolean;
   droppableId: string;
   index: number;
   onVisibleChange?: (visible: boolean) => void;
-  onFieldInfoSave?: ((field: IDataSetting | IDragItem, droppableId: string, index: number) => void) | undefined;
+  onFieldInfoSave?: ((field: DataSettingType | DragType, droppableId: string, index: number) => void) | undefined;
 }
 
 const { Item, useForm } = Form;
@@ -26,7 +26,7 @@ const formLayout = {
   wrapperCol: { span: 18 },
 };
 
-const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
+const FieldSetter: React.FC<FieldSetterProps> = (props) => {
   const {
     planId,
     widgetId,
@@ -41,7 +41,8 @@ const FieldSetter: React.FC<IFieldSetterProps> = (props) => {
   } = props;
 
   const [form] = useForm();
-  const [filterValues, setFilterValues] = useState<IOption[]>([]);
+  const [filterValues, setFilterValues] = useState<OptionType[]>([]);
+  const [dataSettingConfig] = useConfig('settings');
 
   const ratioFieldOptions = useMemo(() => {
     return fields?.map(({ name, field }) => ({ label: name, value: field }));

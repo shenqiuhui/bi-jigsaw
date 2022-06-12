@@ -1,17 +1,17 @@
 import { useRef, useEffect } from 'react';
 import { Input } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import { ITab } from '@/core/render-engine/types';
+import { TabType } from '@/core/render-engine';
 
 import './index.less';
 
-interface ITabCollectionItemProps {
-  value: ITab;
+interface TabCollectionItemProps {
+  value: TabType;
   onChange?: (key: string, value: string) => void;
   onDelete?: (key: string) => void;
 }
 
-const TabCollectionItem: React.FC<ITabCollectionItemProps> = (props) => {
+const TabCollectionItem: React.FC<TabCollectionItemProps> = (props) => {
   const { value, onChange, onDelete } = props;
 
   const inputRef = useRef<Input>(null);

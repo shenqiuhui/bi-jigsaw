@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Settings } from '@/core/render-engine/types';
+import { SettingType } from '@/core/render-engine';
 import ChartWidget from '../../common/ChartWidget';
-import { ILineWidgetProps, LegendType } from '../types';
+import { LineWidgetProps, LegendType } from '../types';
 
 const legendMap = {
   top: {},
@@ -10,10 +10,10 @@ const legendMap = {
   left: { left: 0 }
 };
 
-const LineWidget: React.FC<ILineWidgetProps> = memo((props) => {
+const LineWidget: React.FC<LineWidgetProps> = memo((props) => {
   const { settings } = props;
 
-  const seriesBuilder = (settings: Settings) => settings?.data?.indicators?.map((indicator) => {
+  const seriesBuilder = (settings: SettingType) => settings?.data?.indicators?.map((indicator) => {
     const isYAsix = settings?.style?.yAxisAll && settings?.style?.yAxisRight?.fields?.includes(indicator?.field);
 
     return {
@@ -22,7 +22,7 @@ const LineWidget: React.FC<ILineWidgetProps> = memo((props) => {
     };
   });
 
-  const xAxisBuilder = (settings: Settings) => {
+  const xAxisBuilder = (settings: SettingType) => {
     return {
       name: settings?.style?.xAxis?.title,
       boundaryGap: false,
@@ -30,7 +30,7 @@ const LineWidget: React.FC<ILineWidgetProps> = memo((props) => {
     };
   }
 
-  const yAxisBuilder = (settings: Settings) => {
+  const yAxisBuilder = (settings: SettingType) => {
     const yAxisAll = [
       {
         position: 'left',
@@ -51,7 +51,7 @@ const LineWidget: React.FC<ILineWidgetProps> = memo((props) => {
     return settings?.style?.yAxisAll ? yAxisAll : yAxisAll?.slice(0, 1);
   }
 
-  const legendBuilder = (settings: Settings) => {
+  const legendBuilder = (settings: SettingType) => {
     return legendMap[settings?.style?.legend as LegendType];
   }
 

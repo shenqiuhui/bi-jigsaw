@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { getTableData, exportData } from '@/service/apis/chart';
-import { Settings, IFilterForm, IDataSetting } from '@/core/render-engine/types';
-import { ITableWidgetProps } from '../types';
+import { SettingType, FilterFormType, DataSettingType } from '@/core/render-engine';
+import { TableWidgetProps } from '../types';
 
 import './index.less';
 
@@ -15,7 +15,7 @@ interface IColumns {
   dataIndex: string;
 }
 
-const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
+const TableWidget: React.FC<TableWidgetProps> = memo((props) => {
   const {
     isEdit,
     isSelected,
@@ -45,7 +45,7 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     const { dimensions = [], indicators = [] } = settings?.data;
     const fields = [ ...dimensions, ...indicators ];
 
-    const fieldsMap = fields?.reduce((result: any, current: IDataSetting) => {
+    const fieldsMap = fields?.reduce((result: any, current: DataSettingType) => {
       return ((result[current.field] = current), result);
     }, {});
 
@@ -70,7 +70,7 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     }));
   }
 
-  const fetchTableData = async (form: IFilterForm, settings: Settings, watchInfo: any) => {
+  const fetchTableData = async (form: FilterFormType, settings: SettingType, watchInfo: any) => {
     try {
       const res: any = await getTableData({
         type,
@@ -88,7 +88,7 @@ const TableWidget: React.FC<ITableWidgetProps> = memo((props) => {
     } catch (err) {}
   }
 
-  const downloadTableData = async (form: IFilterForm, settings: Settings) => {
+  const downloadTableData = async (form: FilterFormType, settings: SettingType) => {
     try {
       const res: any = await exportData({
         type,

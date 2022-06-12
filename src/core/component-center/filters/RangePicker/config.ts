@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { IRangePreset } from '../types';
+import { RangePresetType } from '../types';
 
 // 预置时间范围选项
-export const rangeDatePreset: IRangePreset = {
+export const rangeDatePreset: RangePresetType = {
   'yesterday': {
     name: '昨日',
     range: [

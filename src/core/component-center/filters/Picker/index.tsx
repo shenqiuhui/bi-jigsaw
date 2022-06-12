@@ -1,8 +1,8 @@
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
-import { IPickerProps, MomentType } from '../types';
+import { PickerProps, MomentType } from '../types';
 
-const PickerItem: React.FC<IPickerProps> = (props) => {
+const PickerItem: React.FC<PickerProps> = (props) => {
   const { mode = 'time', width, format, value, onChange } = props;
 
   const handleChange = (_time: MomentType | null, timeString: string) => {

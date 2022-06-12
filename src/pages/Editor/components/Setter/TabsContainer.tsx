@@ -1,10 +1,10 @@
 import { memo, forwardRef, useState, useImperativeHandle } from 'react';
 import classNames from 'classnames';
-import { ITabsContainerRefs } from '@/pages/Editor/components/Setter';
+import { TabsContainerRefType } from '@/pages/Editor/components/Setter';
 
 import './index.less';
 
-interface ITabsContainerProps {
+interface TabsContainerProps {
   hasTab: boolean;
   children?: React.ReactNode;
   onTabChange?: (id: string) => void;
@@ -15,7 +15,7 @@ const tabs = [
   { key: 'style', name: '样式'}
 ];
 
-const TabsContainer = memo(forwardRef<ITabsContainerRefs, ITabsContainerProps>((props, ref) => {
+const TabsContainer = memo(forwardRef<TabsContainerRefType, TabsContainerProps>((props, ref) => {
   const { hasTab = false, children, onTabChange } = props;
 
   const [activeKey, setActiveKey] = useState('data');

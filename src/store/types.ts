@@ -1,6 +1,6 @@
-import { IPageConfig } from '@/core/render-engine/types';
+import { PageConfigType } from '@/core/render-engine';
 
-export interface IUserInfo {
+export interface UserInfoType {
   userId: string;
   userName: string;
   realName: string;
@@ -8,12 +8,12 @@ export interface IUserInfo {
   mobile: string;
 }
 
-export interface IDashboardState {
-  pageConfig: IPageConfig;
+export interface DashboardStateType {
+  pageConfig: PageConfigType;
   pageStatus: string;
 }
 
-export interface IRootState {
-  user: IUserInfo;
-  dashboard: IDashboardState;
+export interface RootStateType {
+  user: UserInfoType;
+  dashboard: DashboardStateType;
 }

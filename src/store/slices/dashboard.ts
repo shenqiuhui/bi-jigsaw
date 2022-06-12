@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPageConfig } from '@/core/render-engine/types';
+import { PageConfigType } from '@/core/render-engine';
 
 interface InitialState {
   pageConfig: Object,
@@ -15,7 +15,7 @@ const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    setDashboardConfig: (state: InitialState, action: PayloadAction<IPageConfig>) => {
+    setDashboardConfig: (state: InitialState, action: PayloadAction<PageConfigType>) => {
       return { ...state, pageConfig: { ...state.pageConfig, ...action.payload } };
     },
     setDashboardStatus: (state: InitialState, action: PayloadAction<string>) => {

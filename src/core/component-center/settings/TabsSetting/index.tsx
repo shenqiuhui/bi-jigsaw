@@ -1,24 +1,24 @@
 import { useEffect, useCallback } from 'react';
 import { Form, Input, Checkbox, Radio, message } from 'antd';
 import { debounce } from 'lodash';
-import { ITab } from '@/core/render-engine/types';
+import { TabType } from '@/core/render-engine';
 import TabCollections from './TabCollections';
 import ItemGroup from '../../common/ItemGroup';
 import LabelRender from '../../common/LabelRender';
-import { ITabsSettingProps } from '../types';
+import { TabsSettingProps } from '../types';
 
 import './index.less';
 
 const { Item, useForm } = Form;
 const { Group } = Radio;
 
-const TabsSetting: React.FC<ITabsSettingProps> = (props) => {
+const TabsSetting: React.FC<TabsSettingProps> = (props) => {
   const { settings, onStyleSettingChange } = props;
 
   const [form] = useForm();
 
   // 校验是否有编辑项
-  const validateHasEditItem = (tabList: ITab[]) => {
+  const validateHasEditItem = (tabList: TabType[]) => {
     return tabList?.some((tab) => !tab?.name);
   }
 

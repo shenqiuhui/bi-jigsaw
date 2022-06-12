@@ -1,12 +1,12 @@
 import { List, Card, Button, Avatar, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { IDashboardItem, colorList } from '@/pages/Home';
+import { DashboardType, colorList } from '@/pages/Home';
 
 import './index.less';
 
-interface ICustomCardProps {
+interface CustomCardProps {
   loading: boolean;
-  dataSource: IDashboardItem[];
+  dataSource: DashboardType[];
   highlightRender?: (text: string) => React.ReactElement | string;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
@@ -26,10 +26,10 @@ const grid = {
   xxl: 5
 };
 
-const CustomCard: React.FC<ICustomCardProps> = (props) => {
+const CustomCard: React.FC<CustomCardProps> = (props) => {
   const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
 
-  const renderItem = (item: IDashboardItem, index: number) => (
+  const renderItem = (item: DashboardType, index: number) => (
     <Item>
       <Card
         size="small"

@@ -1,21 +1,21 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import { Form, Input, Checkbox, Radio, Select, message } from 'antd';
 import { debounce } from 'lodash';
-import { Settings, IDataSetting } from '@/core/render-engine/types';
+import { SettingType, DataSettingType } from '@/core/render-engine';
 import RangeValues from './RangeValues';
 import LabelRender from '../LabelRender';
 import ItemGroup from '../ItemGroup';
 
 import './index.less';
 
-interface IComplexSettingFormProps {
-  fields?: IDataSetting[];
-  styleSetting: Settings['style'];
+interface ComplexSettingFormProps {
+  fields?: DataSettingType[];
+  styleSetting: SettingType['style'];
   type?: string;
-  onStyleSettingChange?: ((dataSettings: Settings['style']) => void) | undefined;
+  onStyleSettingChange?: ((dataSettings: SettingType['style']) => void) | undefined;
 }
 
-interface IWidgetNames {
+interface WidgetNamesType {
   [key: string]: string;
 }
 
@@ -55,13 +55,13 @@ const axisDes = [
   }
 ];
 
-const widgetNames: IWidgetNames = {
+const widgetNames: WidgetNamesType = {
   line: '折线图',
   bar: '柱状图',
   complex: '组合图'
 };
 
-const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
+const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
   const { type = '', fields = [], styleSetting, onStyleSettingChange } = props;
 
   const [form] = useForm();
@@ -232,4 +232,4 @@ const ComplexSettingFormProps: React.FC<IComplexSettingFormProps> = (props) => {
   );
 }
 
-export default ComplexSettingFormProps;
+export default ComplexSettingForm;

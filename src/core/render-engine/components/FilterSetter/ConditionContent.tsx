@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import { Empty } from 'antd';
 import ConditionInfo from './ConditionInfo';
-import { IWidget, IListRecord, DefaultValueType } from '../../types';
+import { WidgetType, ListRecordType, DefaultValueType } from '../../types';
 
-interface IConditionContentProps {
-  data: IListRecord[];
+interface ConditionContentProps {
+  data: ListRecordType[];
   activeId: string;
-  widgets?: IWidget[];
+  widgets?: WidgetType[];
   onClear?: (id: string) => void;
   onFieldChange?: (id: string, widgetId: string, planId: number, field: string) => void;
   onCheckedWidgetsChange?: (id: string, keys: React.Key[]) => void;
@@ -17,7 +17,7 @@ interface IConditionContentProps {
   onPresetShortcutsChange?: (id: string, value: React.Key[]) => void;
 }
 
-const ConditionContent: React.FC<IConditionContentProps> = memo((props) => {
+const ConditionContent: React.FC<ConditionContentProps> = memo((props) => {
   const { data, ...otherProps } = props;
 
   return (

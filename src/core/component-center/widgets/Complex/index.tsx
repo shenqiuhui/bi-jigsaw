@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Settings } from '@/core/render-engine/types';
+import { SettingType } from '@/core/render-engine';
 import ChartWidget from '../../common/ChartWidget';
-import { IComplexWidgetProps, ShowType, LegendType } from '../types';
+import { ComplexWidgetProps, ShowType, LegendType } from '../types';
 
 const showTypeMap = {
   '1': { type: 'line' },
@@ -16,10 +16,10 @@ const legendMap = {
   left: { left: 0 }
 };
 
-const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
+const ComplexWidget: React.FC<ComplexWidgetProps> = memo((props) => {
   const { settings } = props;
 
-  const seriesBuilder = (settings: Settings) => {
+  const seriesBuilder = (settings: SettingType) => {
     return settings?.data?.indicators?.map((indicator) => {
       const result = showTypeMap[indicator?.showType as ShowType];
 
@@ -31,7 +31,7 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
     });
   }
 
-  const xAxisBuilder = (settings: Settings) => {
+  const xAxisBuilder = (settings: SettingType) => {
     return {
       name: settings?.style?.xAxis?.title,
       boundaryGap: true,
@@ -39,7 +39,7 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
     };
   }
 
-  const yAxisBuilder = (settings: Settings) => {
+  const yAxisBuilder = (settings: SettingType) => {
     const yAxisAll = [
       {
         position: 'left',
@@ -60,7 +60,7 @@ const ComplexWidget: React.FC<IComplexWidgetProps> = memo((props) => {
     return settings?.style?.yAxisAll ? yAxisAll : yAxisAll?.slice(0, 1);
   }
 
-  const legendBuilder = (settings: Settings) => {
+  const legendBuilder = (settings: SettingType) => {
     return legendMap[settings?.style?.legend as LegendType];
   }
 

@@ -12,4 +12,5 @@ const store = configureStore({
   },
 });
 
+export * from './types';
 export default store;

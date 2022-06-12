@@ -1,17 +1,16 @@
 import React, { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
 import { find } from 'lodash'
-import classNames from 'classnames';
-import Register, { widgetMap, filterComponentMap, selectDataSource } from '@/core/register';
+import { useComponent } from '@/core/register';
 import Connective from './Connective';
 import FieldCell from './FieldCell';
 import { dynamicEnumList, presetShortcutEnumList } from './config';
-import { IWidget, IListRecord, DefaultValueType } from '../../types';
+import { WidgetType, ListRecordType, DefaultValueType } from '../../types';
 
-interface IConditionInfoProps {
-  data: IListRecord;
+interface ConditionInfoProps {
+  data: ListRecordType;
   activeId: string;
-  widgets?: IWidget[];
+  widgets?: WidgetType[];
   onClear?: (id: string) => void;
   onFieldChange?: (id: string, widgetId: string, planId: number, field: string) => void;
   onCheckedWidgetsChange?: (id: string, keys: React.Key[]) => void;
@@ -23,7 +22,6 @@ interface IConditionInfoProps {
 }
 
 const { Item } = Form;
-const { hasComponent } = Register;
 const { Group } = Radio;
 
 const formLayout = {
@@ -31,7 +29,7 @@ const formLayout = {
   wrapperCol: { span: 19 }
 };
 
-const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
+const ConditionInfo: React.FC<ConditionInfoProps> = memo((props) => {
   const {
     data,
     activeId,
@@ -46,12 +44,19 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
     onPresetShortcutsChange
   } = props;
 
+  const [
+    { filters: filterComponentMap, widgets: widgetMap },
+    { hasComponent, generateEnumListByComponent }
+  ] = useComponent();
+
+  const selectDataSource = generateEnumListByComponent('filters');
+
   const [type, setType] = useState(data?.filterItemType as string);
 
   // 展平 widgets 去除 tabs 类型组件
-  const flatWidgets = useCallback((widgets: IWidget[] = [], result: IWidget[] = []) => {
+  const flatWidgets = useCallback((widgets: WidgetType[] = [], result: WidgetType[] = []) => {
     for (let i = 0; i < widgets?.length; i++) {
-      const outerWidget: IWidget = widgets[i];
+      const outerWidget: WidgetType = widgets[i];
 
       if (!widgetMap?.[outerWidget?.type]?.showInFilter) {
         continue;
@@ -122,7 +127,7 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
     onPresetShortcutsChange?.(data?.id, value);
   }
 
-  const tableDataSource = useMemo<IWidget[]>(() => {
+  const tableDataSource = useMemo<WidgetType[]>(() => {
     return flatWidgets(widgets);
   }, [flatWidgets, widgets]);
 
@@ -132,7 +137,7 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
       dataIndex: 'setting.style.title.',
       width: 100,
       ellipsis: true,
-      render: (_text: string, record: IWidget) => {
+      render: (_text: string, record: WidgetType) => {
         return (
           <Tooltip
             placement="topLeft"
@@ -148,7 +153,7 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
       dataIndex: 'settings.data.planName',
       width: 140,
       ellipsis: true,
-      render: (_text: string, record: IWidget) => {
+      render: (_text: string, record: WidgetType) => {
         return (
           <Tooltip
             placement="topLeft"
@@ -162,7 +167,7 @@ const ConditionInfo: React.FC<IConditionInfoProps> = memo((props) => {
     {
       title: '字段',
       dataIndex: 'address',
-      render: (_text: string, record: IWidget) => {
+      render: (_text: string, record: WidgetType) => {
         const field = find(data?.widgetFieldList, ['widgetId', record?.id])?.field;
         return (
           <FieldCell

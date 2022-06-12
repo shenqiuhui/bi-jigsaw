@@ -1,14 +1,16 @@
 import './index.less'
 
-interface ILabelRenderProps {
+interface LabelRenderProps {
   name: string;
 }
 
-const LabelRender: React.FC<ILabelRenderProps> = (props) => {
+const LabelRender: React.FC<LabelRenderProps> = (props) => {
   const { name } = props;
 
   return (
-    <span className="item-color">{name}</span>
+    <span className="item-color">
+      {name}
+    </span>
   );
 }
 

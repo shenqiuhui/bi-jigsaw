@@ -1,49 +1,49 @@
 import { memo, useState, useEffect, useCallback, useRef } from 'react';
 import { Spin } from 'antd';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { pick, cloneDeep, isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { getPageConfig } from '@/service/apis/dashboard';
-import { renderEngine } from '@/core/render-engine';
 import { setDashboardConfig } from '@/store/slices/dashboard';
-import { IRootState } from '@/store/types';
-import Setter from './components/Setter';
 import {
-  Settings,
-  IPageSetting,
-  IWidget,
-  ITab,
-  IPageConfig,
-  IGridRef,
-  IDashboardParams
-} from '@/core/render-engine/types';
+  renderEngine,
+  SettingType,
+  PageSettingType,
+  WidgetType,
+  TabType,
+  PageConfigType,
+  GridRefType,
+  DashboardParamsType
+} from '@/core/render-engine';
+import { RootStateType } from '@/store';
+import Setter from './components/Setter';
 
 import './index.less';
 
-interface IEditorProps {};
+interface EditorProps {};
 
-const Editor: React.FC<IEditorProps> = memo(() => {
-  const { pageId } = useParams<IDashboardParams>();
+const Editor: React.FC<EditorProps> = memo(() => {
+  const { pageId } = useParams<DashboardParamsType>();
 
   const dispatch = useDispatch();
-  const dashboardState = useSelector((state: IRootState) => state.dashboard);
+  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
 
   const { pageConfig, pageStatus } = dashboardState;
 
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState('page');
-  const [settings, setSettings] = useState<Settings>({});
+  const [settings, setSettings] = useState<SettingType>({});
   const [selectedWidgetId, setSelectWidgetId] = useState<string | null>(null);
 
-  const renderEngineRef = useRef<IGridRef>(null);
+  const renderEngineRef = useRef<GridRefType>(null);
 
   const handleFilterConfigSubmit = () => {
     return fetchPageConfig();
   }
 
   // 选中图表组件切换设置
-  const handleWidgetSelect = (id: string | null, type: string, settings: Settings) => {
+  const handleWidgetSelect = (id: string | null, type: string, settings: SettingType) => {
     setType(type);
     setSelectWidgetId(id);
     setSettings(settings);
@@ -53,13 +53,13 @@ const Editor: React.FC<IEditorProps> = memo(() => {
   const replaceWidgets = (
     id: string,
     settingType: string,
-    settings: Settings['data'] | Settings['style'],
-    widgetsSource: IWidget[],
+    settings: SettingType['data'] | SettingType['style'],
+    widgetsSource: WidgetType[],
   ) => {
     const widgets = cloneDeep(widgetsSource);
 
     for (let i = 0; i < widgets?.length; i++) {
-      const outerWidget: IWidget = widgets[i];
+      const outerWidget: WidgetType = widgets[i];
       const tabs = outerWidget?.tabs || [];
 
       if (outerWidget?.type === 'tabs' && tabs?.length > 0) {
@@ -81,11 +81,11 @@ const Editor: React.FC<IEditorProps> = memo(() => {
 
           const tabsMap = tabs?.reduce((map, tab) => {
             return (map.set(tab.key, tab), map);
-          }, new Map<string, ITab>());
+          }, new Map<string, TabType>());
 
           const settingTabMap = settingTabs?.reduce((map, tab) => {
             return (map.set(tab.key, tab), map);
-          }, new Map<string, ITab>());
+          }, new Map<string, TabType>());
 
           // 处理新增和更新
           for (let m = 0; m < settingTabs?.length; m++) {
@@ -116,27 +116,27 @@ const Editor: React.FC<IEditorProps> = memo(() => {
   }
 
   // 用于更新页面配置
-  const handlePageSettingChange = (pageSettings: IPageSetting) => {
+  const handlePageSettingChange = (pageSettings: PageSettingType) => {
     dispatch(setDashboardConfig({ ...pageConfig, ...pageSettings }));
-    setSettings(pageSettings as unknown as Settings);
+    setSettings(pageSettings as unknown as SettingType);
   }
 
   // 用于更新组件数据配置
-  const handleDataSettingChange = (dataSettings: Settings['data']) => {
+  const handleDataSettingChange = (dataSettings: SettingType['data']) => {
     const widgets = replaceWidgets(selectedWidgetId as string, 'data', dataSettings, pageConfig.widgets);
     dispatch(setDashboardConfig({ ...pageConfig, widgets }));
     setSettings((settings) => ({ ...settings, data: dataSettings }));
   }
 
   // 用于更新组件样式配置
-  const handleStyleSettingChange = (styleSettings: Settings['style']) => {
+  const handleStyleSettingChange = (styleSettings: SettingType['style']) => {
     const widgets = replaceWidgets(selectedWidgetId as string, 'style', styleSettings, pageConfig.widgets);
     dispatch(setDashboardConfig({ ...pageConfig, widgets }));
     setSettings((settings) => ({ ...settings, style: styleSettings }));
   }
 
   // 更新组件集合
-  const handleWidgetsUpdate = (widgets: IWidget[], action: string = 'add', updateData: boolean = true) => {
+  const handleWidgetsUpdate = (widgets: WidgetType[], action: string = 'add', updateData: boolean = true) => {
     if (action === 'delete') {
       handlePageSelected();
     }
@@ -145,13 +145,13 @@ const Editor: React.FC<IEditorProps> = memo(() => {
   }
 
   // 页面配置数据更新
-  const handlePageConfigUpdate = (config: IPageConfig) => {
+  const handlePageConfigUpdate = (config: PageConfigType) => {
     dispatch(setDashboardConfig(config));
   }
 
   // 选中页面设置
   const handlePageSelected = () => {
-    handleWidgetSelect(null, 'page', pick(pageConfig, ['name', 'description', 'theme']) as Settings);
+    handleWidgetSelect(null, 'page', pick(pageConfig, ['name', 'description', 'theme']) as SettingType);
   }
 
   // 获取页面配置数据
@@ -171,7 +171,7 @@ const Editor: React.FC<IEditorProps> = memo(() => {
 
   useEffect(() => {
     if (!selectedWidgetId) {
-      handleWidgetSelect(null, 'page', pick(pageConfig, ['name', 'description', 'theme']) as Settings);
+      handleWidgetSelect(null, 'page', pick(pageConfig, ['name', 'description', 'theme']) as SettingType);
     }
   }, [pageConfig, selectedWidgetId]);
 

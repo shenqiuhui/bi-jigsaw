@@ -2,12 +2,12 @@ import { forwardRef, useState, useRef, useLayoutEffect } from 'react';
 import { Tooltip } from 'antd';
 import { TableOutlined } from '@ant-design/icons';
 import { IconFont } from '@/assets/iconfont';
-import { IDataSetting, IDragItem } from '@/core/render-engine/types';
+import { DataSettingType, DragType } from '@/core/render-engine';
 
 import './index.less';
 
-interface IFieldItemProps {
-  item: IDragItem | IDataSetting;
+interface FieldItemProps {
+  item: DragType | DataSettingType;
   className?: string;
   isDragging?: boolean;
   showAggregatefunc?: boolean;
@@ -16,7 +16,7 @@ interface IFieldItemProps {
   onDelete?: (field: string) => void;
 }
 
-const FieldItem = forwardRef<any, IFieldItemProps>((props, ref) => {
+const FieldItem = forwardRef<any, FieldItemProps>((props, ref) => {
   const {
     item,
     className,
@@ -27,7 +27,7 @@ const FieldItem = forwardRef<any, IFieldItemProps>((props, ref) => {
     ...otherProps
   } = props;
 
-  const { rename, name, aggregatefunc } = item as IDataSetting;
+  const { rename, name, aggregatefunc } = item as DataSettingType;
 
   const [isEllipsis, setIsEllipsis] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);

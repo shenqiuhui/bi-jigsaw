@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined } from '@ant-design/icons';
 import { getUserInfo } from '@/service/apis/home';
 import { setUserInfo } from '@/store/slices/user';
-import { IRootState } from '@/store/types';
+import { RootStateType } from '@/store';
 
 import './index.less';
 
@@ -14,7 +14,7 @@ const { Header, Content } = Layout;
 const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: IRootState) => state.user);
+  const userInfo = useSelector((state: RootStateType) => state.user);
 
   const fetchUserInfo = async () => {
     try {

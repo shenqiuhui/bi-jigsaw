@@ -3,7 +3,7 @@ import { Form } from 'antd';
 
 import './index.less';
 
-interface IItemGroupProps {
+interface ItemGroupProps {
   label?: string | React.ReactNode;
   padding?: number | number[];
   children?: React.ReactNode;
@@ -12,7 +12,7 @@ interface IItemGroupProps {
 
 const { Item } = Form;
 
-const ItemGroup: React.FC<IItemGroupProps> = (props) => {
+const ItemGroup: React.FC<ItemGroupProps> = (props) => {
   const { label, padding = 12, children, extra, ...otherProps } = props;
 
   const paddingStyle = useMemo(() => {

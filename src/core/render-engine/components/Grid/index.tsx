@@ -3,22 +3,23 @@ import GridLayout, { Layout, ItemCallback } from 'react-grid-layout';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash'
 import classNames from 'classnames';
+import { useComponent } from '@/core/register';
 import { COLS, ROW_HEIGHT } from '@/core/render-engine';
-import Register, { widgetMap } from '@/core/register';
+import { WidgetCommonType } from '@/core/component-center/widgets';
 import WidgetContainer from '../WidgetContainer';
 import {
-  IGirdProps,
-  IWidget,
-  Settings,
-  IGridRef,
-  IWidgetContainerRef,
-  IWatchHandlers,
-  IMaskVisibleMap
+  GirdProps,
+  WidgetType,
+  SettingType,
+  GridRefType,
+  WidgetContainerRefType,
+  WatchHandlersType,
+  MaskVisibleMapType,
 } from '../../types';
 
 import './index.less';
 
-interface ITabsInfo {
+interface TabsInfo {
   [key: string]: {
     activeTab: string;
     height: number
@@ -27,9 +28,8 @@ interface ITabsInfo {
 
 const sizeInfoKeys = ['minW', 'minH', 'maxW', 'maxH', 'defaultW', 'defaultH',];
 const omitKeys = sizeInfoKeys.concat(['component']);
-const { hasComponent } = Register;
 
-const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
+const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
   const {
     inner = false,
     pageConfig,
@@ -44,24 +44,26 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
     onStyleSettingChange
   } = props;
 
-  const [maskVisibleMap, setMaskVisibleMap] = useState<IMaskVisibleMap>({});
+  const [widgetMap, { hasComponent }] = useComponent('widgets');
+
+  const [maskVisibleMap, setMaskVisibleMap] = useState<MaskVisibleMapType>({});
   const [pointX, setPointX] = useState(0);
   const [pointY, setPointY] = useState(0);
   const [showWidgets, setShowWidgets] = useState(false);
   const [currentClickId, setCurrentClickId] = useState('');
-  const [activeTabsInfo, setActiveTabsInfo] = useState<ITabsInfo>({});
+  const [activeTabsInfo, setActiveTabsInfo] = useState<TabsInfo>({});
 
-  const widgetContainerRef = useRef<IWatchHandlers>({});
+  const widgetContainerRef = useRef<WatchHandlersType>({});
 
   useImperativeHandle(ref, () => ({
     watchHandlers: {
       ...widgetContainerRef?.current,
-      ...(ref as React.MutableRefObject<IGridRef>)?.current?.watchHandlers
+      ...(ref as React.MutableRefObject<GridRefType>)?.current?.watchHandlers
     }
   }));
 
   // 已注册的组件
-  const existWidgets = useMemo<IWidget[]>(() => {
+  const existWidgets = useMemo<WidgetType[]>(() => {
     return widgets?.filter((widget) => hasComponent('widgets', widget?.type));
   }, [widgets]);
 
@@ -81,7 +83,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
   }
 
   // 构建组件监听事件集合
-  const setWatchInfoHandles = (widgetRef: IWidgetContainerRef) => {
+  const setWatchInfoHandles = (widgetRef: WidgetContainerRefType) => {
     if (widgetRef?.widgetId) {
       const { widgetId, handler } = widgetRef;
       widgetContainerRef.current[widgetId] = handler;
@@ -94,7 +96,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
   }
 
   // 选中组件
-  const handleWidgetSelect = (id: string, type: string, settings: Settings) => {
+  const handleWidgetSelect = (id: string, type: string, settings: SettingType) => {
     setCurrentClickId(id);
     onWidgetSelect?.(id, type, settings);
   }
@@ -193,7 +195,7 @@ const Gird = memo(forwardRef<IGridRef, IGirdProps>((props, ref) => {
           onDragStop={handleDragStop}
         >
           {existWidgets?.map((widget) => {
-            const otherProps = omit(widgetMap?.[widget?.type], omitKeys);
+            const otherProps = omit(widgetMap?.[widget?.type] as WidgetCommonType, omitKeys);
 
             const widgetContainerProps = isEdit ? {
               inner,

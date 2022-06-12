@@ -4,14 +4,14 @@ import { Empty } from 'antd';
 import { isEmpty } from 'lodash';
 import Filter from '../Filter';
 import Gird from '../Grid';
-import { IFilterForm, IRenderEngine, IGridRef } from '../../types';
+import { FilterFormType, RenderEngineType, GridRefType } from '../../types';
 
 import './index.less';
 
-interface IBoardProps extends IRenderEngine {};
-interface IBoardRefs extends IGridRef {};
+interface BoardProps extends RenderEngineType {};
+interface BoardRefs extends GridRefType {};
 
-const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
+const Board = memo(forwardRef<BoardRefs, BoardProps>((props, ref) => {
   const {
     isEdit = false,
     config,
@@ -24,16 +24,16 @@ const Board = memo(forwardRef<IBoardRefs, IBoardProps>((props, ref) => {
     ...otherProps
   } = props;
 
-  const [formValues, setFormValues] = useState<IFilterForm>({});
+  const [formValues, setFormValues] = useState<FilterFormType>({});
 
-  const handleSearch = useCallback((form: IFilterForm) => {
+  const handleSearch = useCallback((form: FilterFormType) => {
     setFormValues(form);
   }, []);
 
   useDeepCompareEffect(() => {
     const initialValues = config?.filters?.conditions?.reduce((result, { fieldValue, initialValue }) => {
       return (result[fieldValue] = initialValue, result);
-    }, {} as IFilterForm);
+    }, {} as FilterFormType);
 
     setFormValues(initialValues);
   }, [config?.filters?.conditions]);

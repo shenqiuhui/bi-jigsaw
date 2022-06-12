@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { List, Button, Space, Avatar } from 'antd';
 import classNames from 'classnames';
-import { IDashboardItem, colorList } from '@/pages/Home';
+import { DashboardType, colorList } from '@/pages/Home';
 
 import './index.less';
 
-interface ICustomListProps {
+interface CustomListProps {
   loading: boolean;
-  dataSource: IDashboardItem[];
+  dataSource: DashboardType[];
   highlightRender?: (text: string) => React.ReactElement | string;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
@@ -17,7 +17,7 @@ interface ICustomListProps {
 const { Item } = List;
 const { Meta } = Item;
 
-const CustomList: React.FC<ICustomListProps> = (props) => {
+const CustomList: React.FC<CustomListProps> = (props) => {
   const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
   const [page, setPage] = useState(1);
 
@@ -25,7 +25,7 @@ const CustomList: React.FC<ICustomListProps> = (props) => {
     setPage(page);
   }
 
-  const renderItem = (item: IDashboardItem, index: number) => (
+  const renderItem = (item: DashboardType, index: number) => (
     <Item
       actions={[
         <Button

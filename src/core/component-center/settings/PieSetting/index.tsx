@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import DataSetting from '../../common/DataSetting';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
-import { IPieSettingProps } from '../types';
+import { PieSettingProps } from '../types';
 
 import './index.less';
 
@@ -18,7 +18,7 @@ const settingDes = [
   { type: 'filters', title: '过滤项' }
 ];
 
-const PieSetting: React.FC<IPieSettingProps> = (props) => {
+const PieSetting: React.FC<PieSettingProps> = (props) => {
   const {
     type,
     activeTab,

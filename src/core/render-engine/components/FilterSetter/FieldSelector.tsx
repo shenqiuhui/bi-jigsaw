@@ -2,20 +2,20 @@ import { memo, useState, useEffect, useMemo } from 'react';
 import { Select, Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import { getFieldList } from '@/service/apis/dashboard';
-import { IFieldData } from '../../types';
+import { FieldDataType } from '../../types';
 
-interface IFieldSelectorProps {
+interface FieldSelectorProps {
   value: string;
   planId: number;
   onSave: (value: string) => void;
 }
 
-const FieldSelector: React.FC<IFieldSelectorProps> = memo((props) => {
+const FieldSelector: React.FC<FieldSelectorProps> = memo((props) => {
   const { value, planId, onSave } = props;
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [fields, setFields] = useState<IFieldData[]>([]);
+  const [fields, setFields] = useState<FieldDataType[]>([]);
   const [curField, setCurField] = useState(value);
 
   const fieldsOptions = useMemo(() => {

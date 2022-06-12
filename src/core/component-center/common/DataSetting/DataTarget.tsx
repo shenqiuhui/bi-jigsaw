@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { IFieldData, IDataSetting, IDragItem } from '@/core/render-engine/types';
+import { FieldDataType, DataSettingType, DragType } from '@/core/render-engine';
 import FieldItem from './FieldItem';
 import FieldSetter from './FieldSetter';
 
 import './index.less';
 
-interface IDataTargetProps {
+interface DataTargetProps {
   type: string;
   title: string;
   droppableId: string;
   planId: number;
-  data: IDataSetting[];
-  fields: IFieldData[];
+  data: DataSettingType[];
+  fields: FieldDataType[];
   onDelete?: (field: string, droppableId: string) => void;
-  onFieldInfoSave?: (field: IDataSetting | IDragItem, droppableId: string, index: number) => void;
+  onFieldInfoSave?: (field: DataSettingType | DragType, droppableId: string, index: number) => void;
 }
 
-const DataTarget: React.FC<IDataTargetProps> = (props) => {
+const DataTarget: React.FC<DataTargetProps> = (props) => {
   const {
     type,
     title,
@@ -31,7 +31,7 @@ const DataTarget: React.FC<IDataTargetProps> = (props) => {
 
   const [visible, setVisible] = useState(false);
   const [curIndex, setCurIndex] = useState(0);
-  const [curField, setCurField] = useState<IDataSetting | IDragItem>({} as (IDataSetting | IDragItem));
+  const [curField, setCurField] = useState<DataSettingType | DragType>({} as (DataSettingType | DragType));
 
   const handleFieldDelete = (field: string) => {
     onDelete?.(field, droppableId);

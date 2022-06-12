@@ -3,16 +3,16 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { ITab } from '@/core/render-engine/types';
+import { TabType } from '@/core/render-engine';
 import TabCollectionItem from './TabCollectionItem';
 
-interface ITabCollectionsProps {
-  value?: ITab[];
-  onChange?: (tabs: ITab[]) => void;
-  validateHasEditItem?: (tabList: ITab[]) => boolean;
+interface TabCollectionsProps {
+  value?: TabType[];
+  onChange?: (tabs: TabType[]) => void;
+  validateHasEditItem?: (tabList: TabType[]) => boolean;
 }
 
-const TabCollections: React.FC<ITabCollectionsProps> = (props) => {
+const TabCollections: React.FC<TabCollectionsProps> = (props) => {
   const { value: tabList, validateHasEditItem, onChange } = props;
 
   // Tabs uuid 集合，用于重复检测

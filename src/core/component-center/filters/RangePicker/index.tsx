@@ -2,23 +2,23 @@ import { useMemo, useCallback } from 'react';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
 import { rangeDatePreset } from './config';
-import { IRangePickerProps, MomentRangeType } from '../types';
+import { RangePickerProps, MomentRangeType } from '../types';
 
-interface RangeMap {
+interface RangeMapType {
   [key: string]: MomentRangeType;
 }
 
 const { RangePicker: TimeRangePicker } = TimePicker;
 const { RangePicker: DateRangePicker } = DatePicker;
 
-const RangePickerItem: React.FC<IRangePickerProps> = (props) => {
+const RangePickerItem: React.FC<RangePickerProps> = (props) => {
   const { mode = 'time', presetShortcuts = [], width, format, value, onChange } = props;
 
   const initialValue = useMemo<MomentRangeType | null>(() => {
     return value && [moment(value?.[0], format), moment(value?.[1], format)];
   }, [format, value]);
 
-  const ranges = useMemo<RangeMap>(() => {
+  const ranges = useMemo<RangeMapType>(() => {
     return presetShortcuts?.reduce((result, key) => {
       if (rangeDatePreset[key]) {
         const { name, range } = rangeDatePreset[key];
@@ -26,7 +26,7 @@ const RangePickerItem: React.FC<IRangePickerProps> = (props) => {
       }
 
       return result;
-    }, {} as RangeMap);
+    }, {} as RangeMapType);
   }, [rangeDatePreset, presetShortcuts]);
 
   const handleChange = useCallback((time, timeString) => {

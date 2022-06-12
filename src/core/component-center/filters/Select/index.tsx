@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Select } from 'antd';
 import { getFilterSelectList } from '@/service/apis/dashboard';
-import { IOption, IWidgetField } from '@/core/render-engine/types';
-import { ISelectProps } from '../types';
+import { OptionType, WidgetFieldType } from '@/core/render-engine';
+import { SelectProps } from '../types';
 
-const SelectItem: React.FC<ISelectProps> = (props) => {
+const SelectItem: React.FC<SelectProps> = (props) => {
   const {
     api,
     method,
@@ -16,9 +16,9 @@ const SelectItem: React.FC<ISelectProps> = (props) => {
   } = props;
 
   const [loading, setLoading] = useState(false);
-  const [options, setOptions] = useState<IOption[]>([]);
+  const [options, setOptions] = useState<OptionType[]>([]);
 
-  const filterWidgetFieldList = useMemo<IWidgetField[]>(() => {
+  const filterWidgetFieldList = useMemo<WidgetFieldType[]>(() => {
     return widgetFieldList?.filter((item) => checkedWidgets?.includes(item?.widgetId) && item?.field);
   }, [widgetFieldList, checkedWidgets]);
 

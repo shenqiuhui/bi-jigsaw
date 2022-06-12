@@ -2,12 +2,12 @@ import { memo } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { PlusOutlined } from '@ant-design/icons';
 import ConditionMenuItem from './ConditionMenuItem';
-import { IListRecord } from '../../types';
+import { ListRecordType } from '../../types';
 
 import './index.less';
 
-interface IConditionMenuListProps {
-  data: IListRecord[];
+interface ConditionMenuListProps {
+  data: ListRecordType[];
   activeId: string;
   onAdd?: () => void;
   onEditConfirm?: (id: string, value: string) => void;
@@ -18,7 +18,7 @@ interface IConditionMenuListProps {
   onReorder?: (startIndex: number, endIndex: number) => void;
 }
 
-const ConditionMenuList: React.FC<IConditionMenuListProps> = memo((props) => {
+const ConditionMenuList: React.FC<ConditionMenuListProps> = memo((props) => {
   const { data, activeId, onAdd, onReorder, ...otherProps } = props;
 
   const handleDragEnd = (result: DropResult) => {

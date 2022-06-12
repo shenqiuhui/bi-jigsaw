@@ -3,13 +3,13 @@ import classNames from 'classnames';
 
 import './index.less';
 
-interface ICustomTabsProps {
+interface CustomTabsProps {
   id: string;
   tabProps: any;
   onActiveKeyChange: (key: string) => void;
 }
 
-const CustomTabs: React.FC<ICustomTabsProps> = (props) => {
+const CustomTabs: React.FC<CustomTabsProps> = (props) => {
   const { id, tabProps, onActiveKeyChange } = props;
   const { panes, extra, activeKey, position } = tabProps;
 

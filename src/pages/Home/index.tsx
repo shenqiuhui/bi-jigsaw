@@ -4,18 +4,18 @@ import { debounce } from 'lodash';
 import { Card, Button, Select, Input, Collapse, Radio, RadioChangeEvent } from 'antd';
 import { SearchOutlined, AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
-import { IOption } from '@/core/render-engine/types';
+import { OptionType } from '@/core/render-engine';
 import CustomCard from './components/CustomCard';
 import CustomList from './components/CustomList';
 
 import './index.less';
 
-interface ISpaceItem {
+interface SpaceType {
   spaceId: string;
   spaceName: string;
 }
 
-export interface IDashboardItem {
+export interface DashboardType {
   id: string;
   name: string;
   spaceId: string;
@@ -34,13 +34,13 @@ const { Panel } = Collapse;
 const Home = () => {
   const [keyword, setKeyword] = useState('');
   const [mode, setMode] = useState('card');
-  const [spaceList, setSpaceList] = useState<ISpaceItem[]>([]);
+  const [spaceList, setSpaceList] = useState<SpaceType[]>([]);
   const [spaceId, setSpaceId] = useState('all');
-  const [dashboardList, setDashboardList] = useState<IDashboardItem[]>([]);
-  const [dataSource, setDataSource] = useState<IDashboardItem[]>([]);
+  const [dashboardList, setDashboardList] = useState<DashboardType[]>([]);
+  const [dataSource, setDataSource] = useState<DashboardType[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const spaceOptions = useMemo<IOption[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
+  const spaceOptions = useMemo<OptionType[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
     value: spaceId,
     label: spaceName
   }), memo), [{
@@ -72,7 +72,7 @@ const Home = () => {
   }
 
   // 过滤函数
-  const dashboardListFilter = (keyword: string, list: IDashboardItem[]) => {
+  const dashboardListFilter = (keyword: string, list: DashboardType[]) => {
     const filterList = list?.filter((dashboard) => dashboard?.name?.includes(keyword));
     setDataSource(filterList);
     setLoading(false);

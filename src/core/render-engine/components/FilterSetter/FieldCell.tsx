@@ -5,7 +5,7 @@ import FieldSelector from './FieldSelector';
 
 import './index.less';
 
-interface IFieldCellProps {
+interface FieldCellProps {
   value: string;
   planId: number;
   onChange: (value: string) => void;
@@ -13,7 +13,7 @@ interface IFieldCellProps {
 
 const { Group } = Input;
 
-const FieldCell: React.FC<IFieldCellProps> = (props) => {
+const FieldCell: React.FC<FieldCellProps> = (props) => {
   const { value, planId, onChange } = props;
   const [isEdit, setIsEdit] = useState(false);
 

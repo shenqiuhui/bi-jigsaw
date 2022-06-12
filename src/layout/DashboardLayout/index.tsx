@@ -7,14 +7,13 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import { IconFont } from '@/assets/iconfont';
-import { widgetMap, widgetButtons, widgetConfig } from '@/core/register';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/apis/dashboard';
+import { useComponent, useConfig, WidgetButtonType } from '@/core/register';
+import { AuthHOC, DashboardParamsType, CoordinateType, WidgetType, TabType } from '@/core/render-engine';
+import { PlanDataType } from '@/core/component-center/settings'
 import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboard';
-import { AuthHOC } from '@/core/render-engine';
-import { IDashboardParams, ICoordinate, IWidget, ITab } from '@/core/render-engine/types';
-import { IPlanData } from '@/core/component-center/settings/types'
-import { IRootState } from '@/store/types';
+import { RootStateType } from '@/store';
 
 import './index.less';
 
@@ -28,15 +27,22 @@ const activeButtons = [
 const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
-  const { pageId } = useParams<IDashboardParams>();
+  const { pageId } = useParams<DashboardParamsType>();
   const [activeButtonValue, setActiveButtonValue] = useState('edit');
   const [saveLoading, setSaveLoading] = useState(false);
-  const [defaultPlan, setDefaultPlan] = useState<IPlanData>({} as IPlanData);
+  const [defaultPlan, setDefaultPlan] = useState<PlanDataType>({} as PlanDataType);
 
   const dispatch = useDispatch();
-  const dashboardState = useSelector((state: IRootState) => state.dashboard);
+  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
 
   const { pageConfig } = dashboardState;
+
+  const [widgetConfig] = useConfig('widgets');
+  const [widgetMap, { generateEnumListByComponent }] = useComponent('widgets');
+  const widgetButtons: WidgetButtonType[] = generateEnumListByComponent('widgets', {
+    fieldKey: 'type',
+    fieldName: 'name'
+  });
 
   // 过滤器 uuid 集合，用于重复检测
   const uuidMaps = useMemo(() => {
@@ -44,11 +50,11 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   }, [pageConfig?.widgets]);
 
   // 更改保存状态
-  const deleteNewWidgetStatus = (widgetSource: IWidget[]) => {
+  const deleteNewWidgetStatus = (widgetSource: WidgetType[]) => {
     const widgets = cloneDeep(widgetSource);
 
     for (let i = 0; i < widgets?.length; i++) {
-      const outerWidget: IWidget = widgets[i];
+      const outerWidget: WidgetType = widgets[i];
       const tabs = outerWidget?.tabs || [];
 
       if (outerWidget?.type === 'tabs' && tabs?.length > 0) {
@@ -80,14 +86,14 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   }
 
   // 计算新增组件坐标
-  const computedCoordinate = (id: string, type: string, widgets: IWidget[]) => {
+  const computedCoordinate = (id: string, type: string, widgets: WidgetType[]) => {
     const coordinate = {
       i: id,
       x: 0,
       y: 0,
       w: widgetMap?.[type]?.defaultW,
       h: widgetMap?.[type]?.defaultH
-    } as ICoordinate;
+    } as CoordinateType;
 
     let maxY = 0;
     let maxH = 0;
@@ -152,22 +158,22 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
           }
         });
       } else {
-        const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab: ITab) => {
+        const tabsInStyle = widgetConfig?.[type]?.settings?.style?.tabs?.map((tab: TabType) => {
           const key = uuidv4();
           return { ...tab, key };
         });
 
-        const tabsInWidget = tabsInStyle?.map((tab: ITab) => ({ ...tab, widgets: []}));
+        const tabsInWidget = tabsInStyle?.map((tab: TabType) => ({ ...tab, widgets: []}));
 
         widgets?.push({
           id: uuid,
           coordinate,
           ...widgetConfig?.[type],
-          tabs: tabsInWidget as ITab[],
+          tabs: tabsInWidget as TabType[],
           settings: {
             style: {
               ...widgetConfig?.[type]?.settings?.style,
-              tabs: tabsInStyle as ITab[]
+              tabs: tabsInStyle as TabType[]
             }
           }
         });
@@ -261,8 +267,8 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
               {activeButtonValue === 'edit' && (
                 <ul className="dashboard-tabs">
                   {widgetButtons?.map((item) => (
-                    <Tooltip key={item.type} title={item?.name}>
-                      <li onClick={() => handleAddWidget(item.type)}>
+                    <Tooltip key={item?.type} title={item?.name}>
+                      <li onClick={() => handleAddWidget(item?.type)}>
                         <IconFont
                           className="widget-add-button"
                           type={`icon-widget-${item?.type}`}

@@ -3,7 +3,7 @@ import { message } from 'antd';
 import classNames from 'classnames';
 import DataSetting from '../../common/DataSetting';
 import ComplexSettingForm from '../../common/ComplexSettingForm';
-import { ILineSettingProps } from '../types';
+import { LineSettingProps } from '../types';
 
 import './index.less';
 
@@ -14,7 +14,7 @@ const settingDes = [
   { type: 'filters', title: '过滤项' }
 ];
 
-const LineSetting: React.FC<ILineSettingProps> = (props) => {
+const LineSetting: React.FC<LineSettingProps> = (props) => {
   const {
     type,
     activeTab,

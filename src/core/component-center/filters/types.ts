@@ -1,11 +1,12 @@
-import { IFilterCondition, IOption, IWidgetField } from '@/core/render-engine/types';
+import { FilterConditionType, OptionType, WidgetFieldType, DefaultValueType } from '@/core/render-engine';
+import { RegisterBaseType } from '@/core/register';
 
-export interface ISelectProps extends IFilterCondition {
+export interface SelectProps extends FilterConditionType {
   pageId: string;
   api: string;
   method: 'get' | 'post';
-  dataSource: IOption[];
-  widgetFieldList: IWidgetField[];
+  dataSource: OptionType[];
+  widgetFieldList: WidgetFieldType[];
   width: number | string;
   mode: 'multiple' | 'tags';
 }
@@ -16,14 +17,14 @@ export type MomentRangeType = [moment.Moment, moment.Moment];
 
 export type MomentType = moment.Moment;
 
-export interface IRangePreset {
+export interface RangePresetType {
   [key: string]: {
     name: string;
     range: MomentRangeType;
   };
 }
 
-export interface IRangePickerProps extends IFilterCondition {
+export interface RangePickerProps extends FilterConditionType {
   mode: 'time' | 'date';
   presetShortcuts?: React.Key[];
   width?: number | string;
@@ -32,7 +33,7 @@ export interface IRangePickerProps extends IFilterCondition {
   onChange: (timeString: PickerRangeValueType) => void;
 }
 
-export interface IPickerProps extends IFilterCondition {
+export interface PickerProps extends FilterConditionType {
   mode: 'time' | 'date';
   width?: number | string;
   format: string;
@@ -40,13 +41,21 @@ export interface IPickerProps extends IFilterCondition {
   onChange: (timeString: string) => void;
 }
 
-export interface IInputNumberProps extends IFilterCondition {
+export interface InputNumberProps extends FilterConditionType {
   width?: number | string;
   keyboard: boolean;
 }
 
-export interface IInputProps extends IFilterCondition {
+export interface InputProps extends FilterConditionType {
   width?: number | string;
   allowClear: boolean;
   placeholder: string;
+}
+
+export interface FilterComponentType extends RegisterBaseType {
+  emptyValue: DefaultValueType;
+  hasDefaultValue: boolean;
+  props: {
+    [key: string]: any;
+  };
 }

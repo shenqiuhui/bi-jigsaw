@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import { checkUniqueName } from '@/service/apis/dashboard';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
-import { IPageSettingProps } from '../types';
+import { PageSettingProps } from '../types';
 
 import './index.less';
 
@@ -14,7 +14,7 @@ const { Item, useForm } = Form;
 const { TextArea } = Input;
 const { Group } = Radio;
 
-const PageSetting: React.FC<IPageSettingProps> = (props) => {
+const PageSetting: React.FC<PageSettingProps> = (props) => {
   const { spaceId, settings, onPageSettingChange } = props;
 
   const [form] = useForm();

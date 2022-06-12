@@ -1,6 +1,7 @@
-import { IPageSetting, Settings} from '@/core/render-engine/types';
+import { RegisterBaseType } from '@/core/register';
+import { PageSettingType, SettingType } from '@/core/render-engine';
 
-export interface ISettingDefaultProps {
+export interface SettingDefaultProps {
   hasTab: boolean;
   type: string;
   activeTab: string;
@@ -8,44 +9,48 @@ export interface ISettingDefaultProps {
   spaceId: string;
   widgetId: string;
   onWatchInfoChange?: (info: any) => void;
-  onPageSettingChange?: (pageSetting: IPageSetting) => void;
-  onDataSettingChange?: (dataSettings: Settings['data']) => void;
-  onStyleSettingChange?: (styleSettings: Settings['style']) => void;
+  onPageSettingChange?: (pageSetting: PageSettingType) => void;
+  onDataSettingChange?: (dataSettings: SettingType['data']) => void;
+  onStyleSettingChange?: (styleSettings: SettingType['style']) => void;
 }
 
-export interface IPageSettingProps extends ISettingDefaultProps {
-  settings: IPageSetting;
+export interface PageSettingProps extends SettingDefaultProps {
+  settings: PageSettingType;
 }
 
-export interface ITabsSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface TabsSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface ITableSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface TableSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface ILineSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface LineSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface IBarSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface BarSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface IPieSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface PieSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface IComplexSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface ComplexSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface ITextSettingProps extends ISettingDefaultProps {
-  settings: Settings;
+export interface TextSettingProps extends SettingDefaultProps {
+  settings: SettingType;
 }
 
-export interface IPlanData {
+export interface PlanDataType {
   planId: number;
   planName: string;
+}
+
+export interface WidgetSettingType extends RegisterBaseType {
+  hasTab: boolean;
 }

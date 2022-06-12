@@ -2,15 +2,15 @@ import { memo, forwardRef, useState, useMemo } from 'react';
 import { Tabs } from 'antd';
 import { omitBy, isNil, find, cloneDeep } from 'lodash';
 import classNames from 'classnames';
-import { IPageConfig, IWidget, IGridRef } from '@/core/render-engine/types';
+import { PageConfigType, WidgetType, GridRefType } from '@/core/render-engine';
 import CustomTabs from './CustomTabs';
-import { ITabsWidgetProps } from '../types';
+import { TabsWidgetProps } from '../types';
 
 import './index.less';
 
 const { TabPane } = Tabs;
 
-const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
+const TabsWidget = memo(forwardRef<GridRefType, TabsWidgetProps>((props, ref) => {
   const {
     pageConfig,
     isEdit,
@@ -44,7 +44,7 @@ const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
   }, [tabs, activeKey]);
 
   // 动态计算当前 Tabs 选中标签内容的真实高度
-  const computeMaxHeight = (widgets: IWidget[]) => {
+  const computeMaxHeight = (widgets: WidgetType[]) => {
     return widgets?.reduce((height, widget) => {
       if (height < widget?.coordinate?.y + widget?.coordinate?.h) {
         return widget?.coordinate?.y + widget?.coordinate?.h;
@@ -55,7 +55,7 @@ const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
   }
 
   // 计算 Tabs 最新组件全集
-  const getNewWidgets = (widgets: IWidget[]) => {
+  const getNewWidgets = (widgets: WidgetType[]) => {
     const newWidgets = cloneDeep(allWidgets);
     const maxH = computeMaxHeight(widgets);
     const tabH = maxH === 0 ? (coordinate?.minH as number) : maxH + 3;
@@ -63,7 +63,7 @@ const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
     onTabsInfoChange?.(id, currentActiveKey, tabH);
 
     for (let i = 0; i < newWidgets?.length; i++) {
-      const outerWidget: IWidget = newWidgets[i];
+      const outerWidget: WidgetType = newWidgets[i];
 
       if (id === outerWidget?.id) {
         const tabs = outerWidget?.tabs || [];
@@ -84,12 +84,12 @@ const TabsWidget = memo(forwardRef<IGridRef, ITabsWidgetProps>((props, ref) => {
   }
 
   // 更新组件配置 AOP 函数
-  const handleWidgetUpdate = (widgets: IWidget[], action: string = 'add', updateData: boolean = true) => {
+  const handleWidgetUpdate = (widgets: WidgetType[], action: string = 'add', updateData: boolean = true) => {
     onWidgetsUpdate?.(getNewWidgets(widgets), action, updateData);
   }
 
   // 更新页面配置 AOP 函数
-  const handlePageConfigUpdate = (config: IPageConfig) => {
+  const handlePageConfigUpdate = (config: PageConfigType) => {
     onPageConfigUpdate?.({ ...config, widgets: getNewWidgets(config?.widgets)});
   }
 

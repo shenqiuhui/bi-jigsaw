@@ -1,18 +1,18 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
-import { IFieldData } from '@/core/render-engine/types';
+import { FieldDataType } from '@/core/render-engine';
 import FieldItem from './FieldItem';
 
 import './index.less';
 
-interface IDataSourceProps {
-  fields: IFieldData[];
+interface DataSourceProps {
+  fields: FieldDataType[];
   activeField: string;
   onActiveFieldChange?: (field: string) => void;
   onClick?: () => void;
 }
 
-const DataSource: React.FC<IDataSourceProps> = (props) => {
+const DataSource: React.FC<DataSourceProps> = (props) => {
   const { fields, activeField, onActiveFieldChange, onClick } = props;
 
   const handleClick = () => onClick?.();

@@ -1,42 +1,42 @@
-import { IRegister } from '@/core/register/types';
+import { WidgetCommonType } from '@/core/component-center/widgets';
 
 /* 渲染引擎 */
-export interface IRenderEngine {
-  config: IPageConfig;
+export interface RenderEngineType {
+  config: PageConfigType;
   isEdit?: boolean;
-  ref?: React.MutableRefObject<IGridRef | null>;
+  ref?: React.MutableRefObject<GridRefType | null>;
   selectedWidgetId?: string | null;
   onFilterConfigSubmit?: () => void;
-  onWidgetSelect?: (id: string, type: string, settings: Settings) => void;
-  onWidgetsUpdate?: (widgets: IWidget[], action?: string, updateData?: boolean) => void;
-  onPageConfigUpdate?: (config: IPageConfig) => void;
-  onDataSettingChange?: (dataSettings: Settings['data']) => void;
-  onStyleSettingChange?: (styleSettings: Settings['style']) => void;
+  onWidgetSelect?: (id: string, type: string, settings: SettingType) => void;
+  onWidgetsUpdate?: (widgets: WidgetType[], action?: string, updateData?: boolean) => void;
+  onPageConfigUpdate?: (config: PageConfigType) => void;
+  onDataSettingChange?: (dataSettings: SettingType['data']) => void;
+  onStyleSettingChange?: (styleSettings: SettingType['style']) => void;
 }
 
 /* 监听控制器集合 */
-export interface IGridRef {
-  watchHandlers: IWatchHandlers;
+export interface GridRefType {
+  watchHandlers: WatchHandlersType;
 }
 
-export interface IWatchHandlers {
+export interface WatchHandlersType {
   [key: string]: (info: any) => void;
 }
 
 /* 过滤器 JSON Scheme */
-export interface IFilterConfig {
+export interface FilterConfigType {
   pageId: string;
-  list: IListRecord[];
+  list: ListRecordType[];
 }
 
-export interface IListRecord {
+export interface ListRecordType {
   id: string;
   name: string;
   isShow: boolean;
   filterItemType: string | null;
   defaultValue?: DefaultValueType;
   checkedWidgets: React.Key[];
-  widgetFieldList: IWidgetField[];
+  widgetFieldList: WidgetFieldType[];
   dateRangeType?: string;
   dateRangeDynamicValue?: DefaultValueType;
   presetShortcuts?: React.Key[];
@@ -45,32 +45,32 @@ export interface IListRecord {
 
 export type DefaultValueType = string | string[] | never[] | null;
 
-export interface IOption {
+export interface OptionType {
   value: string;
   label: string;
 }
 
-export interface IFieldData {
+export interface FieldDataType {
   field: string;
   fieldType: string;
   name: string;
 }
 
 /* 页面 JSON Scheme */
-export interface IPageConfig {
+export interface PageConfigType {
   pageId: string;
   spaceId: string;
   name: string;
   description: string;
   theme: string;
   filters: {
-    conditions: IFilterCondition[];
+    conditions: FilterConditionType[];
   };
-  widgets: IWidget[];
+  widgets: WidgetType[];
 }
 
-export interface IFilterCondition {
-  widgetFieldList: IWidgetField[];
+export interface FilterConditionType {
+  widgetFieldList: WidgetFieldType[];
   type: string;
   fieldValue: string;
   fieldName: string;
@@ -81,24 +81,24 @@ export interface IFilterCondition {
   };
 }
 
-export interface IWidget {
+export interface WidgetType {
   parentId?: string;
   id: string;
   newWidget?: boolean;
   parentID?: string;
   type: string;
-  coordinate: ICoordinate;
-  tabs?: ITab[];
-  settings: Settings;
+  coordinate: CoordinateType;
+  tabs?: TabType[];
+  settings: SettingType;
 }
 
-export interface IWidgetField {
+export interface WidgetFieldType {
   planId: number;
   field: string;
   widgetId: string;
 }
 
-export interface ICoordinate {
+export interface CoordinateType {
   i: string;
   x: number;
   y: number;
@@ -113,51 +113,51 @@ export interface ICoordinate {
   isResizable?: boolean;
 }
 
-export interface ITab {
+export interface TabType {
   key: string;
   name: string;
-  widgets?: IWidget[];
+  widgets?: WidgetType[];
 }
 
-export type Settings = {
-  [key: string]: SettingKeys;
+export type SettingType = {
+  [key: string]: SettingKeyType;
 };
 
-export type SettingKeys = ITabsSetting['data']
-  & ITabsSetting['style']
-  & ITableSetting['data']
-  & ITableSetting['style']
-  & IComplexSetting['data']
-  & IComplexSetting['style']
-  & IPieSetting['data']
-  & IPieSetting['style']
-  & ITextSetting['data']
-  & ITextSetting['style'];
+export type SettingKeyType = TabsSettingType['data']
+  & TabsSettingType['style']
+  & TableSettingType['data']
+  & TableSettingType['style']
+  & ComplexSettingType['data']
+  & ComplexSettingType['style']
+  & PieSettingType['data']
+  & PieSettingType['style']
+  & TextSettingType['data']
+  & TextSettingType['style'];
 
-export interface IPageSetting {
+export interface PageSettingType {
   name: string;
   description: string;
   theme: string;
 }
 
-export interface ITabsSetting {
+export interface TabsSettingType {
   data: {},
   style: {
     title?: string;
     showTitle?: boolean;
     align?: string;
-    tabs?: ITab[];
+    tabs?: TabType[];
   };
 }
 
-export interface ITableSetting {
+export interface TableSettingType {
   data: {
     planId?: number | null;
     planName?: string;
     showType?: string;
-    indicators?: IDataSetting[];
-    dimensions?: IDataSetting[];
-    filters?: IDataSetting[];
+    indicators?: DataSettingType[];
+    dimensions?: DataSettingType[];
+    filters?: DataSettingType[];
   };
   style: {
     title?: string;
@@ -166,14 +166,14 @@ export interface ITableSetting {
   }
 }
 
-export interface IComplexSetting {
+export interface ComplexSettingType {
   data: {
     planId?: number | null;
     planName?: string;
-    indicators?: IDataSetting[];
-    dimensions?: IDataSetting[];
-    legends?: IDataSetting[];
-    filters?: IDataSetting[];
+    indicators?: DataSettingType[];
+    dimensions?: DataSettingType[];
+    legends?: DataSettingType[];
+    filters?: DataSettingType[];
   };
   style: {
     title?: string;
@@ -196,13 +196,13 @@ export interface IComplexSetting {
   }
 }
 
-export interface IPieSetting {
+export interface PieSettingType {
   data: {
     planId?: number | null;
     planName?: string;
-    indicators?: IDataSetting[];
-    dimensions?: IDataSetting[];
-    filters?: IDataSetting[];
+    indicators?: DataSettingType[];
+    dimensions?: DataSettingType[];
+    filters?: DataSettingType[];
   };
   style: {
     title?: string;
@@ -214,7 +214,7 @@ export interface IPieSetting {
   };
 }
 
-export interface ITextSetting {
+export interface TextSettingType {
   data: {},
   style: {
     value?: string | null | undefined;
@@ -224,13 +224,13 @@ export interface ITextSetting {
   }
 }
 
-export interface IDragItem {
+export interface DragType {
   field: string;
   fieldType: string;
   name: string;
 }
 
-export interface IDataSetting extends IDragItem {
+export interface DataSettingType extends DragType {
   rename: string;
   align: string;
   order: string;
@@ -250,37 +250,37 @@ export interface IDataSetting extends IDragItem {
 }
 
 /* 栅格画布 */
-export interface IGirdProps {
+export interface GirdProps {
   ref?: any;
   inner?: boolean;
-  pageConfig: IPageConfig;
+  pageConfig: PageConfigType;
   isEdit: boolean;
-  widgets: IWidget[];
+  widgets: WidgetType[];
   selectedWidgetId?: string | null | undefined;
-  filterValues: IFilterForm;
-  onWidgetSelect?: ((id: string, type: string, settings: Settings) => void) | undefined;
-  onWidgetsUpdate?: ((widgets: IWidget[], action?: string, updateData?: boolean) => void) | undefined;
-  onPageConfigUpdate?: ((config: IPageConfig) => void) | undefined;
-  onDataSettingChange?: ((dataSettings: Settings['data']) => void) | undefined;
-  onStyleSettingChange?: ((styleSettings: Settings['style']) => void) | undefined;
+  filterValues: FilterFormType;
+  onWidgetSelect?: ((id: string, type: string, settings: SettingType) => void) | undefined;
+  onWidgetsUpdate?: ((widgets: WidgetType[], action?: string, updateData?: boolean) => void) | undefined;
+  onPageConfigUpdate?: ((config: PageConfigType) => void) | undefined;
+  onDataSettingChange?: ((dataSettings: SettingType['data']) => void) | undefined;
+  onStyleSettingChange?: ((styleSettings: SettingType['style']) => void) | undefined;
 }
 
-export interface IMaskVisibleMap {
+export interface MaskVisibleMapType {
   [key: string]: boolean;
 }
 
 /* 组件和组件容器 */
-export interface IWidgetMethods {
-  fetchData?: (form: IFilterForm, settings: Settings, watchInfo: any) => Promise<any>;
-  exportData?: (form: IFilterForm, settings: Settings, watchInfo: any) => Promise<any>;
-  downloadImage?: (form: IFilterForm, watchInfo: any) => void;
+export interface WidgetMethodsType {
+  fetchData?: (form: FilterFormType, settings: SettingType, watchInfo: any) => Promise<any>;
+  exportData?: (form: FilterFormType, settings: SettingType, watchInfo: any) => Promise<any>;
+  downloadImage?: (form: FilterFormType, watchInfo: any) => void;
 }
 
-export interface IFilterForm {
+export interface FilterFormType {
   [key: string]: string | string[] | number | undefined;
 }
 
-export interface IWidgetSize {
+export interface WidgetSizeType {
   minW?: number;
   minH?: number;
   maxW?: number;
@@ -289,35 +289,29 @@ export interface IWidgetSize {
   defaultH?: number;
 }
 
-export interface IWidgetCommon extends IRegister, IWidgetSize {
-  showHeader: boolean;
-  useLoading: boolean;
-  showInFilter: boolean;
-}
-
-export interface IWidgetDefaultProps extends IWidgetCommon, Omit<IWidget, 'type'> {
+export interface WidgetDefaultProps extends WidgetCommonType, Omit<WidgetType, 'type'> {
   pageId: string;
   isEdit: boolean;
   isSelected: string;
-  filterValues: IFilterForm;
+  filterValues: FilterFormType;
   api: string;
   emptyRender: (offset?: number) => React.ReactNode;
   titleRender: () => React.ReactNode;
   dropdownRender: () => React.ReactNode;
   refreshRender: () => React.ReactNode;
-  onDataSettingChange?: (dataSettings: Settings['data']) => void;
-  onStyleSettingChange?: (styleSettings: Settings['style']) => void;
+  onDataSettingChange?: (dataSettings: SettingType['data']) => void;
+  onStyleSettingChange?: (styleSettings: SettingType['style']) => void;
   onWatchInfoChange?: (info: any) => void;
-  methodsRegister?: (methods: IWidgetMethods) => void;
+  methodsRegister?: (methods: WidgetMethodsType) => void;
 }
 
-export interface IWidgetContainerRef {
+export interface WidgetContainerRefType {
   widgetId: string;
   handler: (info: any) => void;
 }
 
 /* 链接参数 */
-export interface IDashboardParams {
+export interface DashboardParamsType {
   pageId: string;
   spaceId: string;
 };

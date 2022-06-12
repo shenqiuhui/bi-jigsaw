@@ -1,12 +1,12 @@
 import React from 'react';
 import { values } from 'lodash';
-import { IComponentMap, IConfigMap, IFieldSet, IPathOptions } from './types';
+import { ComponentMapType, ConfigMapType, FieldSetType, PathOptionsType, RegisterOptionsType } from '../types';
 
-const componentMap: IComponentMap = {};
-const configMap: IConfigMap = {};
+const componentMap: ComponentMapType = {};
+const configMap: ConfigMapType = {};
 
 // 删除项
-const deleteInfo = (map: IComponentMap | IConfigMap, namespace?: string, type?: string) => {
+const deleteInfo = (map: ComponentMapType | ConfigMapType, namespace?: string, type?: string) => {
   if (namespace && type) {
     delete map[namespace][type];
   }
@@ -24,9 +24,9 @@ const deleteInfo = (map: IComponentMap | IConfigMap, namespace?: string, type?: 
 
 // 生成枚举值列表
 const generateEnumList = <T extends {}>(
-  map: IComponentMap | IConfigMap,
+  map: ComponentMapType,
   namespace: string,
-  fieldSet: IFieldSet
+  fieldSet: FieldSetType
 ): T[] => {
   return values(map[namespace])?.map(({type, name}) => {
     return {
@@ -49,7 +49,7 @@ const hasConfig = (namespace: string, type: string) => {
 // 注册组件
 const componentRegister = <T, K extends {}>(
   Component: React.ComponentType<K>,
-  pathOptions: IPathOptions,
+  pathOptions: PathOptionsType,
   others: T
 ) => {
   const { namespace, type, name } = pathOptions;
@@ -81,7 +81,7 @@ const componentRegister = <T, K extends {}>(
 }
 
 // 注册配置
-const configRegister = <T extends {}>(pathOptions: IPathOptions, config: T) => {
+const configRegister = <T extends {}>(pathOptions: PathOptionsType, config: T) => {
   const { namespace, type, name } = pathOptions;
 
   if (!(namespace && type && name)) {
@@ -125,7 +125,7 @@ const getConfig = (namespace: string) => {
 }
 
 // 根据组件生成枚举值列表
-const generateEnumListByComponent = <T extends {}>(namespace: string, fieldSet: IFieldSet = {
+const generateEnumListByComponent = <T extends {}>(namespace: string, fieldSet: FieldSetType = {
   fieldKey: 'value',
   fieldName: 'label'
 }): T[] => {
@@ -133,11 +133,21 @@ const generateEnumListByComponent = <T extends {}>(namespace: string, fieldSet: 
 }
 
 // 根据配置生成枚举值列表
-const generateEnumListByConfig = <T extends {}>(namespace: string, fieldSet: IFieldSet = {
+const generateEnumListByConfig = <T extends {}>(namespace: string, fieldSet: FieldSetType = {
   fieldKey: 'value',
   fieldName: 'label'
 }): T[] => {
   return generateEnumList<T>(configMap, namespace, fieldSet);
+}
+
+export const init = (options: RegisterOptionsType) => {
+  options?.config?.forEach((register) => register?.(Register));
+  options?.component?.forEach((register) => register?.(Register));
+
+  return {
+    config: configMap,
+    component: componentMap
+  };
 }
 
 const Register = {
@@ -150,7 +160,8 @@ const Register = {
   getComponents,
   getConfig,
   generateEnumListByComponent,
-  generateEnumListByConfig
+  generateEnumListByConfig,
+  init
 };
 
 export default Register;

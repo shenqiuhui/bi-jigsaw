@@ -1,48 +1,49 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Select, Input, Radio, message } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { findIndex, omit, cloneDeep } from 'lodash';
-import { dataSettingConfig } from '@/core/register';
+import { SearchOutlined } from '@ant-design/icons';
 import { getFieldList, getPlanList } from '@/service/apis/dashboard';
-import { Settings, IDragItem, IDataSetting, IOption } from '@/core/render-engine/types';
+import { useConfig } from '@/core/register';
+import { SettingType, DragType, DataSettingType, OptionType } from '@/core/render-engine';
 import DataSource from './DataSource';
 import DataTarget from './DataTarget';
 import ItemGroup from '../ItemGroup';
-import { IPlanData } from '../../settings/types';
+import { PlanDataType } from '../../settings';
 
 import './index.less';
 
-interface IDataSettingDes {
+interface DataSettingDes {
   type: string;
   title: string;
 }
 
-interface IDragEndInfo {
+interface DragEndInfo {
   droppableId: string;
   index: number;
 }
 
-interface IDataSettingProps {
+interface DataSettingProps {
   type: string;
   pageId: string;
   widgetId: string;
-  dataSetting: Settings['data'];
-  settingDes: IDataSettingDes[];
+  dataSetting: SettingType['data'];
+  settingDes: DataSettingDes[];
   validator?: (result: DropResult) => boolean;
-  onDataSettingChange?: ((dataSettings: Settings['data']) => void) | undefined;
+  onDataSettingChange?: ((dataSettings: SettingType['data']) => void) | undefined;
 }
 
 type DroppableId = 'dimensions' | 'indicators' | 'legends' | 'filters';
 
 const { Group } = Radio;
 
-const DataSetting: React.FC<IDataSettingProps> = (props) => {
+const DataSetting: React.FC<DataSettingProps> = (props) => {
   const { type, widgetId, dataSetting, settingDes, validator, onDataSettingChange, ...otherProps } = props;
 
-  const [allFields, setAllFields] = useState<IDragItem[]>([]);
-  const [fields, setFields] = useState<IDragItem[]>([]);
-  const [plans, setPlans] = useState<IPlanData[]>([]);
+  const [dataSettingConfig] = useConfig('settings');
+  const [allFields, setAllFields] = useState<DragType[]>([]);
+  const [fields, setFields] = useState<DragType[]>([]);
+  const [plans, setPlans] = useState<PlanDataType[]>([]);
   const [activeField, setActiveField] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +75,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   }
 
   // 更改查询类型
-  const handlePlanInfoChange = (planId: number, option: IOption) => {
+  const handlePlanInfoChange = (planId: number, option: OptionType) => {
     const settings = cloneDeep(dataSetting);
 
     fetchFields(planId);
@@ -115,9 +116,9 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   }
 
   // 保存字段信息
-  const handleFieldInfoSave = (field: IDataSetting | IDragItem, droppableId: string, index: number) => {
+  const handleFieldInfoSave = (field: DataSettingType | DragType, droppableId: string, index: number) => {
     const fieldsClone = Array.from(dataSetting?.[droppableId as DroppableId] || []);
-    fieldsClone.splice(index, 1, field as IDataSetting);
+    fieldsClone.splice(index, 1, field as DataSettingType);
 
     onDataSettingChange?.({
       ...dataSetting,
@@ -127,10 +128,10 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
 
   // 新增
   const add = (
-    source: IDataSetting[] | IDragItem[] = [],
-    destination: IDataSetting[] = [],
-    droppableSource: IDragEndInfo,
-    droppableDestination: IDragEndInfo
+    source: DataSettingType[] | DragType[] = [],
+    destination: DataSettingType[] = [],
+    droppableSource: DragEndInfo,
+    droppableDestination: DragEndInfo
   ) => {
     const destClone = Array.from(destination);
     const sourceItem = source?.[droppableSource?.index];
@@ -141,13 +142,13 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
       aggregatefunc: numberTypes.includes(sourceItem?.fieldType) ? 'sum' : 'count'
     };
 
-    destClone.splice(droppableDestination?.index, 0, newItem as IDataSetting);
+    destClone.splice(droppableDestination?.index, 0, newItem as DataSettingType);
 
     return destClone;
   }
 
   // 重新排序
-  const reorder = (list: IDataSetting[] = [], startIndex: number, endIndex: number) => {
+  const reorder = (list: DataSettingType[] = [], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -157,10 +158,10 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
 
   // 移动
   const move = (
-    source: IDataSetting[] = [],
-    destination: IDataSetting[] = [],
-    droppableSource: IDragEndInfo,
-    droppableDestination: IDragEndInfo
+    source: DataSettingType[] = [],
+    destination: DataSettingType[] = [],
+    droppableSource: DragEndInfo,
+    droppableDestination: DragEndInfo
   ) => {
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
@@ -173,8 +174,8 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
 
   // 重复检测
   const checkUnique = (
-    source: IDataSetting[] | IDragItem[] = [],
-    checkSource: IDataSetting[] = [],
+    source: DataSettingType[] | DragType[] = [],
+    checkSource: DataSettingType[] = [],
     sourceIndex: number
   ) => {
     return findIndex(checkSource, { field: source?.[sourceIndex]?.field }) !== -1;
@@ -184,7 +185,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
   const checkOpposite = (
     source: DropResult['source'],
     destination: DropResult['destination'],
-    dataSetting: Settings['data'],
+    dataSetting: SettingType['data'],
   ) => {
     if (['source', 'filters'].includes(source?.droppableId)) {
       const dimensions = dataSetting?.dimensions || [];
@@ -355,7 +356,7 @@ const DataSetting: React.FC<IDataSettingProps> = (props) => {
             showSearch
             filterOption
             options={planOptions}
-            onChange={(planId, option) => handlePlanInfoChange(planId, option as IOption)}
+            onChange={(planId, option) => handlePlanInfoChange(planId, option as OptionType)}
           />
           <Input
             placeholder="搜索字段"

@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
 import ColorPicker from '../../common/ColorPicker';
-import { ITextSettingProps } from '../types';
+import { TextSettingProps } from '../types';
 
 import './index.less';
 
@@ -26,7 +26,7 @@ const itemLayout = {
   wrapperCol: { span: 15 }
 };
 
-const TextSetting: React.FC<ITextSettingProps> = (props) => {
+const TextSetting: React.FC<TextSettingProps> = (props) => {
   const { settings, onStyleSettingChange } = props;
 
   const [form] = useForm();

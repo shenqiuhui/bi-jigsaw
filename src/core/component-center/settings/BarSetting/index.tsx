@@ -3,7 +3,7 @@ import { message } from 'antd';
 import classNames from 'classnames';
 import DataSetting from '../../common/DataSetting';
 import ComplexSettingForm from '../../common/ComplexSettingForm';
-import { IBarSettingProps } from '../types';
+import { BarSettingProps } from '../types';
 
 import './index.less';
 
@@ -14,7 +14,7 @@ const settingDes = [
   { type: 'filters', title: '过滤项' }
 ];
 
-const BarSetting: React.FC<IBarSettingProps> = (props) => {
+const BarSetting: React.FC<BarSettingProps> = (props) => {
   const {
     type,
     activeTab,

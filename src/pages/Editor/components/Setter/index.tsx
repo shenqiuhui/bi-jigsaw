@@ -1,30 +1,29 @@
 import { memo, useState, useMemo, useRef, useEffect } from 'react';
 import { omit } from 'lodash';
-import Register, { widgetSettingMap } from '@/core/register';
+import { useComponent } from '@/core/register';
+import { SettingType, PageSettingType, WatchHandlersType } from '@/core/render-engine';
 import TabsContainer from './TabsContainer';
-import { Settings, IPageSetting, IWatchHandlers } from '@/core/render-engine/types';
 
 import './index.less';
 
-export interface ITabsContainerRefs {
+export interface TabsContainerRefType {
   activeKeyInit: () => void;
 }
 
-interface ISetterProps {
+interface SetterProps {
   type: string;
   pageId: string;
   spaceId: string;
   widgetId: string | null;
-  settings: Settings;
-  watchHandlers?: IWatchHandlers | undefined;
-  onPageSettingChange?: (pageSetting: IPageSetting) => void;
-  onDataSettingChange?: (dataSettings: Settings['data']) => void;
-  onStyleSettingChange?: (styleSettings: Settings['style']) => void;
+  settings: SettingType;
+  watchHandlers?: WatchHandlersType | undefined;
+  onPageSettingChange?: (pageSetting: PageSettingType) => void;
+  onDataSettingChange?: (dataSettings: SettingType['data']) => void;
+  onStyleSettingChange?: (styleSettings: SettingType['style']) => void;
 };
 
-const { hasComponent } = Register;
 
-const Setter: React.FC<ISetterProps> = memo((props) => {
+const Setter: React.FC<SetterProps> = memo((props) => {
   const {
     type,
     pageId,
@@ -37,8 +36,10 @@ const Setter: React.FC<ISetterProps> = memo((props) => {
     onStyleSettingChange
   } = props;
 
+  const [widgetSettingMap, { hasComponent }] = useComponent('settings');
+
   const [activeTab, setActiveTab] = useState('data');
-  const tabsRef = useRef<ITabsContainerRefs>(null);
+  const tabsRef = useRef<TabsContainerRefType>(null);
 
   const hasTab = useMemo<boolean>(() => {
     return widgetSettingMap?.[type]?.hasTab;
@@ -54,7 +55,9 @@ const Setter: React.FC<ISetterProps> = memo((props) => {
 
   return (
     <div className="setter-container">
-      <h2>{widgetSettingMap?.[type]?.name}</h2>
+      <h2>
+        {widgetSettingMap?.[type]?.name}
+      </h2>
       {hasComponent('settings', type) ? (
         <TabsContainer
           hasTab={hasTab}

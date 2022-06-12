@@ -3,27 +3,27 @@ import { Modal, Spin, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
 import { useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
-import Register from '@/core/register';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
+import { useComponent } from '@/core/register';
 import ConditionMenuList from './ConditionMenuList';
 import ConditionContent from './ConditionContent';
-import { IPageConfig, IWidgetField, IFilterConfig, IListRecord, DefaultValueType } from '../../types';
+import { PageConfigType, WidgetFieldType, FilterConfigType, ListRecordType, DefaultValueType } from '../../types';
 
 import './index.less';
 
-interface IFilterSetterProps {
+interface FilterSetterProps {
   visible: boolean;
-  pageConfig: IPageConfig;
+  pageConfig: PageConfigType;
   onVisibleChange?: (visible: boolean) => void;
   onConditionSaved?: () => void;
 }
 
-const { hasComponent } = Register;
-
-const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
+const FilterSetter: React.FC<FilterSetterProps> = memo((props) => {
   const { visible, pageConfig, onVisibleChange, onConditionSaved } = props;
 
-  const [data, setData] = useState<IFilterConfig>({} as IFilterConfig);
+  const [, { hasComponent }] = useComponent('filters');
+
+  const [data, setData] = useState<FilterConfigType>({} as FilterConfigType);
   const [activeId, setActiveId] = useState(data?.list?.[0]?.id);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -34,7 +34,7 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
   }, [data?.list]);
 
   // 校验左侧菜单是否有编辑项
-  const validateHasEditItem = (list: IListRecord[]) => {
+  const validateHasEditItem = (list: ListRecordType[]) => {
     return list?.some((item) => item.isEdit);
   }
 
@@ -137,7 +137,7 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
         if (item.id === id) {
           const widgetFieldMap = item?.widgetFieldList?.reduce((map, item) => {
             return (map.set(item?.widgetId, item), map);
-          }, new Map<string, IWidgetField>());
+          }, new Map<string, WidgetFieldType>());
 
           widgetFieldMap.set(widgetId, { widgetId, planId, field });
 
@@ -256,8 +256,8 @@ const FilterSetter: React.FC<IFilterSetterProps> = memo((props) => {
         pageId: pageConfig?.pageId
       });
 
-      const list = res?.list?.map((item: IListRecord) => ({ ...item, isEdit: false }));
-      const filterList = list?.filter((item: IListRecord) => hasComponent('filters', item?.filterItemType as string));
+      const list = res?.list?.map((item: ListRecordType) => ({ ...item, isEdit: false }));
+      const filterList = list?.filter((item: ListRecordType) => hasComponent('filters', item?.filterItemType as string));
 
       setData({ ...res, list });
       setActiveId(filterList?.[0]?.id);

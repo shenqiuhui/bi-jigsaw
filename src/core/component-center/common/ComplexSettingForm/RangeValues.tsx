@@ -3,12 +3,12 @@ import { InputNumber, message } from 'antd';
 
 import './index.less';
 
-interface IRangeValuesProps {
+interface RangeValuesProps {
   value?: number[];
   onChange?: (values: (number | null)[]) => void;
 }
 
-const RangeValues: React.FC<IRangeValuesProps> = (props) => {
+const RangeValues: React.FC<RangeValuesProps> = (props) => {
   const { value: rangeList, onChange } = props;
 
   const handleChange = useCallback((value, index) => {

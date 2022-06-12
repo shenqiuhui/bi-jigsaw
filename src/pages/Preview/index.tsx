@@ -2,24 +2,22 @@ import { useState, useMemo, useEffect } from 'react';
 import { Spin, Layout } from 'antd';
 import { useParams, useLocation } from 'react-router-dom';
 import qs from 'qs';
-import { renderEngine } from '@/core/render-engine';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
-import { AuthHOC } from '@/core/render-engine';
-import { IPageConfig, IDashboardParams } from '@/core/render-engine/types';
+import { renderEngine, AuthHOC, PageConfigType, DashboardParamsType } from '@/core/render-engine';
 
 import './index.less';
 
-interface IPreviewProps {}
+interface PreviewProps {}
 
 const { Header, Content } = Layout;
 
-const Preview: React.FC<IPreviewProps> = () => {
+const Preview: React.FC<PreviewProps> = () => {
   const location = useLocation();
-  const { pageId } = useParams<IDashboardParams>();
+  const { pageId } = useParams<DashboardParamsType>();
 
   const [loading, setLoading] = useState(false);
-  const [pageConfig, setPageConfig] = useState<IPageConfig>({} as IPageConfig);
+  const [pageConfig, setPageConfig] = useState<PageConfigType>({} as PageConfigType);
 
   const query = qs.parse(location?.search.slice(1));
 

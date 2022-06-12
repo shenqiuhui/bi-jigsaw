@@ -1,9 +1,9 @@
 import { memo, useMemo } from 'react';
-import { ITextWidgetProps } from '../types';
+import { TextWidgetProps } from '../types';
 
 import './index.less';
 
-const TextWidget: React.FC<ITextWidgetProps> = memo((props) => {
+const TextWidget: React.FC<TextWidgetProps> = memo((props) => {
   const { isEdit, settings, emptyRender, dropdownRender } = props;
 
   const hasValue = useMemo(() => {

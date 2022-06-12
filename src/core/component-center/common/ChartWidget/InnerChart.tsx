@@ -2,17 +2,17 @@ import { memo, forwardRef, useState, useRef, useEffect, useImperativeHandle } fr
 import ReactECharts, { EChartsInstance, EChartsOption } from 'echarts-for-react';
 import { isEmpty } from 'lodash';
 
-interface IInnerChartProps {
+interface InnerChartProps {
   option: EChartsOption;
   height: number;
   width: number;
 }
 
-export interface ICharInstanceRef {
-  charInstance: EChartsInstance
+export interface CharInstanceRefType {
+  charInstance: EChartsInstance;
 }
 
-const InnerChart = memo(forwardRef<ICharInstanceRef, IInnerChartProps>((props, ref) => {
+const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props, ref) => {
   const { option, height, width } = props;
 
   const [charInstance, setCharInstance] = useState<EChartsInstance>();

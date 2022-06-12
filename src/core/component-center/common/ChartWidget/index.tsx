@@ -8,16 +8,16 @@ import moment from 'moment';
 import { EChartsOption } from 'echarts-for-react';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
-import { Settings, IWidgetDefaultProps, IFilterForm } from '@/core/render-engine/types';
-import InnerChart, { ICharInstanceRef } from './InnerChart';
+import { SettingType, WidgetDefaultProps, FilterFormType } from '@/core/render-engine';
+import InnerChart, { CharInstanceRefType } from './InnerChart';
 
 import './index.less';
 
-interface IChartWidgetProps extends IWidgetDefaultProps {
+interface ChartWidgetProps extends WidgetDefaultProps {
   optionBuilder?: (data: any) => EChartsOption;
 }
 
-const ChartWidget: React.FC<IChartWidgetProps> = memo((props) => {
+const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
   const {
     type,
     pageId,
@@ -30,13 +30,13 @@ const ChartWidget: React.FC<IChartWidgetProps> = memo((props) => {
   } = props;
 
   const [data, setData] = useState({});
-  const chartRef = useRef<ICharInstanceRef>(null);
+  const chartRef = useRef<CharInstanceRefType>(null);
 
   const charOption = useMemo(() => {
     return optionBuilder?.(data);
   }, [data, settings]);
 
-  const fetchData = async (form: IFilterForm, settings: Settings) => {
+  const fetchData = async (form: FilterFormType, settings: SettingType) => {
     try {
       const res: any = await getEchartData({
         api,
@@ -54,7 +54,7 @@ const ChartWidget: React.FC<IChartWidgetProps> = memo((props) => {
     } catch (err) {}
   }
 
-  const downloadData = async (form: IFilterForm, settings: Settings) => {
+  const downloadData = async (form: FilterFormType, settings: SettingType) => {
     try {
       const res: any = await exportData({
         type,

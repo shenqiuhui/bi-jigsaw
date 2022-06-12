@@ -3,38 +3,38 @@ import { Form, Button } from 'antd';
 import { useUpdateEffect } from 'ahooks';
 import { PlusOutlined } from '@ant-design/icons';
 import { omit, throttle } from 'lodash';
-import Register, { filterComponentMap } from '@/core/register';
+import { useComponent } from '@/core/register';
 import FilterSetter from '../FilterSetter';
-import { IFilterForm, IFilterCondition, IPageConfig } from '../../types';
+import { FilterFormType, FilterConditionType, PageConfigType } from '../../types';
 
 import './index.less'
 
-interface IFilterProps {
+interface FilterProps {
   isEdit: boolean;
-  pageConfig: IPageConfig;
-  initialValues: IFilterForm | undefined;
-  onSearch?: (form: IFilterForm) => void;
+  pageConfig: PageConfigType;
+  initialValues: FilterFormType | undefined;
+  onSearch?: (form: FilterFormType) => void;
   onFilterConfigSubmit?: () => void;
 }
 
 const { Item, useForm } = Form;
-const { hasComponent } = Register;
 
-const Filter: React.FC<IFilterProps> = memo((props) => {
+const Filter: React.FC<FilterProps> = memo((props) => {
   const { isEdit, initialValues = {}, pageConfig, onSearch, onFilterConfigSubmit, ...otherProps } = props;
 
+  const [filterComponentMap, { hasComponent }] = useComponent('filters');
   const [visible, setVisible] = useState(false);
   const [conditionSaved, setConditionSaved] = useState(false);
   const [form] = useForm();
 
-  const conditions = useMemo<IFilterCondition[]>(() => {
+  const conditions = useMemo<FilterConditionType[]>(() => {
     return pageConfig?.filters?.conditions
       ?.map((condition) => omit(condition, ['initialValue']))
       ?.filter((condition) => hasComponent('filters', condition?.type))
       || [];
   }, [pageConfig]);
 
-  const handleFinish = useCallback((values: IFilterForm) => {
+  const handleFinish = useCallback((values: FilterFormType) => {
     onSearch?.(values);
   }, [onSearch]);
 

@@ -3,13 +3,13 @@ import { Space, Input } from 'antd';
 import classNames from 'classnames';
 import { Draggable } from 'react-beautiful-dnd';
 import { EyeOutlined, EyeInvisibleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import Register from '@/core/register';
-import { IListRecord } from '../../types';
+import { useComponent } from '@/core/register';
+import { ListRecordType } from '../../types';
 
 import './index.less';
 
-interface IConditionMenuItemProps {
-  item: IListRecord;
+interface ConditionMenuItemProps {
+  item: ListRecordType;
   index: number;
   activeId: string;
   onEditConfirm?: (id: string, value: string) => void;
@@ -19,9 +19,7 @@ interface IConditionMenuItemProps {
   onDelete?: (id: string) => void;
 }
 
-const { hasComponent } = Register;
-
-const ConditionMenuItem: React.FC<IConditionMenuItemProps> = memo((props) => {
+const ConditionMenuItem: React.FC<ConditionMenuItemProps> = memo((props) => {
   const {
     item,
     index,
@@ -32,6 +30,8 @@ const ConditionMenuItem: React.FC<IConditionMenuItemProps> = memo((props) => {
     onDisableChange,
     onDelete
   } = props;
+
+  const [, { hasComponent }] = useComponent('filters');
 
   const editRef = useRef<Input>(null);
 

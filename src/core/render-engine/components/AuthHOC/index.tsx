@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Empty, Button } from 'antd';
 import { useParams, useHistory } from 'react-router-dom';
 import { isBoolean } from 'lodash';
-import { IDashboardParams } from '../../types';
+import { DashboardParamsType } from '../../types';
 
 import './index.less';
 
-interface IAuthInfo {
+interface AuthInfo {
   hasAuth: boolean;
   info: string;
 }
@@ -19,8 +19,8 @@ const authInfo = new Map([
 
 const AuthHOC = <T extends {}>(Component: React.ComponentType<T>, fetchAPI: Function) => (props: T) => {
   const history = useHistory();
-  const { spaceId, pageId } = useParams<IDashboardParams>();
-  const [auth, setAuth] = useState<IAuthInfo>();
+  const { spaceId, pageId } = useParams<DashboardParamsType>();
+  const [auth, setAuth] = useState<AuthInfo>();
 
   const fetchAuth = async () => {
     if (spaceId && pageId) {
