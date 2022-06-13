@@ -35,7 +35,9 @@ const Connective: React.FC<ConnectiveProps> = memo((props) => {
           <h1>{title}</h1>
         )}
         {renderOperator && isFunction(renderOperator) && (
-          <div>{renderOperator()}</div>
+          <div>
+            {renderOperator()}
+          </div>
         )}
       </div>
       <div className="content">

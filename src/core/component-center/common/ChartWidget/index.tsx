@@ -103,16 +103,14 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
           'chart-widget-auto-size': isEmpty(data)
         })}
       >
-        {({ height, width }) => {
-          return !isEmpty(data) ? (
-            <InnerChart
-              option={charOption}
-              ref={chartRef}
-              height={height}
-              width={width}
-            />
-          ) : emptyRender?.();
-        }}
+        {({ height, width }) => !isEmpty(data) ? (
+          <InnerChart
+            option={charOption}
+            ref={chartRef}
+            height={height}
+            width={width}
+          />
+        ) : emptyRender?.()}
       </AutoSizer>
     </div>
   );

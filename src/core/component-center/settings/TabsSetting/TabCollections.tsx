@@ -52,16 +52,14 @@ const TabCollections: React.FC<TabCollectionsProps> = (props) => {
     <div className="tabs-input-container-wrapper">
       {!!tabList?.length && (
         <div className="tabs-input-container">
-          {tabList?.map((value) => {
-            return (
-              <TabCollectionItem
-                key={value?.key}
-                value={value}
-                onChange={handleChange}
-                onDelete={handleDelete}
-              />
-            );
-          })}
+          {tabList?.map((value) => (
+            <TabCollectionItem
+              key={value?.key}
+              value={value}
+              onChange={handleChange}
+              onDelete={handleDelete}
+            />
+          ))}
         </div>
       )}
       <Button

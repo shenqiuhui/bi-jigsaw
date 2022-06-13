@@ -315,7 +315,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
     <div className="data-setting-container">
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="data-form">
-          {type === 'table' && dataSetting?.showType  && (
+          {type === 'table' && dataSetting?.showType && (
             <div className="data-type">
               <h2 className="item-label">类型</h2>
               <ItemGroup>
@@ -330,22 +330,20 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
               </ItemGroup>
             </div>
           )}
-          {settingDesFilter?.map((des) => {
-            return (
-              <DataTarget
-                type={type}
-                key={des?.type}
-                title={des?.title}
-                droppableId={des?.type}
-                data={dataSetting?.[des?.type as DroppableId] || []}
-                planId={dataSetting?.planId as number}
-                fields={fields}
-                onDelete={handleFieldDelete}
-                onFieldInfoSave={handleFieldInfoSave}
-                {...otherProps}
-              />
-            );
-          })}
+          {settingDesFilter?.map((des) => (
+            <DataTarget
+              type={type}
+              key={des?.type}
+              title={des?.title}
+              droppableId={des?.type}
+              data={dataSetting?.[des?.type as DroppableId] || []}
+              planId={dataSetting?.planId as number}
+              fields={fields}
+              onDelete={handleFieldDelete}
+              onFieldInfoSave={handleFieldInfoSave}
+              {...otherProps}
+            />
+          ))}
         </div>
         <div className="data-source">
           <Select

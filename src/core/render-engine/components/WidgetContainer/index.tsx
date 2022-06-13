@@ -225,13 +225,11 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
   ), [data?.type, exportDisabled, handleMenuItemClick, showOperator]);
 
   // 渲染标题
-  const titleRender = () => {
-    return data?.settings?.style?.showTitle ? (
-      <h2 className="widget-title">
-        {data?.settings?.style?.title}
-      </h2>
-    ) : null;
-  }
+  const titleRender = () => data?.settings?.style?.showTitle ? (
+    <h2 className="widget-title">
+      {data?.settings?.style?.title}
+    </h2>
+  ) : null;
 
   // 渲染刷新按钮
   const refreshRender = () => (

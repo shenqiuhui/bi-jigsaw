@@ -137,38 +137,35 @@ const ConditionInfo: React.FC<ConditionInfoProps> = memo((props) => {
       dataIndex: 'setting.style.title.',
       width: 100,
       ellipsis: true,
-      render: (_text: string, record: WidgetType) => {
-        return (
-          <Tooltip
-            placement="topLeft"
-            title={record?.settings?.style?.title}
-          >
-            {record?.settings?.style?.title}
-          </Tooltip>
-        );
-      }
+      render: (_text: string, record: WidgetType) => (
+        <Tooltip
+          placement="topLeft"
+          title={record?.settings?.style?.title}
+        >
+          {record?.settings?.style?.title}
+        </Tooltip>
+      )
     },
     {
       title: '数据查询',
       dataIndex: 'settings.data.planName',
       width: 140,
       ellipsis: true,
-      render: (_text: string, record: WidgetType) => {
-        return (
-          <Tooltip
-            placement="topLeft"
-            title={record?.settings?.data?.planName}
-          >
-            {record?.settings?.data?.planName}
-          </Tooltip>
-        );
-      }
+      render: (_text: string, record: WidgetType) => (
+        <Tooltip
+          placement="topLeft"
+          title={record?.settings?.data?.planName}
+        >
+          {record?.settings?.data?.planName}
+        </Tooltip>
+      )
     },
     {
       title: '字段',
       dataIndex: 'address',
       render: (_text: string, record: WidgetType) => {
         const field = find(data?.widgetFieldList, ['widgetId', record?.id])?.field;
+
         return (
           <FieldCell
             value={field as string}
