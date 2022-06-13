@@ -102,8 +102,8 @@ const Home = () => {
   }
 
   const handleIframePreview = (spaceId: string, pageId: string) => {
-    const pathname = window.location.pathname;
-    window.open(`${pathname}#/preview/iframe/${spaceId}/${pageId}`);
+    const origin = window.location.origin;
+    window.open(`${origin}/example/iframe.html?spaceId=${spaceId}&pageId=${pageId}`);
   }
 
   const handleEdit = (spaceId: string, pageId: string) => {
@@ -171,7 +171,7 @@ const Home = () => {
           type="link"
           onClick={() => handleIframePreview('20398', '1')}
         >
-          iframe嵌入 ~/preview/iframe/:spaceId/:pageId
+          iframe嵌入 ~/example/iframe?spaceId={'{spaceId}'}&pageId={'{pageId}'}
         </Button>
         <br />
         <Button

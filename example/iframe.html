@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iframe 嵌入案例</title>
+    <style>
+      html, body, #root {
+        margin: 0;
+        height: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #iframe-view {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <iframe id="iframe-view" frameborder="0" loading="lazy" scrolling="no"></iframe>
+    </div>
+    <script>
+      window.onload = function () {
+        const iframe = document.getElementById('iframe-view');
+        const query = {};
+        const search = window.location.search.slice(1);
+        const origin = window.location.origin;
+        search.replace(/([^=&]+)=([^=&]+)/g, function () {
+          query[arguments[1]] = arguments[2];
+        });
+        iframe.src = origin + '/#/preview/' + query.spaceId + '/' + query.pageId + '?header=false';
+      }
+    </script>
+  </body>
+</html>

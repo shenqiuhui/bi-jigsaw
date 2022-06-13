@@ -26,6 +26,14 @@ export default defineConfig({
       }
     }
   },
+  build: {
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, 'index.html'),
+        iframe: path.resolve(__dirname, 'example/iframe.html')
+      }
+    }
+  },
   plugins: [
     react(),
     splitVendorChunkPlugin()
