@@ -113,6 +113,12 @@ const BarWidget: React.FC<BarWidgetProps> = memo((props) => {
         axisPointer: { type: 'cross' },
         formatter: (params: any | Array<any>) => formatterBuilder(params, data)
       },
+      grid: {
+        containLabel: true,
+        left: 20,
+        right: settings?.style?.yAxisAll ? 20 : 50,
+        bottom: 20
+      },
       dataset: {
         dimensions: data?.dimensions,
         source: data?.source

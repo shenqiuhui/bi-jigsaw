@@ -122,6 +122,12 @@ const ComplexWidget: React.FC<ComplexWidgetProps> = memo((props) => {
         axisPointer: { type: 'cross' },
         formatter: (params: any | Array<any>) => formatterBuilder(params, data)
       },
+      grid: {
+        containLabel: true,
+        left: 20,
+        right: settings?.style?.yAxisAll ? 20 : 50,
+        bottom: 20
+      },
       dataset: {
         source: data?.source
       },
