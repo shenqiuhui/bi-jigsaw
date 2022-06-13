@@ -66,32 +66,41 @@ const ComplexWidget: React.FC<ComplexWidgetProps> = memo((props) => {
 
   const formatterBuilder = (params: any | Array<any>, data: any) => {
     if (Array.isArray(params)) {
-      return params?.reduce((result, param) => {
+      const content = params?.reduce((result, param) => {
         const index = param?.encode?.y?.[0];
         const unit = data?.unit?.[index];
 
         return `
-          <div>
-            <div>${result}</div>
-            <div class="char-tooltip-content">
-              <div>
-                <span>${param?.marker}</span>
-                <span>${param?.dimensionNames?.[index]}:</span>
-              </div>
-              <span class="char-tooltip-value char-tooltip-value-margin">
-                ${param?.value?.[index]}${unit ? `(${unit})` : ''}
-              </span>
+          ${result}
+          <div class="char-tooltip-content">
+            <div>
+              <span>${param?.marker}</span>
+              <span>${param?.dimensionNames?.[index]}:</span>
             </div>
+            <span class="char-tooltip-value char-tooltip-value-margin">
+              ${param?.value?.[index]}${unit ? `(${unit})` : ''}
+            </span>
           </div>
         `;
-      }, `${params?.[0]?.name}`);
+      }, '');
+
+      return `
+        <div>
+          <div class="char-tooltip-title">
+            ${params?.[0]?.name}
+          </div>
+          ${content}
+        </div>
+      `
     } else {
       const index = params?.encode?.y?.[0];
       const unit = data?.unit?.[index];
 
       return `
         <div>
-          <div>${params?.name}</div>
+          <div class="char-tooltip-title">
+            ${params?.name}
+          </div>
           <div class="char-tooltip-content">
             <div>
               <span>${params?.marker}</span>

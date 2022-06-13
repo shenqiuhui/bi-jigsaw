@@ -47,7 +47,11 @@ const PieWidget: React.FC<PieWidgetProps> = memo((props) => {
 
     return `
       <div>
-        ${hasName ? `<div>${params?.name}</div>` : ''}
+        ${hasName ? `
+          <div class="char-tooltip-title">
+            ${params?.name}
+          </div>
+        ` : ''}
         <div class="char-tooltip-content">
           ${hasValue && hasPercent ? `
             <div>
