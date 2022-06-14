@@ -224,7 +224,8 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
                 className={classNames({
                   'selected-widget': currentClickId === widget?.id,
                   'active-widget': isEdit && selectedWidgetId === widget?.id,
-                  'hover-widget': isEdit && selectedWidgetId !== widget?.id,
+                  'hover-widget-light': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'light',
+                  'hover-widget-dark': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'dark',
                   'inner-widget': widget?.parentId
                 })}
                 key={widget?.id}
@@ -234,6 +235,7 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
                   <div className="mask" />
                 )}
                 <WidgetContainer
+                  theme={pageConfig?.theme}
                   data={widget}
                   showHeader={otherProps?.showHeader as boolean}
                   useLoading={otherProps?.useLoading as boolean}

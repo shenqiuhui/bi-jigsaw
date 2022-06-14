@@ -37,6 +37,7 @@ const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props,
     <ReactECharts
       notMerge
       option={option}
+      theme="dark"
       ref={reactEchartRef}
     />
   );

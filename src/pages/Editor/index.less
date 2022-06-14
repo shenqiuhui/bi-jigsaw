@@ -6,14 +6,21 @@
 
   .editor-board-container {
     flex: 1;
-    height: calc(100vh - @dashboard-header-height - 10px);
-    margin-top: 10px;
+    height: calc(100vh - @dashboard-header-height);
   }
 
   .editor-setter-container {
     width: 420px;
     height: calc(100vh - @dashboard-header-height);
-    background-color: @dashboard-tint-bg-color;
+
+
+    &.editor-setter-container-light {
+      background-color: @dashboard-light-tint-bg-color;
+    }
+
+    &.editor-setter-container-dark {
+      background-color: @dashboard-dark-deep-bg-color;
+    }
   }
 
   .editor-setter-container-none {
@@ -22,6 +29,8 @@
 }
 
 .editor-container-loading {
+  .dark-spin,
+  .light-spin,
   .ant-spin {
     max-height: none !important;
   }

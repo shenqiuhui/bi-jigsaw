@@ -8,6 +8,8 @@
   }
 
   &.list-empty {
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       display: flex;
       justify-content: center;
@@ -35,9 +37,13 @@
       }
     }
 
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       height: 100%;
 
+      .dark-spin,
+      .light-spin,
       .ant-spin {
         max-height: none;
       }

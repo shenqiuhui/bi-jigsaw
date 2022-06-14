@@ -1,7 +1,15 @@
 .item-group-container {
-  background-color: @dashboard-deep-bg-color;
+  background-color: @dashboard-light-deep-bg-color;
   border-radius: 2px;
   position: relative;
+
+  &.item-group-container-light {
+    background-color: @dashboard-light-deep-bg-color;
+  }
+
+  &.item-group-container-dark {
+    background-color: @dashboard-dark-tint-bg-color;
+  }
 
   .item-group-extra {
     height: 22px;
@@ -17,16 +25,28 @@
     color: @dashboard-main-text-color;
   }
 
+  .dark-checkbox-wrapper,
+  .light-checkbox-wrapper,
   .ant-checkbox-wrapper {
     color: @dashboard-main-text-color;
   }
 
+  .dark-radio-wrapper,
+  .light-radio-wrapper,
   .ant-radio-wrapper {
     color: @dashboard-main-text-color;
 
-    .ant-radio-inner {
-      background-color: @dashboard-tint-bg-color;
+    .light-radio-inner {
+      background-color: @dashboard-light-tint-bg-color;
+    }
 
+    .dark-radio-inner {
+      background-color: @dashboard-dark-deep-bg-color;
+    }
+
+    .light-radio-inner,
+    .dark-radio-inner,
+    .ant-radio-inner {
       &::after {
         width: 20px;
         height: 20px;
@@ -36,8 +56,12 @@
       }
     }
 
+    .dark-radio-input,
+    .light-radio-input,
     .ant-radio-input {
       &:focus {
+        +.dark-radio-inner,
+        +.light-radio-inner,
         +.ant-radio-inner {
           box-shadow: none;
         }
@@ -45,6 +69,8 @@
     }
   }
 
+  >.dark-form-item,
+  >.light-form-item,
   >.ant-form-item {
     &:last-child {
       margin-bottom: 0;

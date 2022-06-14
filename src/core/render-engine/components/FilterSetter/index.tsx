@@ -3,6 +3,7 @@ import { Modal, Spin, Button, Space, Popconfirm, message } from 'antd';
 import { omit } from 'lodash';
 import { useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classNames';
 import { getFilterConfig, setFilterConfig, setPageConfig } from '@/service/apis/dashboard';
 import { useComponent } from '@/core/register';
 import ConditionMenuList from './ConditionMenuList';
@@ -302,7 +303,13 @@ const FilterSetter: React.FC<FilterSetterProps> = memo((props) => {
     >
       <Spin size="large" spinning={loading}>
         {!loading && (
-          <div className="list-container">
+          <div
+            className={classNames({
+              'list-container': true,
+              'list-container-light': pageConfig?.theme === 'light',
+              'list-container-dark': pageConfig?.theme === 'dark',
+            })}
+          >
             <ConditionMenuList
               data={data?.list}
               activeId={activeId}

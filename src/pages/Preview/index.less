@@ -5,23 +5,30 @@
   .preview-header {
     height: 56px;
     line-height: 56px;
-    background-color: #010717;
+    // background-color: #141414;
+    // box-shadow: rgb(13 13 13 / 65%) 0px 2px 8px 0px;
+    background-color: #000;
     color: #FFFFFF;
     font-size: 22px;
     text-align: center;
     padding: 0 20px;
+    z-index: 99;
   }
 
   .preview-content {
-    margin-top: 10px;
-
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       height: 100%;
 
+      .dark-spin,
+      .light-spin,
       .ant-spin {
         max-height: none;
       }
 
+      .dark-spin-container,
+      .light-spin-container,
       .ant-spin-container {
         height: 100%;
       }

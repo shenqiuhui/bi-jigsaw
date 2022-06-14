@@ -4,12 +4,16 @@
   overflow: hidden;
 
   &.in-search {
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       overflow: hidden;
     }
   }
 
   &.list-empty {
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       height: 100% !important;
       display: flex;
@@ -26,10 +30,14 @@
       color: rgba(0, 0, 0, 0.45);
     }
 
+    .dark-spin-nested-loading,
+    .light-spin-nested-loading,
     .ant-spin-nested-loading {
       height: calc(100% - 56px);
       overflow: auto;
 
+      .dark-spin,
+      .light-spin,
       .ant-spin {
         max-height: none;
       }

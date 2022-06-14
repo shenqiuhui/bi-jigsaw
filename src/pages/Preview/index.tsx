@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
-import { renderEngine, AuthHOC, PageConfigType, DashboardParamsType } from '@/core/render-engine';
+import { ThemeWrapper, renderEngine, AuthHOC, PageConfigType, DashboardParamsType } from '@/core/render-engine';
 
 import './index.less';
 
@@ -47,20 +47,22 @@ const Preview: React.FC<PreviewProps> = () => {
   }, []);
 
   return (
-    <Layout className="preview-container">
-      {header && (
-        <Header className="preview-header">
-          {pageConfig?.name}
-        </Header>
-      )}
-      <Content className="preview-content">
-        <Spin size="large" spinning={loading}>
-          {renderEngine({
-            config: pageConfig
-          })}
-        </Spin>
-      </Content>
-    </Layout>
+    <ThemeWrapper theme={pageConfig?.theme}>
+      <Layout className="preview-container">
+        {header && (
+          <Header className="preview-header">
+            {pageConfig?.name}
+          </Header>
+        )}
+        <Content className="preview-content">
+          <Spin size="large" spinning={loading}>
+            {renderEngine({
+              config: pageConfig
+            })}
+          </Spin>
+        </Content>
+      </Layout>
+    </ThemeWrapper>
   );
 }
 

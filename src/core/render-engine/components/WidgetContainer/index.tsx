@@ -41,6 +41,7 @@ interface SubGridProps extends GirdProps {
 
 interface WidgetContainerProps {
   inner?: boolean;
+  theme?: string;
   showOperator?: boolean;
   showHeader?: boolean;
   useLoading?: boolean;
@@ -59,6 +60,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
     data,
     form,
     selectedWidgetId,
+    theme = 'light',
     showOperator = false,
     showHeader = true,
     useLoading = true,
@@ -226,7 +228,13 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   // 渲染标题
   const titleRender = () => data?.settings?.style?.showTitle ? (
-    <h2 className="widget-title">
+    <h2
+      className={classNames({
+        'widget-title': true,
+        'widget-title-light': theme === 'light',
+        'widget-title-dark': theme === 'dark',
+      })}
+    >
       {data?.settings?.style?.title}
     </h2>
   ) : null;
@@ -237,7 +245,9 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
       <SyncOutlined
         className={classNames({
           'widget-operate-base': true,
-          'disabled-events': data?.newWidget || refreshDisabled
+          'disabled-events': data?.newWidget || refreshDisabled,
+          'disabled-events-light': (data?.newWidget || refreshDisabled) && theme === 'light',
+          'disabled-events-dark': (data?.newWidget || refreshDisabled) && theme === 'dark',
         })}
         onClick={(event) => {
           handleRefreshThrottle(event, data);
@@ -315,7 +325,11 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   return (
     <div
-      className="widget-container"
+      className={classNames({
+        'widget-container': true,
+        'widget-container-light': theme === 'light',
+        'widget-container-dark': theme === 'dark'
+      })}
       tabIndex={-1}
       ref={setRefs}
       onClick={handleWidgetSelect}
@@ -329,7 +343,13 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
           })}
         >
           {titleRender()}
-          <Space className="widget-operate" size={8}>
+          <Space
+            className={classNames({
+              'widget-operate-light': theme === 'light',
+              'widget-operate-dark': theme === 'dark'
+            })}
+            size={8}
+          >
             {refreshRender()}
             {toggleScreenRender()}
             {dropdownRender()}
