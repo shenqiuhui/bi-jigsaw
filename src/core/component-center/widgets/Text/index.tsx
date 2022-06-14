@@ -1,10 +1,11 @@
 import { memo, useMemo } from 'react';
+import classNames from 'classnames';
 import { TextWidgetProps } from '../types';
 
 import './index.less';
 
 const TextWidget: React.FC<TextWidgetProps> = memo((props) => {
-  const { isEdit, settings, emptyRender, dropdownRender } = props;
+  const { theme = 'light', isEdit, settings, emptyRender, dropdownRender } = props;
 
   const hasValue = useMemo(() => {
     return !!settings?.style?.value;
@@ -25,7 +26,13 @@ const TextWidget: React.FC<TextWidgetProps> = memo((props) => {
         </pre>
       ) : emptyRender?.()}
       {isEdit && (
-        <div className="text-widget-operate">
+        <div
+          className={classNames({
+            'text-widget-operate': true,
+            'text-widget-operate-light': theme === 'light',
+            'text-widget-operate-dark': theme === 'dark'
+          })}
+        >
           {dropdownRender?.()}
         </div>
       )}

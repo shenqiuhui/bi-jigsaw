@@ -16,6 +16,7 @@ const settingDes = [
 
 const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -53,6 +54,7 @@ const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -69,6 +71,7 @@ const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
         })}
       >
         <ComplexSettingForm
+          theme={theme}
           type={type}
           fields={settings?.data?.indicators}
           styleSetting={settings?.style}

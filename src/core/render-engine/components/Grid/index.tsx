@@ -180,7 +180,11 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
     <AutoSizer disableHeight>
       {({ width }) => (
         <GridLayout
-          className="grid-container"
+          className={classNames({
+            'grid-container': true,
+            'grid-container-light': pageConfig?.theme === 'light',
+            'grid-container-dark': pageConfig?.theme === 'dark'
+          })}
           width={width}
           layout={layoutInfo}
           cols={COLS}

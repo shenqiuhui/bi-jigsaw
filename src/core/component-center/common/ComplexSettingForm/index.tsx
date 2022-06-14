@@ -9,6 +9,7 @@ import ItemGroup from '../ItemGroup';
 import './index.less';
 
 interface ComplexSettingFormProps {
+  theme?: string;
   fields?: DataSettingType[];
   styleSetting: SettingType['style'];
   type?: string;
@@ -62,7 +63,7 @@ const widgetNames: WidgetNamesType = {
 };
 
 const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
-  const { type = '', fields = [], styleSetting, onStyleSettingChange } = props;
+  const { theme = 'light', type = '', fields = [], styleSetting, onStyleSettingChange } = props;
 
   const [form] = useForm();
 
@@ -112,6 +113,7 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
         initialValues={styleSetting}
       >
         <ItemGroup
+          theme={theme}
           label={<LabelRender name="标题" />}
           padding={[15, 12, 12]}
         >
@@ -138,7 +140,10 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
             </Checkbox>
           </Item>
         </ItemGroup>
-        <ItemGroup label={<LabelRender name="图例位置" />}>
+        <ItemGroup
+          theme={theme}
+          label={<LabelRender name="图例位置" />}
+        >
           <Item name="legend">
             <Group
               size="small"
@@ -156,6 +161,7 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
         {axisDes?.map((des) => (des?.always || styleSetting?.yAxisAll) && (
           <ItemGroup
             key={des?.key}
+            theme={theme}
             label={<LabelRender name={des?.label} />}
             padding={[15, 12]}
             extra={() => des?.extra && (

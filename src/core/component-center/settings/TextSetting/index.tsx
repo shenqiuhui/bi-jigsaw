@@ -27,7 +27,7 @@ const itemLayout = {
 };
 
 const TextSetting: React.FC<TextSettingProps> = (props) => {
-  const { settings, onStyleSettingChange } = props;
+  const { theme = 'light', settings, onStyleSettingChange } = props;
 
   const [form] = useForm();
 
@@ -61,12 +61,16 @@ const TextSetting: React.FC<TextSettingProps> = (props) => {
             }}
           />
         </Item>
-        <ItemGroup label={<LabelRender name="样式配置" />}>
+        <ItemGroup
+          theme={theme}
+          label={<LabelRender name="样式配置" />}
+        >
           <Row>
             <Col span={12}>
               <Item
                 className="form-item-horizontal"
                 name="fontSize"
+                labelAlign="left"
                 label={<LabelRender name="文本字号" />}
                 {...itemLayout}
               >
@@ -84,6 +88,7 @@ const TextSetting: React.FC<TextSettingProps> = (props) => {
               <Item
                 className="form-item-horizontal"
                 name="color"
+                labelAlign="left"
                 label={<LabelRender name="文本颜色" />}
                 {...itemLayout}
               >
@@ -100,6 +105,7 @@ const TextSetting: React.FC<TextSettingProps> = (props) => {
               <Item
                 className="form-item-horizontal last-form-item-horizontal"
                 name="backgroundColor"
+                labelAlign="left"
                 label={<LabelRender name="背景颜色" />}
                 {...itemLayout}
               >

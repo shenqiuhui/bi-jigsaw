@@ -290,6 +290,7 @@ export interface WidgetSizeType {
 }
 
 export interface WidgetDefaultProps extends WidgetCommonType, Omit<WidgetType, 'type'> {
+  theme?:string;
   pageId: string;
   isEdit: boolean;
   isSelected: string;

@@ -2,6 +2,18 @@
 @import 'react-resizable/css/styles.css';
 
 .grid-container {
+
+  &.grid-container-dark {
+    .react-grid-item {
+      .react-resizable-handle {
+        &::after {
+          border-right: 2px solid rgba(255, 255, 255, 0.4);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+  }
+
   .react-grid-item {
     &.react-grid-placeholder {
       background-color: #AAAAAA;

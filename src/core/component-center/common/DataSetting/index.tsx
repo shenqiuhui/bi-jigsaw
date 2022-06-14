@@ -12,6 +12,7 @@ import ItemGroup from '../ItemGroup';
 import { PlanDataType } from '../../settings';
 
 import './index.less';
+import classNames from 'classnames';
 
 interface DataSettingDes {
   type: string;
@@ -24,6 +25,7 @@ interface DragEndInfo {
 }
 
 interface DataSettingProps {
+  theme?: string;
   type: string;
   pageId: string;
   widgetId: string;
@@ -38,7 +40,7 @@ type DroppableId = 'dimensions' | 'indicators' | 'legends' | 'filters';
 const { Group } = Radio;
 
 const DataSetting: React.FC<DataSettingProps> = (props) => {
-  const { type, widgetId, dataSetting, settingDes, validator, onDataSettingChange, ...otherProps } = props;
+  const { theme = 'light', type, widgetId, dataSetting, settingDes, validator, onDataSettingChange, ...otherProps } = props;
 
   const [dataSettingConfig] = useConfig('settings');
   const [allFields, setAllFields] = useState<DragType[]>([]);
@@ -318,7 +320,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
           {type === 'table' && dataSetting?.showType && (
             <div className="data-type">
               <h2 className="item-label">类型</h2>
-              <ItemGroup>
+              <ItemGroup theme={theme}>
                 <Group
                   size="small"
                   value={dataSetting?.showType}
@@ -332,6 +334,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
           )}
           {settingDesFilter?.map((des) => (
             <DataTarget
+              theme={theme}
               type={type}
               key={des?.type}
               title={des?.title}
@@ -345,7 +348,13 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
             />
           ))}
         </div>
-        <div className="data-source">
+        <div
+          className={classNames({
+            'data-source': true,
+            'data-source-light': theme === 'light',
+            'data-source-dark': theme === 'dark'
+          })}
+        >
           <Select
             className="plan-select"
             optionFilterProp="label"
@@ -362,6 +371,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
             onChange={handleInputChange}
           />
           <DataSource
+            theme={theme}
             fields={fields}
             activeField={activeField}
             onActiveFieldChange={(field: string) => setActiveField(field)}

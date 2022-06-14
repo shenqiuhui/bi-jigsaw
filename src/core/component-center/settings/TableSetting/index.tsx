@@ -26,6 +26,7 @@ const settingDes = [
 
 const TableSetting: React.FC<TableSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -63,6 +64,7 @@ const TableSetting: React.FC<TableSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -83,6 +85,7 @@ const TableSetting: React.FC<TableSettingProps> = (props) => {
           initialValues={settings?.style}
         >
           <ItemGroup
+            theme={theme}
             label={<LabelRender name="标题" />}
             padding={[15, 12, 12]}
           >
@@ -111,11 +114,10 @@ const TableSetting: React.FC<TableSettingProps> = (props) => {
               </Checkbox>
             </Item>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="分页" />}>
+          <ItemGroup theme={theme} label={<LabelRender name="分页" />}>
             <Item name="pageSize" noStyle>
               <Select
-                size="small"
-                style={{ width: 70 }}
+                style={{ width: 90 }}
                 options={sizeChangeOptions}
                 onChange={(value) => {
                   onWatchInfoChange?.({ pageSize: value });

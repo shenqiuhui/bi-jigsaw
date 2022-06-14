@@ -30,6 +30,7 @@ import {
 import './index.less';
 
 interface ChildrenProps {
+  theme?: string;
   methodsRegister: (methods: WidgetMethodsType) => void;
   emptyRender: (offset?: number) => React.ReactNode;
   onWatchInfoChange: (info: any) => void;
@@ -188,7 +189,9 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
   // 渲染组件空数据方法
   const emptyRender = (offset?: number) => {
     offset && setOffset(offset);
-    return widgetEmptyMap?.[data.type]?.component();
+    return widgetEmptyMap?.[data.type]?.component({
+      theme
+    });
   }
 
   // 操作菜单
@@ -362,6 +365,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
       >
         <Spin spinning={loading}>
           {children?.({
+            theme,
             emptyRender,
             methodsRegister: handleMethodsRegister,
             onWatchInfoChange: handleWatchInfoChange,

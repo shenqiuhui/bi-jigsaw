@@ -126,7 +126,7 @@ const ComplexWidget: React.FC<ComplexWidgetProps> = memo((props) => {
         containLabel: true,
         left: 20,
         right: settings?.style?.yAxisAll ? 20 : 50,
-        bottom: 20
+        bottom: 40
       },
       dataset: {
         source: data?.source

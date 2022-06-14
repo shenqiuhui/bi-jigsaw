@@ -20,6 +20,7 @@ const settingDes = [
 
 const PieSetting: React.FC<PieSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -79,6 +80,7 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -100,6 +102,7 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
           initialValues={settings?.style}
         >
           <ItemGroup
+            theme={theme}
             label={<LabelRender name="标题" />}
             padding={[15, 12, 12]}
           >
@@ -126,7 +129,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               </Checkbox>
             </Item>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="图例位置" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="图例位置" />}
+          >
             <Item name="legend">
               <Group
                 size="small"
@@ -141,7 +147,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               </Group>
             </Item>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="可视化类型" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="可视化类型" />}
+          >
             <Item name="showType" noStyle>
               <Radio.Group
                 size="small"
@@ -170,7 +179,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               半径占比
             </span>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="显示标签" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="显示标签" />}
+          >
             <Item name="labels">
               <Checkbox.Group onChange={(value) => {
                 handleChange('labels', value, settings?.style);

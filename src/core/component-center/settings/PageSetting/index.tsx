@@ -77,7 +77,10 @@ const PageSetting: React.FC<PageSettingProps> = (props) => {
             }}
           />
         </Item>
-        <ItemGroup theme={theme} label={<LabelRender name="主题" />}>
+        <ItemGroup
+          theme={theme}
+          label={<LabelRender name="主题" />}
+        >
           <Item
             className="form-item-horizontal"
             name="theme"
@@ -89,7 +92,7 @@ const PageSetting: React.FC<PageSettingProps> = (props) => {
               }}
             >
               <Radio value="light">浅色</Radio>
-              <Radio value="dark">暗色</Radio>
+              <Radio value="dark">深色</Radio>
             </Group>
           </Item>
         </ItemGroup>

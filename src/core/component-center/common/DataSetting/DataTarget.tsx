@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import classNames from 'classnames';
 import { FieldDataType, DataSettingType, DragType } from '@/core/render-engine';
 import FieldItem from './FieldItem';
 import FieldSetter from './FieldSetter';
@@ -7,6 +8,7 @@ import FieldSetter from './FieldSetter';
 import './index.less';
 
 interface DataTargetProps {
+  theme?: string;
   type: string;
   title: string;
   droppableId: string;
@@ -19,6 +21,7 @@ interface DataTargetProps {
 
 const DataTarget: React.FC<DataTargetProps> = (props) => {
   const {
+    theme = 'light',
     type,
     title,
     droppableId,
@@ -56,7 +59,12 @@ const DataTarget: React.FC<DataTargetProps> = (props) => {
                 >
                   {(provided) => (
                     <FieldItem
-                      className="active target-item"
+                      className={classNames({
+                        active: true,
+                        'active-light': theme === 'light',
+                        'active-dark': theme === 'dark',
+                        'target-item': true,
+                      })}
                       item={field}
                       showAggregatefunc={droppableId === 'indicators'}
                       showRename={['dimensions', 'indicators', 'legends'].includes(droppableId)}
