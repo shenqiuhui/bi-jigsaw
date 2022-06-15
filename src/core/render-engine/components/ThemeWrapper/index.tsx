@@ -12,6 +12,10 @@ echarts.registerTheme(darkTheme.themeName, darkTheme.theme);
 const ThemeWrapper: React.FC<ThemeWrapperProps> = (props) => {
   const { theme = 'light', children } = props;
 
+  ConfigProvider.config({
+    prefixCls: theme
+  });
+
   return (
     <ConfigProvider prefixCls={theme}>
       {children}
@@ -19,4 +23,4 @@ const ThemeWrapper: React.FC<ThemeWrapperProps> = (props) => {
   );
 }
 
-export default ThemeWrapper
+export default ThemeWrapper;
