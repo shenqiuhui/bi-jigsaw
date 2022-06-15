@@ -182,8 +182,8 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
         <GridLayout
           className={classNames({
             'grid-container': true,
-            'grid-container-light': pageConfig?.theme === 'light',
-            'grid-container-dark': pageConfig?.theme === 'dark'
+            'light-theme-grid-container': pageConfig?.theme === 'light',
+            'dark-theme-grid-container': pageConfig?.theme === 'dark'
           })}
           width={width}
           layout={layoutInfo}
@@ -228,8 +228,8 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
                 className={classNames({
                   'selected-widget': currentClickId === widget?.id,
                   'active-widget': isEdit && selectedWidgetId === widget?.id,
-                  'hover-widget-light': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'light',
-                  'hover-widget-dark': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'dark',
+                  'light-theme-hover-widget': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'light',
+                  'dark-theme-hover-widget': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'dark',
                   'inner-widget': widget?.parentId
                 })}
                 key={widget?.id}

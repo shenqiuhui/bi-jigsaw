@@ -19,6 +19,7 @@ interface ChartWidgetProps extends WidgetDefaultProps {
 
 const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
   const {
+    theme = 'light',
     type,
     pageId,
     api,
@@ -105,6 +106,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
       >
         {({ height, width }) => !isEmpty(data) ? (
           <InnerChart
+            theme={theme}
             option={charOption}
             ref={chartRef}
             height={height}

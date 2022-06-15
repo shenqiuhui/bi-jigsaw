@@ -4,7 +4,7 @@
     align-items: center;
     height: 100%;
 
-    &.list-container-light {
+    &.light-theme-list-container {
       .list-content {
         background-color: @light-theme-tint-bg-color;
 
@@ -19,25 +19,29 @@
 
       .connective-up-down {
         &.border-both {
-          border-left: 1px solid @dashboard-border-light;
-          border-right: 1px solid @dashboard-border-light;
+          border-left: 1px solid @dashboard-light-theme-border;
+          border-right: 1px solid @dashboard-light-theme-border;
         }
 
         &.border-left {
-          border-left: 1px solid @dashboard-border-light;
+          border-left: 1px solid @dashboard-light-theme-border;
         }
 
         &.border-right {
-          border-right: 1px solid @dashboard-border-light;
+          border-right: 1px solid @dashboard-light-theme-border;
         }
 
         .title-container {
-          border-bottom: 1px solid @dashboard-border-light;
+          border-bottom: 1px solid @dashboard-light-theme-border;
         }
+      }
+
+      .field-icon {
+        color: rgba(0, 0, 0, .45) !important;
       }
     }
 
-    &.list-container-dark {
+    &.dark-theme-list-container {
       .list-content {
         background-color: @dashboard-dark-theme-bg-color;
 
@@ -52,20 +56,20 @@
 
       .connective-up-down {
         &.border-both {
-          border-left: 1px solid @dashboard-border-dark;
-          border-right: 1px solid @dashboard-border-dark;
+          border-left: 1px solid @dashboard-dark-theme-border;
+          border-right: 1px solid @dashboard-dark-theme-border;
         }
 
         &.border-left {
-          border-left: 1px solid @dashboard-border-dark;
+          border-left: 1px solid @dashboard-dark-theme-border;
         }
 
         &.border-right {
-          border-right: 1px solid @dashboard-border-dark;
+          border-right: 1px solid @dashboard-dark-theme-border;
         }
 
         .title-container {
-          border-bottom: 1px solid @dashboard-border-dark;
+          border-bottom: 1px solid @dashboard-dark-theme-border;
         }
       }
     }
@@ -212,8 +216,4 @@
     padding: 16px 20px;
     overflow: auto;
   }
-}
-
-.field-icon {
-  color: rgba(0, 0, 0, .45) !important;
 }

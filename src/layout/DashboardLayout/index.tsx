@@ -250,7 +250,13 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
   return (
     <Layout className="dashboard-layout">
-      <Header className="dashboard-header">
+      <Header
+        className={classNames({
+          'dashboard-header': true,
+          'light-theme-dashboard-header': pageConfig?.theme === 'light',
+          'dark-theme-dashboard-header': pageConfig?.theme === 'dark',
+        })}
+      >
         {!isEmpty(pageConfig) && (
           <>
             <div className="dashboard-operator-exit">
@@ -279,7 +285,13 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
                 </ul>
               )}
               <div className="dashboard-operator">
-                <ul className="switch-buttons">
+                <ul
+                  className={classNames({
+                    'switch-buttons': true,
+                    'light-theme-switch-buttons': pageConfig?.theme === 'light',
+                    'dark-theme-switch-buttons': pageConfig?.theme === 'dark',
+                  })}
+                >
                   {activeButtons?.map(({ type, name }) => (
                     <li
                       key={type}

@@ -234,8 +234,8 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
     <h2
       className={classNames({
         'widget-title': true,
-        'widget-title-light': theme === 'light',
-        'widget-title-dark': theme === 'dark',
+        'light-theme-widget-title': theme === 'light',
+        'dark-theme-widget-title': theme === 'dark',
       })}
     >
       {data?.settings?.style?.title}
@@ -249,8 +249,8 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
         className={classNames({
           'widget-operate-base': true,
           'disabled-events': data?.newWidget || refreshDisabled,
-          'disabled-events-light': (data?.newWidget || refreshDisabled) && theme === 'light',
-          'disabled-events-dark': (data?.newWidget || refreshDisabled) && theme === 'dark',
+          'light-theme-disabled-events': (data?.newWidget || refreshDisabled) && theme === 'light',
+          'dark-theme-disabled-events': (data?.newWidget || refreshDisabled) && theme === 'dark',
         })}
         onClick={(event) => {
           handleRefreshThrottle(event, data);
@@ -330,8 +330,8 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
     <div
       className={classNames({
         'widget-container': true,
-        'widget-container-light': theme === 'light',
-        'widget-container-dark': theme === 'dark'
+        'light-theme-widget-container': theme === 'light',
+        'dark-theme-widget-container': theme === 'dark'
       })}
       tabIndex={-1}
       ref={setRefs}
@@ -348,8 +348,8 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
           {titleRender()}
           <Space
             className={classNames({
-              'widget-operate-light': theme === 'light',
-              'widget-operate-dark': theme === 'dark'
+              'light-theme-widget-operate': theme === 'light',
+              'dark-theme-widget-operate': theme === 'dark'
             })}
             size={8}
           >

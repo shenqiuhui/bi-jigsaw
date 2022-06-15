@@ -1,5 +1,5 @@
-import lightEmpty from '@/assets/images/text-empty-light.png';
-import darkEmpty from '@/assets/images/text-empty-dark.png';
+import lightEmpty from '@/assets/images/light-theme-text-empty.png';
+import darkEmpty from '@/assets/images/dark-theme-text-empty.png';
 import { EmptyProps } from './type';
 
 import './index.less';

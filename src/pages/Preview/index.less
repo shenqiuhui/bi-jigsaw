@@ -5,14 +5,20 @@
   .preview-header {
     height: 56px;
     line-height: 56px;
-    // background-color: #141414;
-    // box-shadow: rgb(13 13 13 / 65%) 0px 2px 8px 0px;
-    background-color: #000;
     color: #FFFFFF;
     font-size: 22px;
     text-align: center;
     padding: 0 20px;
     z-index: 99;
+
+    &.light-theme-preview-header {
+      background-color: @light-theme-header-bg-color;
+    }
+
+    &.dark-theme-preview-header {
+      background-color: @dark-theme-header-bg-color;
+      box-shadow: 0px 2px 10px @dashboard-dark-theme-border;
+    }
   }
 
   .preview-content {

@@ -73,8 +73,8 @@ const Filter: React.FC<FilterProps> = memo((props) => {
     <div
       className={classNames({
         'filter-container': true,
-        'filter-container-light': pageConfig?.theme === 'light',
-        'filter-container-dark': pageConfig?.theme === 'dark'
+        'light-theme-filter-container': pageConfig?.theme === 'light',
+        'dark-theme-filter-container': pageConfig?.theme === 'dark'
       })}
       onClick={handleStopPropagation}
     >

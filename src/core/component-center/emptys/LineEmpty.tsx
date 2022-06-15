@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import lightEmpty from '@/assets/images/line-empty-light.png';
-import darkEmpty from '@/assets/images/line-empty-dark.png';
+import lightEmpty from '@/assets/images/light-theme-line-empty.png';
+import darkEmpty from '@/assets/images/dark-theme-line-empty.png';
 import { EmptyProps } from './type';
 
 import './index.less';
@@ -17,8 +17,8 @@ const LineEmpty: React.FC<EmptyProps> = (props) => {
       <div
         className={classNames({
           'empty-tips': true,
-          'empty-tips-light': theme === 'light',
-          'empty-tips-dark': theme === 'dark'
+          'light-theme-empty-tips': theme === 'light',
+          'dark-theme-empty-tips': theme === 'dark'
         })}
       >
         当前图表暂无数据

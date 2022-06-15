@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Spin, Layout } from 'antd';
 import { useParams, useLocation } from 'react-router-dom';
 import qs from 'qs';
+import classNames from 'classnames';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig } from '@/service/apis/dashboard';
 import { ThemeWrapper, renderEngine, AuthHOC, PageConfigType, DashboardParamsType } from '@/core/render-engine';
@@ -50,7 +51,13 @@ const Preview: React.FC<PreviewProps> = () => {
     <ThemeWrapper theme={pageConfig?.theme}>
       <Layout className="preview-container">
         {header && (
-          <Header className="preview-header">
+          <Header
+            className={classNames({
+              'preview-header': true,
+              'light-theme-preview-header': pageConfig?.theme === 'light',
+              'dark-theme-preview-header': pageConfig?.theme === 'dark',
+            })}
+          >
             {pageConfig?.name}
           </Header>
         )}

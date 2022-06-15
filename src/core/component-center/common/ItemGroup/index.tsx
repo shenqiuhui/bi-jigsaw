@@ -30,8 +30,8 @@ const ItemGroup: React.FC<ItemGroupProps> = (props) => {
       <div
         className={classNames({
           'item-group-container': true,
-          'item-group-container-light': theme === 'light',
-          'item-group-container-dark': theme === 'dark'
+          'light-theme-item-group-container': theme === 'light',
+          'dark-theme-item-group-container': theme === 'dark'
         })}
         style={{ padding: paddingStyle }}
       >

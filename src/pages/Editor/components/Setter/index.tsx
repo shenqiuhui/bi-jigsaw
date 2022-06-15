@@ -60,8 +60,8 @@ const Setter: React.FC<SetterProps> = memo((props) => {
     <div
       className={classNames({
         'setter-container': true,
-        'setter-container-light': theme === 'light',
-        'setter-container-dark': theme === 'dark',
+        'light-theme-setter-container': theme === 'light',
+        'dark-theme-setter-container': theme === 'dark',
       })}
     >
       <h2>

@@ -351,8 +351,8 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
         <div
           className={classNames({
             'data-source': true,
-            'data-source-light': theme === 'light',
-            'data-source-dark': theme === 'dark'
+            'light-theme-data-source': theme === 'light',
+            'dark-theme-data-source': theme === 'dark'
           })}
         >
           <Select

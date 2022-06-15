@@ -29,8 +29,8 @@ const TextWidget: React.FC<TextWidgetProps> = memo((props) => {
         <div
           className={classNames({
             'text-widget-operate': true,
-            'text-widget-operate-light': theme === 'light',
-            'text-widget-operate-dark': theme === 'dark'
+            'light-theme-text-widget-operate': theme === 'light',
+            'dark-theme-text-widget-operate': theme === 'dark'
           })}
         >
           {dropdownRender?.()}

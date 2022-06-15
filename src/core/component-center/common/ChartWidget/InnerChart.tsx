@@ -3,6 +3,7 @@ import ReactECharts, { EChartsInstance, EChartsOption } from 'echarts-for-react'
 import { isEmpty } from 'lodash';
 
 interface InnerChartProps {
+  theme?: string;
   option: EChartsOption;
   height: number;
   width: number;
@@ -13,7 +14,7 @@ export interface CharInstanceRefType {
 }
 
 const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props, ref) => {
-  const { option, height, width } = props;
+  const { theme = 'light', option, height, width } = props;
 
   const [charInstance, setCharInstance] = useState<EChartsInstance>();
   const reactEchartRef = useRef<ReactECharts>(null);
@@ -27,7 +28,7 @@ const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props,
       const chartInstance = reactEchartRef?.current?.getEchartsInstance();
       setCharInstance(chartInstance);
     };
-  }, [option]);
+  }, [option, theme]);
 
   useEffect(() => {
     charInstance?.resize({ height, width });
@@ -37,7 +38,7 @@ const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props,
     <ReactECharts
       notMerge
       option={option}
-      theme="dark"
+      theme={theme}
       ref={reactEchartRef}
     />
   );

@@ -61,8 +61,8 @@ const DataTarget: React.FC<DataTargetProps> = (props) => {
                     <FieldItem
                       className={classNames({
                         active: true,
-                        'active-light': theme === 'light',
-                        'active-dark': theme === 'dark',
+                        'light-theme-active': theme === 'light',
+                        'dark-theme-active': theme === 'dark',
                         'target-item': true,
                       })}
                       item={field}

@@ -44,8 +44,8 @@ const Board = memo(forwardRef<BoardRefs, BoardProps>((props, ref) => {
       id="widgets-viewport"
       className={classNames({
         'render-engine-container': true,
-        'render-engine-container-light': config?.theme === 'light',
-        'render-engine-container-dark': config?.theme === 'dark',
+        'light-theme-render-engine-container': config?.theme === 'light',
+        'dark-theme-render-engine-container': config?.theme === 'dark',
       })}
     >
       {!isEmpty(config?.filters?.conditions) || !isEmpty(config?.widgets) ? (

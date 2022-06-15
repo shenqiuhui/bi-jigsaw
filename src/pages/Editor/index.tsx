@@ -214,8 +214,8 @@ const Editor: React.FC<EditorProps> = memo(() => {
                   className={classNames({
                     'editor-setter-container': true,
                     'editor-setter-container-none': pageStatus !== 'edit',
-                    'editor-setter-container-light': pageConfig?.theme === 'light',
-                    'editor-setter-container-dark': pageConfig?.theme === 'dark'
+                    'light-theme-editor-setter-container': pageConfig?.theme === 'light',
+                    'dark-theme-editor-setter-container': pageConfig?.theme === 'dark'
                   })}
                 >
                   <Setter

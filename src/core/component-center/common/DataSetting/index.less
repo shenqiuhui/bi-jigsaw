@@ -47,12 +47,12 @@
     padding: 10px;
     box-sizing: border-box;
 
-    &.data-source-light {
+    &.light-theme-data-source {
       border-left: 1px solid @dashboard-gray;
     }
 
-    &.data-source-dark {
-      border-left: 1px solid @dashboard-border-dark;
+    &.dark-theme-data-source {
+      border-left: 1px solid @dashboard-dark-theme-border;
     }
 
     .plan-select {
@@ -152,19 +152,19 @@
         border: 1px solid @dashboard-blue;
       }
 
-      &.active-light,
-      &.dragging-item-light,
-      &.hover-item-light:hover {
+      &.light-theme-active,
+      &.light-theme-dragging-item-,
+      &.light-theme-hover-item:hover {
         background-color: @dashboard-light-deep-bg-color;
       }
 
-      &.active-dark,
-      &.dragging-item-dark {
+      &.dark-theme-active,
+      &.dark-theme-dragging-item {
         background-color: @dashboard-dark-tint-bg-color;
       }
 
-      &.hover-item-dark:hover {
-        background-color: @dashboard-border-dark;
+      &.dark-theme-hover-item:hover {
+        background-color: @dashboard-dark-theme-border;
       }
     }
   }
