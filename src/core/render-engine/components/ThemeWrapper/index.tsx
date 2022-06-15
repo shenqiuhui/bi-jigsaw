@@ -10,7 +10,7 @@ echarts.registerTheme(lightTheme.themeName, lightTheme.theme);
 echarts.registerTheme(darkTheme.themeName, darkTheme.theme);
 
 const ThemeWrapper: React.FC<ThemeWrapperProps> = (props) => {
-  const { theme, children } = props;
+  const { theme = 'light', children } = props;
 
   return (
     <ConfigProvider prefixCls={theme}>

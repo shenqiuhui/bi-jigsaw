@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Layout, Button, Modal, Tooltip, message } from 'antd';
+import { ConfigProvider, Layout, Button, Modal, Tooltip, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
@@ -27,15 +27,15 @@ const activeButtons = [
 const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
+  const dispatch = useDispatch();
   const { pageId } = useParams<DashboardParamsType>();
-  const [activeButtonValue, setActiveButtonValue] = useState('edit');
+  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
+  const { pageConfig, pageStatus } = dashboardState;
+
   const [saveLoading, setSaveLoading] = useState(false);
   const [defaultPlan, setDefaultPlan] = useState<PlanDataType>({} as PlanDataType);
-
-  const dispatch = useDispatch();
-  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
-
-  const { pageConfig } = dashboardState;
+  const [modalApi, modalContextHolder] = Modal.useModal();
+  const [messageApi, messageContextHolder] = message.useMessage();
 
   const [widgetConfig] = useConfig('widgets');
   const [widgetMap, { generateEnumListByComponent }] = useComponent('widgets');
@@ -140,7 +140,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
       if (type !== 'tabs') {
         if (isEmpty(defaultPlan)) {
-          return message.error('请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件');
+          return messageApi.error('请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件');
         }
 
         widgets?.push({
@@ -186,7 +186,6 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
   // 切换状态
   const handleEditorStatusChange = (type: string) => {
-    setActiveButtonValue(type);
     dispatch(setDashboardStatus(type));
   }
 
@@ -196,7 +195,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
     try {
       await setPageConfig({ ...pageConfig, widgets: deleteNewWidgetStatus(pageConfig?.widgets) });
-      message.success('保存成功');
+      messageApi.success('保存成功');
 
       const res: any = await getPageConfig({
         pageId
@@ -212,7 +211,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const handleExitLayout = () => {
     const { pathname } = window.location;
 
-    Modal.confirm({
+    modalApi.confirm({
       title: '提示',
       content: '当前页面存在未保存数据将会丢失，确定退出吗？',
       keyboard: true,
@@ -270,7 +269,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
               <h1 className="dashboard-title ellipsis">
                 {pageConfig?.name}
               </h1>
-              {activeButtonValue === 'edit' && (
+              {pageStatus === 'edit' && (
                 <ul className="dashboard-tabs">
                   {widgetButtons?.map((item) => (
                     <Tooltip key={item?.type} title={item?.name}>
@@ -296,7 +295,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
                     <li
                       key={type}
                       className={classNames({
-                        active: type === activeButtonValue
+                        active: type === pageStatus
                       })}
                       onClick={() => handleEditorStatusChange(type)}
                     >
@@ -306,8 +305,8 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
                   <li
                     className={classNames({
                       'switch-buttons-mark': true,
-                      'edit-buttons-mark': activeButtonValue === 'edit',
-                      'preview-buttons-mark': activeButtonValue === 'preview',
+                      'edit-buttons-mark': pageStatus === 'edit',
+                      'preview-buttons-mark': pageStatus === 'preview',
                     })}
                   />
                 </ul>
@@ -328,6 +327,10 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
       <Content className="dashboard-content">
         {renderRoutes(route?.routes)}
       </Content>
+      <ConfigProvider prefixCls={pageConfig?.theme}>
+        {modalContextHolder}
+        {messageContextHolder}
+      </ConfigProvider>
     </Layout>
   );
 };
