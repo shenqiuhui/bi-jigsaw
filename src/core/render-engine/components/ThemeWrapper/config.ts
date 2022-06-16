@@ -334,7 +334,8 @@ export const lightTheme = {
           color: '#ccc',
           width: 1
         }
-      }
+      },
+      extraCssText: 'z-index: 9;'
     },
     timeline: {
       lineStyle: {
@@ -734,7 +735,8 @@ export const darkTheme = {
       borderColor: '#1f1f1f',
       textStyle: {
         color: '#ffffff'
-      }
+      },
+      extraCssText: 'z-index: 9;'
     },
     timeline: {
       lineStyle: {

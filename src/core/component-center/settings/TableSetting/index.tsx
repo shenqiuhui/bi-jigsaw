@@ -41,7 +41,7 @@ const TableSetting: React.FC<TableSettingProps> = (props) => {
 
   const handleChange = useCallback((filedName, value, styleSettings) => {
     if (value === '') {
-      return message.warn('表格组件标题不能为空，保存后将保持原标题');
+      return message.warning({ className: theme, content: '表格组件标题不能为空，保存后将保持原标题' });
     }
 
     onStyleSettingChange?.({ ...styleSettings, [filedName]: value });

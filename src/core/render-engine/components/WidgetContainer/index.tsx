@@ -137,7 +137,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   // 导出图片
   const handleDownloadImage = () => {
-    methods?.downloadImage?.(form, watchInfo);
+    methods?.downloadImage?.(form, data?.settings, watchInfo);
   }
 
   // 点击菜单选项

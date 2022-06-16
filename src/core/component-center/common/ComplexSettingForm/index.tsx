@@ -88,7 +88,10 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
       };
     } else {
       if (value === '') {
-        return message.warn(`${widgetNames?.[type]}组件标题不能为空，保存后将保持原标题`);
+        return message.warning({
+          className: theme,
+          content: `${widgetNames?.[type]}组件标题不能为空，保存后将保持原标题`
+        });
       }
 
       form = {
@@ -226,9 +229,12 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
                 labelAlign="left"
                 {...itemLayout}
               >
-                <RangeValues onChange={(value) => {
-                  handleChangeDebounce(des?.rangeName, value, styleSetting);
-                }} />
+                <RangeValues
+                  theme={theme}
+                  onChange={(value) => {
+                    handleChangeDebounce(des?.rangeName, value, styleSetting);
+                  }}
+                />
               </Item>
             )}
           </ItemGroup>

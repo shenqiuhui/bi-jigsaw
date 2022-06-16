@@ -13,7 +13,7 @@ const { Item, useForm } = Form;
 const { Group } = Radio;
 
 const TabsSetting: React.FC<TabsSettingProps> = (props) => {
-  const { settings, onStyleSettingChange } = props;
+  const { theme = 'light', settings, onStyleSettingChange } = props;
 
   const [form] = useForm();
 
@@ -24,11 +24,11 @@ const TabsSetting: React.FC<TabsSettingProps> = (props) => {
 
   const handleChange = useCallback((filedName, value, styleSettings) => {
     if (value === '') {
-      return message.warn('标签页容器组件标题不能为空，保存后将保持原标题');
+      return message.warning({ className: theme, content: '标签页容器组件标题不能为空，保存后将保持原标题' });
     }
 
     if (Array.isArray(value) && validateHasEditItem(value)) {
-      return message.warn('标签页名称不能为空，保存后将保持原设置');
+      return message.warning({  className: theme, content: '标签页名称不能为空，保存后将保持原设置' });
     }
 
     onStyleSettingChange?.({ ...styleSettings, [filedName]: value });

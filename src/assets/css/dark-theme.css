@@ -16837,11 +16837,14 @@ textarea.dark-mentions {
   width: 100%;
   pointer-events: none;
 }
+.dark {
+  color: rgba(255, 255, 255, 0.85);
+}
 .dark-message-notice {
   padding: 8px;
   text-align: center;
 }
-.dark-message-notice-content {
+.dark-message-notice-content, .dark >div {
   display: inline-block;
   padding: 10px 16px;
   background: #1f1f1f;

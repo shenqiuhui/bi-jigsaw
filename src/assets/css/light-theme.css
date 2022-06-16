@@ -32,7 +32,7 @@ html {
 @-ms-viewport {
   width: device-width;
 }
-body .light {
+body {
   margin: 0;
   color: rgba(0, 0, 0, 0.85);
   font-size: 14px;
@@ -16740,11 +16740,14 @@ textarea.light-mentions {
   width: 100%;
   pointer-events: none;
 }
+.light {
+  color: rgba(0, 0, 0, 0.85);
+}
 .light-message-notice {
   padding: 8px;
   text-align: center;
 }
-.light-message-notice-content {
+.light-message-notice-content, .light >div {
   display: inline-block;
   padding: 10px 16px;
   background: #fff;

@@ -242,7 +242,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
       dataSetting?.[destination?.droppableId as DroppableId],
       source?.index
     )) {
-      return message.warning('字段已存在');
+      return message.warning({ className: theme, content: '字段已存在' });
     }
 
     // 组件自定义条件判断
@@ -252,7 +252,7 @@ const DataSetting: React.FC<DataSettingProps> = (props) => {
 
     // 指标和维度互斥判断
     if (checkOpposite(source, destination, dataSetting)) {
-      return message.warning('字段不能在指标、维度和图例中同时存在');
+      return message.warning({ className: theme, content: '字段不能在指标、维度和图例中同时存在' });
     }
 
     // 添加和交换

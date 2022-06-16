@@ -138,7 +138,10 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
       const coordinate = computedCoordinate(uuid, type, widgets);
       if (type !== 'tabs') {
         if (isEmpty(defaultPlan)) {
-          return message.error('请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件');
+          return message.error({
+            className: pageConfig?.theme,
+            content: '请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件'
+          });
         }
 
         widgets?.push({
@@ -193,7 +196,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
     try {
       await setPageConfig({ ...pageConfig, widgets: deleteNewWidgetStatus(pageConfig?.widgets) });
-      message.success('保存成功');
+      message.success({ className: pageConfig?.theme, content: '保存成功'});
 
       const res: any = await getPageConfig({
         pageId

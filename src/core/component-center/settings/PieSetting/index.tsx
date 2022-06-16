@@ -39,12 +39,12 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
     const indicators = settings?.data?.indicators || [];
 
     if (droppableId === 'dimensions' && dimensions?.length > 0) {
-      message.warning('饼图维度中最多存在一个字段');
+      message.warning({ className: theme, content: '饼图维度中最多存在一个字段' });
       return false;
     }
 
     if (droppableId === 'indicators' && indicators?.length > 0) {
-      message.warning('饼图指标中最多存在一个字段');
+      message.warning({ className: theme, content: '饼图指标中最多存在一个字段' });
       return false;
     }
 
@@ -53,11 +53,11 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
 
   const handleChange = useCallback((filedName, value, styleSettings) => {
     if (value === '') {
-      return message.warn('饼图组件标题不能为空，保存后将保持原标题');
+      return message.warning({ className: theme, content: '饼图组件标题不能为空，保存后将保持原标题' });
     }
 
     if (value == null) {
-      return message.warn('半径占比不允许为空，保存将保持原设置');
+      return message.warning({ className: theme, content: '半径占比不允许为空，保存将保持原设置' });
     };
 
     onStyleSettingChange?.({ ...styleSettings, [filedName]: value });

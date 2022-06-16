@@ -273,7 +273,7 @@ export interface MaskVisibleMapType {
 export interface WidgetMethodsType {
   fetchData?: (form: FilterFormType, settings: SettingType, watchInfo: any) => Promise<any>;
   exportData?: (form: FilterFormType, settings: SettingType, watchInfo: any) => Promise<any>;
-  downloadImage?: (form: FilterFormType, watchInfo: any) => void;
+  downloadImage?: (form: FilterFormType, settings: SettingType, watchInfo: any) => void;
 }
 
 export interface FilterFormType {

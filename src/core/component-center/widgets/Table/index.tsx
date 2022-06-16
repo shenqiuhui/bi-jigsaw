@@ -17,6 +17,7 @@ interface IColumns {
 
 const TableWidget: React.FC<TableWidgetProps> = memo((props) => {
   const {
+    theme = 'light',
     isEdit,
     isSelected,
     type,
@@ -103,7 +104,7 @@ const TableWidget: React.FC<TableWidgetProps> = memo((props) => {
       });
 
       FileSaver.saveAs(blob, `${settings?.style?.title}${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}.csv`);
-      message.success('导出成功');
+      message.success({ className: theme, content: '导出成功' });
     } catch (err) {}
   }
 
@@ -116,7 +117,7 @@ const TableWidget: React.FC<TableWidgetProps> = memo((props) => {
       fetchData: fetchTableData,
       exportData: downloadTableData
     });
-  }, []);
+  }, [theme]);
 
   return (
     <div className="table-widget-container">

@@ -241,7 +241,7 @@ const FilterSetter: React.FC<FilterSetterProps> = memo((props) => {
         });
 
         await setFilterConfig({ ...data, list });
-        message.success('设置成功');
+        message.success({ className: pageConfig?.theme, content: '设置成功' });
         setSaved(true);
         onVisibleChange?.(false);
       }
