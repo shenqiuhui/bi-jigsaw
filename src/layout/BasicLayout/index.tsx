@@ -29,14 +29,19 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
     } catch (err) {}
   }
 
+  const handleThemeSave = (theme: string) => {
+    dispatch(setTheme(theme));
+    localStorage.setItem('theme', theme);
+  }
+
   const handleThemeChange = (checked: boolean) => {
     const value = checked ? 'dark' : 'light';
-    dispatch(setTheme(value));
-    localStorage.setItem('theme', value);
+    handleThemeSave(value)
   }
 
   useEffect(() => {
     fetchUserInfo();
+    handleThemeSave(theme);
   }, []);
 
   return (
