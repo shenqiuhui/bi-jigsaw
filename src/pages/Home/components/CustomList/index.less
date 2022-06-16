@@ -25,9 +25,18 @@
   .custom-list {
     height: 100%;
 
-    .create-user, .create-time, .update-user, .update-time {
-      text-align: right;
-      color: rgba(0, 0, 0, 0.45);
+    &.light-theme-custom-list {
+      .create-user, .create-time, .update-user, .update-time {
+        text-align: right;
+        color: rgba(0, 0, 0, 0.45);
+      }
+    }
+
+    &.dark-theme-custom-list {
+      .create-user, .create-time, .update-user, .update-time {
+        text-align: right;
+        color: rgba(255, 255, 255, 0.45);
+      }
     }
 
     .dark-spin-nested-loading,

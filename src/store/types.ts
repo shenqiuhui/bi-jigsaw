@@ -13,7 +13,12 @@ export interface DashboardStateType {
   pageStatus: string;
 }
 
+export interface HomeStateType {
+  theme: string;
+}
+
 export interface RootStateType {
   user: UserInfoType;
   dashboard: DashboardStateType;
+  home: HomeStateType
 }

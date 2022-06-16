@@ -311,6 +311,8 @@ export interface WidgetContainerRefType {
   handler: (info: any) => void;
 }
 
+export type ThemeType = 'light' | 'dark';
+
 /* 链接参数 */
 export interface DashboardParamsType {
   pageId: string;

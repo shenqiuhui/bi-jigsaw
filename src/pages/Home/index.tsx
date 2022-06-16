@@ -2,10 +2,12 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
 import { debounce } from 'lodash';
 import classNames from 'classnames';
-import { Card, Button, Select, Input, Collapse, Radio, RadioChangeEvent } from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Button, Select, Input, Collapse, Tag, Radio, RadioChangeEvent } from 'antd';
 import { SearchOutlined, AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
-import { OptionType } from '@/core/render-engine';
+import { OptionType, ThemeType } from '@/core/render-engine';
+import { RootStateType } from '@/store';
 import CustomCard from './components/CustomCard';
 import CustomList from './components/CustomList';
 
@@ -26,6 +28,7 @@ export interface DashboardType {
   createUser: string;
   updateTime: string;
   updateUser: string;
+  theme: string;
 }
 
 export const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
@@ -40,7 +43,7 @@ const Home = () => {
   const [dashboardList, setDashboardList] = useState<DashboardType[]>([]);
   const [dataSource, setDataSource] = useState<DashboardType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [theme] = useState(localStorage.getItem('theme') || 'light');
+  const { theme } = useSelector((state: RootStateType) => state?.home);
 
   const spaceOptions = useMemo<OptionType[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
     value: spaceId,
@@ -202,6 +205,28 @@ const Home = () => {
     ) : text;
   }
 
+  const themeTagRender = (itemTheme: string) => {
+    const colors = {
+      light: {
+        light: '#5677fc',
+        dark: '#ffbf00'
+      },
+      dark: {
+        light: 'blue',
+        dark: 'gold'
+      }
+    };
+
+    return (
+      <Tag
+        className="theme-tag"
+        color={colors?.[theme as ThemeType]?.[itemTheme as ThemeType]}
+      >
+        {itemTheme === 'light' ? '浅色主题' : '深色主题'}
+      </Tag>
+    );
+  }
+
   useUpdateEffect(() => {
     fetchDashboardList();
   }, [spaceId]);
@@ -235,6 +260,7 @@ const Home = () => {
               loading={loading}
               dataSource={dataSource}
               highlightRender={highlightRender}
+              themeTagRender={themeTagRender}
               onPreview={handlePreview}
               onIframePreview={handleIframePreview}
               onEdit={handleEdit}
@@ -242,9 +268,11 @@ const Home = () => {
           )}
           {mode === 'list' && (
             <CustomList
+              theme={theme}
               loading={loading}
               dataSource={dataSource}
               highlightRender={highlightRender}
+              themeTagRender={themeTagRender}
               onPreview={handlePreview}
               onIframePreview={handleIframePreview}
               onEdit={handleEdit}

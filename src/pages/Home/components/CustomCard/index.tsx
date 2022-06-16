@@ -8,6 +8,7 @@ interface CustomCardProps {
   loading: boolean;
   dataSource: DashboardType[];
   highlightRender?: (text: string) => React.ReactElement | string;
+  themeTagRender?: (itemTheme: string) => React.ReactElement;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
   onEdit?: (spaceId: string, pageId: string) => void;
@@ -27,7 +28,7 @@ const grid = {
 };
 
 const CustomCard: React.FC<CustomCardProps> = (props) => {
-  const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
+  const { loading, dataSource, highlightRender, themeTagRender, onPreview, onIframePreview, onEdit } = props;
 
   const renderItem = (item: DashboardType, index: number) => (
     <Item>
@@ -65,9 +66,12 @@ const CustomCard: React.FC<CustomCardProps> = (props) => {
         <Meta
           className="card-info"
           title={
-            <Tooltip title={item?.name}>
-              {highlightRender?.(item?.name)}
-            </Tooltip>
+            <div className="card-info-container">
+              <Tooltip className="card-info-title" title={item?.name}>
+                {highlightRender?.(item?.name)}
+              </Tooltip>
+              {themeTagRender?.(item?.theme)}
+            </div>
           }
           description={
             <div>

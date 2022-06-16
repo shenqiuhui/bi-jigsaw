@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Layout, Popover, Form, Switch, Alert, Avatar } from 'antd';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { UserOutlined, SettingFilled, SettingOutlined } from '@ant-design/icons'
 import { getUserInfo } from '@/service/apis/home';
 import { ThemeWrapper } from '@/core/render-engine';
 import { setUserInfo } from '@/store/slices/user';
+import { setTheme } from '@/store/slices/home';
 import { RootStateType } from '@/store';
 
 import './index.less';
@@ -17,8 +18,9 @@ const { Item } = Form;
 const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: RootStateType) => state.user);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const state = useSelector((state: RootStateType) => state);
+  const userInfo = state?.user;
+  const theme = localStorage.getItem('theme') || state?.home?.theme;
 
   const fetchUserInfo = async () => {
     try {
@@ -29,7 +31,7 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
   const handleThemeChange = (checked: boolean) => {
     const value = checked ? 'dark' : 'light';
-    setTheme(value);
+    dispatch(setTheme(value));
     localStorage.setItem('theme', value);
   }
 

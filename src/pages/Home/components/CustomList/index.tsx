@@ -6,9 +6,11 @@ import { DashboardType, colorList } from '@/pages/Home';
 import './index.less';
 
 interface CustomListProps {
+  theme?: string;
   loading: boolean;
   dataSource: DashboardType[];
   highlightRender?: (text: string) => React.ReactElement | string;
+  themeTagRender?: (itemTheme: string) => React.ReactElement;
   onPreview?: (spaceId: string, pageId: string) => void;
   onIframePreview?: (spaceId: string, pageId: string) => void;
   onEdit?: (spaceId: string, pageId: string) => void;
@@ -18,7 +20,16 @@ const { Item } = List;
 const { Meta } = Item;
 
 const CustomList: React.FC<CustomListProps> = (props) => {
-  const { loading, dataSource, highlightRender, onPreview, onIframePreview, onEdit } = props;
+  const {
+    theme = 'light',
+    loading,
+    dataSource,
+    highlightRender,
+    themeTagRender,
+    onPreview,
+    onIframePreview,
+    onEdit
+  } = props;
   const [page, setPage] = useState(1);
 
   const handlePageChange = (page: number) => {
@@ -84,6 +95,7 @@ const CustomList: React.FC<CustomListProps> = (props) => {
             更新于：{item?.updateTime}
           </div>
         </div>
+        {themeTagRender?.(item?.theme)}
       </Space>
     </Item>
   );
@@ -101,7 +113,11 @@ const CustomList: React.FC<CustomListProps> = (props) => {
       })}
     >
       <List
-        className="custom-list"
+        className={classNames({
+          'custom-list': true,
+          'light-theme-custom-list': theme === 'light',
+          'dark-theme-custom-list': theme === 'dark'
+        })}
         itemLayout="horizontal"
         loading={{
           size: "large",

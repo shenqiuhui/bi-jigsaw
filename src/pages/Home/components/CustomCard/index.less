@@ -23,6 +23,19 @@
     .card-info {
       margin: 8px 0 !important;
 
+      .card-info-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .card-info-title {
+          max-width: 65%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+
       .description {
         height: 45px;
         margin-bottom: 10px;
