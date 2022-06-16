@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
 import { debounce } from 'lodash';
+import classNames from 'classnames';
 import { Card, Button, Select, Input, Collapse, Radio, RadioChangeEvent } from 'antd';
 import { SearchOutlined, AppstoreOutlined, BarsOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getSpaceList, getDashboardList } from '@/service/apis/home';
@@ -39,6 +40,7 @@ const Home = () => {
   const [dashboardList, setDashboardList] = useState<DashboardType[]>([]);
   const [dataSource, setDataSource] = useState<DashboardType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [theme] = useState(localStorage.getItem('theme') || 'light');
 
   const spaceOptions = useMemo<OptionType[]>(() => spaceList?.reduce((memo, { spaceId, spaceName }) => (memo.push({
     value: spaceId,
@@ -212,8 +214,15 @@ const Home = () => {
   return (
     <div className="home-container">
       <Card
-        className="dashboard-list-card"
-        bodyStyle={{ padding: 0, height: 'calc(100% - 64px)'}}
+        className={classNames({
+          'dashboard-list-card': true,
+          'light-dashboard-list-card': theme === 'light',
+          'dark-dashboard-list-card': theme === 'dark'
+        })}
+        bodyStyle={{
+          padding: 0,
+          height: 'calc(100% - 64px)',
+        }}
         title={titleRender()}
         extra={layoutControllerRender()}
       >

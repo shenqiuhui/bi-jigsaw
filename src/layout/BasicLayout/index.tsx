@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Layout, Popover, Form, Switch, Alert, Avatar } from 'antd';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 import { useSelector, useDispatch } from 'react-redux';
-import { UserOutlined, SettingFilled } from '@ant-design/icons';
+import classNames from 'classnames';
+import { UserOutlined, SettingFilled, SettingOutlined } from '@ant-design/icons';
 import { getUserInfo } from '@/service/apis/home';
 import { ThemeWrapper } from '@/core/render-engine';
 import { setUserInfo } from '@/store/slices/user';
@@ -39,7 +40,13 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
   return (
     <ThemeWrapper theme={theme}>
       <Layout className="base-layout">
-        <Header className="base-layout-header">
+        <Header
+          className={classNames({
+            'base-layout-header': true,
+            'light-theme-base-layout-header': theme === 'light',
+            'dark-theme-base-layout-header': theme === 'dark',
+          })}
+        >
           <h1>
             BI 可视化页面搭建案例
           </h1>
@@ -49,7 +56,7 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
               overlayClassName="home-setting-content"
               content={
                 <Form>
-                  <Item className="form-item-horizontal" label="暗色主题" >
+                  <Item className="form-item-horizontal" label="深色主题" >
                     <Switch
                       checked={theme === 'dark'}
                       onChange={handleThemeChange}
@@ -58,7 +65,11 @@ const BasicLayout: React.FC<RouteConfigComponentProps> = (props) => {
                 </Form>
               }
             >
-              <SettingFilled className="setting-icon" />
+              {theme === 'light' ? (
+                <SettingFilled className="setting-icon" />
+              ) : (
+                <SettingOutlined className="setting-icon" />
+              )}
             </Popover>
             {userInfo.userName && (
               <div className="avatar">

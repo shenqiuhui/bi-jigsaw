@@ -4,6 +4,18 @@
   .dashboard-list-card {
     height: 100%;
 
+    &.light-dashboard-list-card {
+      .light-card-head {
+        background-color: #fff;
+      }
+    }
+
+    &.dark-dashboard-list-card {
+      .dark-card-head {
+        background-color: #1d1d1d;
+      }
+    }
+
     .title-container {
       display: flex;
       justify-content: flex-start;
@@ -21,7 +33,7 @@
           width: 600px;
 
           .search-input-icon {
-            color: rgba(0, 0, 0, .45);
+            color: #CDCDCD;
           }
         }
       }

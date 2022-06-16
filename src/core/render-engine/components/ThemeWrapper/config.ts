@@ -396,7 +396,7 @@ export const lightTheme = {
   }
 };
 
-// Dark 暗色主题
+// Dark 深色主题
 export const darkTheme = {
   themeName: 'dark',
   theme: {
