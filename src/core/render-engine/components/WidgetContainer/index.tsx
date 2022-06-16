@@ -348,6 +348,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
           {titleRender()}
           <Space
             className={classNames({
+              'widget-operate': true,
               'light-theme-widget-operate': theme === 'light',
               'dark-theme-widget-operate': theme === 'dark'
             })}
