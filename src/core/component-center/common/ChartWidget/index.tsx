@@ -19,6 +19,7 @@ interface ChartWidgetProps extends WidgetDefaultProps {
 
 const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
   const {
+    theme = 'light',
     type,
     pageId,
     api,
@@ -69,13 +70,13 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
       });
 
       FileSaver.saveAs(blob, `${settings?.style?.title}${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}.csv`);
-      message.success('导出成功');
+      message.success({ className: theme, content: '导出成功' });
     } catch (err) {}
   }
 
-  const downloadImage = () => {
+  const downloadImage = (_form: FilterFormType, _settings: SettingType) => {
     if (isEmpty(data)) {
-      return message.warning('图表数据为空');
+      return message.warning({ className: theme, content: '图表数据为空' });
     }
 
     const base64 = chartRef?.current?.charInstance?.getDataURL({
@@ -85,7 +86,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
     const blob = base64ToBlob(base64);
 
     FileSaver.saveAs(blob, `${settings?.style?.title}${moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')}.png`);
-    message.success('下载成功');
+    message.success({ className: theme, content: '下载成功' });
   }
 
   useEffect(() => {
@@ -94,7 +95,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
       exportData: downloadData,
       downloadImage: downloadImage
     });
-  }, []);
+  }, [data, theme]);
 
   return (
     <div className="chart-widget-container">
@@ -105,6 +106,7 @@ const ChartWidget: React.FC<ChartWidgetProps> = memo((props) => {
       >
         {({ height, width }) => !isEmpty(data) ? (
           <InnerChart
+            theme={theme}
             option={charOption}
             ref={chartRef}
             height={height}

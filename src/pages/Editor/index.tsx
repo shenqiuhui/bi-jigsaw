@@ -8,6 +8,7 @@ import { getPageConfig } from '@/service/apis/dashboard';
 import { setDashboardConfig } from '@/store/slices/dashboard';
 import {
   renderEngine,
+  ThemeWrapper,
   SettingType,
   PageSettingType,
   WidgetType,
@@ -185,51 +186,56 @@ const Editor: React.FC<EditorProps> = memo(() => {
       size="large"
       spinning={loading}
     >
-      <div className="editor-container">
-        {!loading && (
-          <>
-            <div
-              className="editor-board-container"
-              onClick={handlePageSelected}
-            >
-              {renderEngine(pageStatus === 'edit' ? {
-                isEdit: true,
-                config: pageConfig,
-                ref: renderEngineRef,
-                selectedWidgetId,
-                onFilterConfigSubmit: handleFilterConfigSubmit,
-                onWidgetSelect: handleWidgetSelect,
-                onWidgetsUpdate: handleWidgetsUpdate,
-                onPageConfigUpdate: handlePageConfigUpdate,
-                onDataSettingChange: handleDataSettingChange,
-                onStyleSettingChange: handleStyleSettingChange,
-              } : {
-                config: pageConfig,
-              })}
-            </div>
-            {pageStatus === 'edit' && !isEmpty(settings) && (
+      <ThemeWrapper theme={pageConfig?.theme}>
+        <div className="editor-container">
+          {!loading && (
+            <>
               <div
-                className={classNames({
-                  'editor-setter-container': true,
-                  'editor-setter-container-none': pageStatus !== 'edit'
-                })}
+                className="editor-board-container"
+                onClick={handlePageSelected}
               >
-                <Setter
-                  type={type}
-                  pageId={pageConfig.pageId}
-                  spaceId={pageConfig.spaceId}
-                  widgetId={selectedWidgetId}
-                  settings={settings}
-                  watchHandlers={renderEngineRef?.current?.watchHandlers}
-                  onPageSettingChange={handlePageSettingChange}
-                  onDataSettingChange={handleDataSettingChange}
-                  onStyleSettingChange={handleStyleSettingChange}
-                />
+                {renderEngine(pageStatus === 'edit' ? {
+                  isEdit: true,
+                  config: pageConfig,
+                  ref: renderEngineRef,
+                  selectedWidgetId,
+                  onFilterConfigSubmit: handleFilterConfigSubmit,
+                  onWidgetSelect: handleWidgetSelect,
+                  onWidgetsUpdate: handleWidgetsUpdate,
+                  onPageConfigUpdate: handlePageConfigUpdate,
+                  onDataSettingChange: handleDataSettingChange,
+                  onStyleSettingChange: handleStyleSettingChange,
+                } : {
+                  config: pageConfig,
+                })}
               </div>
-            )}
-          </>
-        )}
-      </div>
+              {pageStatus === 'edit' && !isEmpty(settings) && (
+                <div
+                  className={classNames({
+                    'editor-setter-container': true,
+                    'editor-setter-container-none': pageStatus !== 'edit',
+                    'light-theme-editor-setter-container': pageConfig?.theme === 'light',
+                    'dark-theme-editor-setter-container': pageConfig?.theme === 'dark'
+                  })}
+                >
+                  <Setter
+                    theme={pageConfig?.theme}
+                    type={type}
+                    pageId={pageConfig.pageId}
+                    spaceId={pageConfig.spaceId}
+                    widgetId={selectedWidgetId}
+                    settings={settings}
+                    watchHandlers={renderEngineRef?.current?.watchHandlers}
+                    onPageSettingChange={handlePageSettingChange}
+                    onDataSettingChange={handleDataSettingChange}
+                    onStyleSettingChange={handleStyleSettingChange}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </ThemeWrapper>
     </Spin>
   );
 });

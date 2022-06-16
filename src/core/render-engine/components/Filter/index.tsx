@@ -1,6 +1,7 @@
-import { memo, useState, useMemo, useEffect, useCallback } from 'react';
+import { memo, useState, useMemo, useCallback } from 'react';
 import { Form, Button } from 'antd';
 import { useUpdateEffect } from 'ahooks';
+import classNames from 'classnames';
 import { PlusOutlined } from '@ant-design/icons';
 import { omit, throttle } from 'lodash';
 import { useComponent } from '@/core/register';
@@ -69,7 +70,14 @@ const Filter: React.FC<FilterProps> = memo((props) => {
   }, [form, initialValues]);
 
   return (
-    <div className="filter-container" onClick={handleStopPropagation}>
+    <div
+      className={classNames({
+        'filter-container': true,
+        'light-theme-filter-container': pageConfig?.theme === 'light',
+        'dark-theme-filter-container': pageConfig?.theme === 'dark'
+      })}
+      onClick={handleStopPropagation}
+    >
       <Form
         layout="inline"
         form={form}

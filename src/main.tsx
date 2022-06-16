@@ -13,8 +13,8 @@ moment.locale('zh-cn');
 
 ConfigProvider.config({
   theme: {
-    primaryColor: '#5677FC',
-  },
+    primaryColor: '#5677FC'
+  }
 });
 
 ReactDOM.render(

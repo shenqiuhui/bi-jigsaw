@@ -5,12 +5,14 @@ import { SettingType, PageSettingType, WatchHandlersType } from '@/core/render-e
 import TabsContainer from './TabsContainer';
 
 import './index.less';
+import classNames from 'classnames';
 
 export interface TabsContainerRefType {
   activeKeyInit: () => void;
 }
 
 interface SetterProps {
+  theme: string;
   type: string;
   pageId: string;
   spaceId: string;
@@ -25,6 +27,7 @@ interface SetterProps {
 
 const Setter: React.FC<SetterProps> = memo((props) => {
   const {
+    theme = 'light',
     type,
     pageId,
     spaceId,
@@ -54,7 +57,13 @@ const Setter: React.FC<SetterProps> = memo((props) => {
   }, [widgetId]);
 
   return (
-    <div className="setter-container">
+    <div
+      className={classNames({
+        'setter-container': true,
+        'light-theme-setter-container': theme === 'light',
+        'dark-theme-setter-container': theme === 'dark',
+      })}
+    >
       <h2>
         {widgetSettingMap?.[type]?.name}
       </h2>
@@ -67,6 +76,7 @@ const Setter: React.FC<SetterProps> = memo((props) => {
           {widgetSettingMap?.[type]?.component?.({
             ...omit(widgetSettingMap?.[type], ['component']),
             activeTab: hasTab ? activeTab : null,
+            theme,
             pageId,
             spaceId,
             widgetId,

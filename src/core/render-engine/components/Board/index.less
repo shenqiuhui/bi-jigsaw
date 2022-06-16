@@ -1,6 +1,15 @@
 .render-engine-container {
   height: 100%;
   overflow: auto;
+  scrollbar-gutter: stable;
+
+  &.light-theme-render-engine-container {
+    background-color: @dashboard-light-theme-bg-color;
+  }
+
+  &.dark-theme-render-engine-container {
+    background-color: @dashboard-dark-theme-bg-color;
+  }
 
   .board-container {
     width: 100%;

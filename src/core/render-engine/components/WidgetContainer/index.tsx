@@ -30,6 +30,7 @@ import {
 import './index.less';
 
 interface ChildrenProps {
+  theme?: string;
   methodsRegister: (methods: WidgetMethodsType) => void;
   emptyRender: (offset?: number) => React.ReactNode;
   onWatchInfoChange: (info: any) => void;
@@ -41,6 +42,7 @@ interface SubGridProps extends GirdProps {
 
 interface WidgetContainerProps {
   inner?: boolean;
+  theme?: string;
   showOperator?: boolean;
   showHeader?: boolean;
   useLoading?: boolean;
@@ -59,6 +61,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
     data,
     form,
     selectedWidgetId,
+    theme = 'light',
     showOperator = false,
     showHeader = true,
     useLoading = true,
@@ -134,7 +137,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   // 导出图片
   const handleDownloadImage = () => {
-    methods?.downloadImage?.(form, watchInfo);
+    methods?.downloadImage?.(form, data?.settings, watchInfo);
   }
 
   // 点击菜单选项
@@ -186,7 +189,9 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
   // 渲染组件空数据方法
   const emptyRender = (offset?: number) => {
     offset && setOffset(offset);
-    return widgetEmptyMap?.[data.type]?.component();
+    return widgetEmptyMap?.[data.type]?.component({
+      theme
+    });
   }
 
   // 操作菜单
@@ -226,7 +231,13 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   // 渲染标题
   const titleRender = () => data?.settings?.style?.showTitle ? (
-    <h2 className="widget-title">
+    <h2
+      className={classNames({
+        'widget-title': true,
+        'light-theme-widget-title': theme === 'light',
+        'dark-theme-widget-title': theme === 'dark',
+      })}
+    >
       {data?.settings?.style?.title}
     </h2>
   ) : null;
@@ -237,7 +248,9 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
       <SyncOutlined
         className={classNames({
           'widget-operate-base': true,
-          'disabled-events': data?.newWidget || refreshDisabled
+          'disabled-events': data?.newWidget || refreshDisabled,
+          'light-theme-disabled-events': (data?.newWidget || refreshDisabled) && theme === 'light',
+          'dark-theme-disabled-events': (data?.newWidget || refreshDisabled) && theme === 'dark',
         })}
         onClick={(event) => {
           handleRefreshThrottle(event, data);
@@ -315,7 +328,11 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
 
   return (
     <div
-      className="widget-container"
+      className={classNames({
+        'widget-container': true,
+        'light-theme-widget-container': theme === 'light',
+        'dark-theme-widget-container': theme === 'dark'
+      })}
       tabIndex={-1}
       ref={setRefs}
       onClick={handleWidgetSelect}
@@ -329,7 +346,13 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
           })}
         >
           {titleRender()}
-          <Space className="widget-operate" size={8}>
+          <Space
+            className={classNames({
+              'light-theme-widget-operate': theme === 'light',
+              'dark-theme-widget-operate': theme === 'dark'
+            })}
+            size={8}
+          >
             {refreshRender()}
             {toggleScreenRender()}
             {dropdownRender()}
@@ -342,6 +365,7 @@ const WidgetContainer = memo(forwardRef<WidgetContainerRefType, WidgetContainerP
       >
         <Spin spinning={loading}>
           {children?.({
+            theme,
             emptyRender,
             methodsRegister: handleMethodsRegister,
             onWatchInfoChange: handleWatchInfoChange,

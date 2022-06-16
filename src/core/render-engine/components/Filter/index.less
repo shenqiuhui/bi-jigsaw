@@ -1,14 +1,22 @@
 .filter-container {
   min-height: 70px;
-  background-color: #FFFFFF;
   position: sticky;
   top: 0;
   left: 0;
   padding: 30px 22px 8px;
-  margin: 0 20px;
-  box-shadow: 0px 0px 4px rgba(215, 215, 215, .35);
+  margin: 10px 20px 0;
   border-radius: 2px;
   z-index: 99;
+
+  &.light-theme-filter-container {
+    background-color: @light-theme-deep-bg-color;
+    box-shadow: 0px 0px 4px rgba(215, 215, 215, .35);
+  }
+
+  &.dark-theme-filter-container {
+    background-color: @dark-theme-deep-bg-color;
+    box-shadow: 0px 2px 8px rgb(13 13 13 / 65%);
+  }
 
   .filter-item {
     margin-bottom: 22px !important;

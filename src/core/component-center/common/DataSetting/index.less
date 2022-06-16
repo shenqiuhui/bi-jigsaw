@@ -44,9 +44,16 @@
   .data-source {
     width: 50%;
     height: 100%;
-    border-left: 1px solid @dashboard-gray;
     padding: 10px;
     box-sizing: border-box;
+
+    &.light-theme-data-source {
+      border-left: 1px solid @dashboard-gray;
+    }
+
+    &.dark-theme-data-source {
+      border-left: 1px solid @dashboard-dark-theme-border;
+    }
 
     .plan-select {
       width: 100%;
@@ -103,8 +110,10 @@
       }
 
       .ellipsis {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         width: 160px;
-        line-height: 22px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -123,8 +132,6 @@
 
       &.hover-item {
         &:hover {
-          background-color: @dashboard-deep-bg-color;
-
           .field-name {
             color: @dashboard-main-text-color;
           }
@@ -133,19 +140,32 @@
 
       &.active {
         color: @dashboard-main-text-color;
-        background-color: @dashboard-deep-bg-color;
         border: 1px solid @dashboard-blue;
       }
 
       &.target-item {
         color: @dashboard-main-text-color;
       }
-    }
 
-    .dragging-item {
-      color: @dashboard-main-text-color;
-      background-color: @dashboard-deep-bg-color;
-      border: 1px solid @dashboard-blue;
+      &.dragging-item {
+        color: @dashboard-main-text-color;
+        border: 1px solid @dashboard-blue;
+      }
+
+      &.light-theme-active,
+      &.light-theme-dragging-item,
+      &.light-theme-hover-item:hover {
+        background-color: @dashboard-light-deep-bg-color;
+      }
+
+      &.dark-theme-active,
+      &.dark-theme-dragging-item {
+        background-color: @dashboard-dark-tint-bg-color !important;
+      }
+
+      &.dark-theme-hover-item:hover {
+        background-color: @dashboard-dark-theme-border;
+      }
     }
   }
 }

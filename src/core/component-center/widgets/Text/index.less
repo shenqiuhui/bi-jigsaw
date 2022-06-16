@@ -18,12 +18,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #444444;
-    background: #FFFFFF;
     position: absolute;
     top: 10px;
     right: 10px;
     border-radius: 2px;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+
+    &.light-theme-text-widget-operate {
+      color: #444444;
+      background-color: @light-theme-deep-bg-color;
+      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    &.dark-theme-text-widget-operate {
+      color: @dashboard-main-text-color;
+      background-color: @dashboard-dark-tint-bg-color;
+      box-shadow: 0px 2px 8px rgb(13 13 13 / 65%);
+    }
   }
 }

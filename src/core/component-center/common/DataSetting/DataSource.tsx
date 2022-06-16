@@ -6,6 +6,7 @@ import FieldItem from './FieldItem';
 import './index.less';
 
 interface DataSourceProps {
+  theme?: string;
   fields: FieldDataType[];
   activeField: string;
   onActiveFieldChange?: (field: string) => void;
@@ -13,7 +14,7 @@ interface DataSourceProps {
 }
 
 const DataSource: React.FC<DataSourceProps> = (props) => {
-  const { fields, activeField, onActiveFieldChange, onClick } = props;
+  const { theme = 'light', fields, activeField, onActiveFieldChange, onClick } = props;
 
   const handleClick = () => onClick?.();
 
@@ -40,8 +41,14 @@ const DataSource: React.FC<DataSourceProps> = (props) => {
                           <FieldItem
                             className={classNames({
                               active: activeField === field?.field,
+                              'light-theme-active': activeField === field?.field && theme === 'light',
+                              'dark-theme-active': activeField === field?.field && theme === 'dark',
                               'hover-item': true,
-                              'dragging-item': snapshot.isDragging
+                              'light-theme-hover-item': theme === 'light',
+                              'dark-theme-hover-item': theme === 'dark',
+                              'dragging-item': snapshot.isDragging,
+                              'light-theme-dragging-item': snapshot.isDragging && theme === 'light',
+                              'dark-theme-dragging-item': snapshot.isDragging && theme === 'dark',
                             })}
                             item={field}
                             ref={provided.innerRef}
@@ -57,6 +64,8 @@ const DataSource: React.FC<DataSourceProps> = (props) => {
                               className={classNames({
                                 'field-item-clone': true,
                                 'dragging-item': snapshot.isDragging && activeField === field?.field,
+                                'light-theme-dragging-item': snapshot.isDragging && activeField === field?.field && theme === 'light',
+                                'dark-theme-dragging-item': snapshot.isDragging && activeField === field?.field && theme === 'dark'
                               })}
                               item={field}
                             />

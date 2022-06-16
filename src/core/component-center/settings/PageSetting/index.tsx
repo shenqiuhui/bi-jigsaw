@@ -15,7 +15,7 @@ const { TextArea } = Input;
 const { Group } = Radio;
 
 const PageSetting: React.FC<PageSettingProps> = (props) => {
-  const { spaceId, settings, onPageSettingChange } = props;
+  const { theme = 'light', spaceId, settings, onPageSettingChange } = props;
 
   const [form] = useForm();
 
@@ -32,7 +32,7 @@ const PageSetting: React.FC<PageSettingProps> = (props) => {
     if (filedName === 'name') {
       const checkResult = await validator?.(spaceId as string, value);
       if (!checkResult) {
-        return message.error('仪表板名称已存在，保存后将保持原名称');
+        return message.error({ className: theme, content: '仪表板名称已存在，保存后将保持原名称' });
       }
     }
 
@@ -77,7 +77,10 @@ const PageSetting: React.FC<PageSettingProps> = (props) => {
             }}
           />
         </Item>
-        <ItemGroup label={<LabelRender name="主题" />}>
+        <ItemGroup
+          theme={theme}
+          label={<LabelRender name="主题" />}
+        >
           <Item
             className="form-item-horizontal"
             name="theme"
@@ -89,7 +92,7 @@ const PageSetting: React.FC<PageSettingProps> = (props) => {
               }}
             >
               <Radio value="light">浅色</Radio>
-              {/* <Radio value="dark">深色</Radio> */}
+              <Radio value="dark">深色</Radio>
             </Group>
           </Item>
         </ItemGroup>

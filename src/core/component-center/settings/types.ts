@@ -2,6 +2,7 @@ import { RegisterBaseType } from '@/core/register';
 import { PageSettingType, SettingType } from '@/core/render-engine';
 
 export interface SettingDefaultProps {
+  theme: string;
   hasTab: boolean;
   type: string;
   activeTab: string;

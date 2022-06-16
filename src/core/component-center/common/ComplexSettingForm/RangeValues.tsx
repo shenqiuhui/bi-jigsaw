@@ -4,12 +4,13 @@ import { InputNumber, message } from 'antd';
 import './index.less';
 
 interface RangeValuesProps {
+  theme?: string;
   value?: number[];
   onChange?: (values: (number | null)[]) => void;
 }
 
 const RangeValues: React.FC<RangeValuesProps> = (props) => {
-  const { value: rangeList, onChange } = props;
+  const { theme = 'light', value: rangeList, onChange } = props;
 
   const handleChange = useCallback((value, index) => {
     const [start, end] = rangeList as number[];
@@ -18,7 +19,7 @@ const RangeValues: React.FC<RangeValuesProps> = (props) => {
       (index === 0 && value && end && value > end) ||
       (index === 1 && value && start && value < start)
     ) {
-      return message.warn('最小值不能大于最大值');
+      return message.warning({ className: theme, content: '最小值不能大于最大值' });
     }
 
     const rangeListClone = Array.from(rangeList as number[]);

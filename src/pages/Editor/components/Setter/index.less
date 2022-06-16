@@ -1,13 +1,52 @@
 .setter-container {
   height: 100%;
 
+  &.light-theme-setter-container {
+    >h2 {
+      background-color: @dashboard-light-deep-bg-color;
+    }
+
+    .setter-content {
+      .tabs-container {
+        >ul {
+          li {
+            background-color: @dashboard-light-deep-bg-color;
+
+            &.active {
+              background-color: @dashboard-light-tint-bg-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.dark-theme-setter-container {
+    >h2 {
+      background-color: @dashboard-dark-tint-bg-color;
+    }
+
+    .setter-content {
+      .tabs-container {
+        >ul {
+          li {
+            background-color: @dashboard-dark-tint-bg-color;
+
+            &.active {
+              background-color: @dashboard-dark-deep-bg-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
   >h2 {
     height: 40px;
     line-height: 40px;
     font-size: 16px;
     font-weight: 400;
     color: @dashboard-title-color;
-    background-color: @dashboard-deep-bg-color;
     margin: 0;
     padding-left: 16px;
   }
@@ -35,12 +74,7 @@
           height: 34px;
           line-height: 34px;
           text-align: center;
-          background-color: @dashboard-deep-bg-color;
           cursor: pointer;
-
-          &.active {
-            background-color: @dashboard-tint-bg-color;
-          }
         }
       }
 

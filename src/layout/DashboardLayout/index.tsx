@@ -10,7 +10,7 @@ import { IconFont } from '@/assets/iconfont';
 import { checkDashboardAuth } from '@/service/apis/auth';
 import { getPageConfig, setPageConfig, getPlanList } from '@/service/apis/dashboard';
 import { useComponent, useConfig, WidgetButtonType } from '@/core/register';
-import { AuthHOC, DashboardParamsType, CoordinateType, WidgetType, TabType } from '@/core/render-engine';
+import { ThemeWrapper, AuthHOC, DashboardParamsType, CoordinateType, WidgetType, TabType } from '@/core/render-engine';
 import { PlanDataType } from '@/core/component-center/settings'
 import { setDashboardConfig, setDashboardStatus } from '@/store/slices/dashboard';
 import { RootStateType } from '@/store';
@@ -27,15 +27,14 @@ const activeButtons = [
 const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const { route } = props;
 
+  const dispatch = useDispatch();
   const { pageId } = useParams<DashboardParamsType>();
-  const [activeButtonValue, setActiveButtonValue] = useState('edit');
+  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
+  const { pageConfig, pageStatus } = dashboardState;
+
   const [saveLoading, setSaveLoading] = useState(false);
   const [defaultPlan, setDefaultPlan] = useState<PlanDataType>({} as PlanDataType);
-
-  const dispatch = useDispatch();
-  const dashboardState = useSelector((state: RootStateType) => state.dashboard);
-
-  const { pageConfig } = dashboardState;
+  const [modal, contextHolder] = Modal.useModal();
 
   const [widgetConfig] = useConfig('widgets');
   const [widgetMap, { generateEnumListByComponent }] = useComponent('widgets');
@@ -137,10 +136,12 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
     } else {
       const widgets = cloneDeep(pageConfig?.widgets || []);
       const coordinate = computedCoordinate(uuid, type, widgets);
-
       if (type !== 'tabs') {
         if (isEmpty(defaultPlan)) {
-          return message.error('请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件');
+          return message.error({
+            className: pageConfig?.theme,
+            content: '请先去数据查询平台创建查询条件并设置为自动更新，再创建图表组件'
+          });
         }
 
         widgets?.push({
@@ -186,7 +187,6 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
   // 切换状态
   const handleEditorStatusChange = (type: string) => {
-    setActiveButtonValue(type);
     dispatch(setDashboardStatus(type));
   }
 
@@ -196,7 +196,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
 
     try {
       await setPageConfig({ ...pageConfig, widgets: deleteNewWidgetStatus(pageConfig?.widgets) });
-      message.success('保存成功');
+      message.success({ className: pageConfig?.theme, content: '保存成功'});
 
       const res: any = await getPageConfig({
         pageId
@@ -212,7 +212,7 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   const handleExitLayout = () => {
     const { pathname } = window.location;
 
-    Modal.confirm({
+    modal.confirm({
       title: '提示',
       content: '当前页面存在未保存数据将会丢失，确定退出吗？',
       keyboard: true,
@@ -249,74 +249,89 @@ const DashboardLayout: React.FC<RouteConfigComponentProps> = (props) => {
   }, []);
 
   return (
-    <Layout className="dashboard-layout">
-      <Header className="dashboard-header">
-        {!isEmpty(pageConfig) && (
-          <>
-            <div className="dashboard-operator-exit">
-              <IconFont
-                className="dashboard-operator-exit-icon"
-                type="icon-back"
-                onClick={handleExitLayout}
-              />
-            </div>
-            <div className="dashboard-header-right">
-              <h1 className="dashboard-title ellipsis">
-                {pageConfig?.name}
-              </h1>
-              {activeButtonValue === 'edit' && (
-                <ul className="dashboard-tabs">
-                  {widgetButtons?.map((item) => (
-                    <Tooltip key={item?.type} title={item?.name}>
-                      <li onClick={() => handleAddWidget(item?.type)}>
-                        <IconFont
-                          className="widget-add-button"
-                          type={`icon-widget-${item?.type}`}
-                        />
-                      </li>
-                    </Tooltip>
-                  ))}
-                </ul>
-              )}
-              <div className="dashboard-operator">
-                <ul className="switch-buttons">
-                  {activeButtons?.map(({ type, name }) => (
-                    <li
-                      key={type}
-                      className={classNames({
-                        active: type === activeButtonValue
-                      })}
-                      onClick={() => handleEditorStatusChange(type)}
-                    >
-                      {name}
-                    </li>
-                  ))}
-                  <li
-                    className={classNames({
-                      'switch-buttons-mark': true,
-                      'edit-buttons-mark': activeButtonValue === 'edit',
-                      'preview-buttons-mark': activeButtonValue === 'preview',
-                    })}
-                  />
-                </ul>
-                <Button
-                  className="dashboard-operator-save"
-                  type="primary"
-                  shape="round"
-                  loading={saveLoading}
-                  onClick={handleSaveConfig}
-                >
-                  保存
-                </Button>
+    <ThemeWrapper theme={pageConfig?.theme}>
+      <Layout className="dashboard-layout">
+        <Header
+          className={classNames({
+            'dashboard-header': true,
+            'light-theme-dashboard-header': pageConfig?.theme === 'light',
+            'dark-theme-dashboard-header': pageConfig?.theme === 'dark',
+          })}
+        >
+          {!isEmpty(pageConfig) && (
+            <>
+              <div className="dashboard-operator-exit">
+                <IconFont
+                  className="dashboard-operator-exit-icon"
+                  type="icon-back"
+                  onClick={handleExitLayout}
+                />
               </div>
-            </div>
-          </>
-        )}
-      </Header>
-      <Content className="dashboard-content">
-        {renderRoutes(route?.routes)}
-      </Content>
-    </Layout>
+              <div className="dashboard-header-right">
+                <h1 className="dashboard-title ellipsis">
+                  {pageConfig?.name}
+                </h1>
+                {pageStatus === 'edit' && (
+                  <ul className="dashboard-tabs">
+                    {widgetButtons?.map((item) => (
+                      <Tooltip key={item?.type} title={item?.name}>
+                        <li onClick={() => handleAddWidget(item?.type)}>
+                          <IconFont
+                            className="widget-add-button"
+                            type={`icon-widget-${item?.type}`}
+                          />
+                        </li>
+                      </Tooltip>
+                    ))}
+                  </ul>
+                )}
+                <div className="dashboard-operator">
+                  <ul
+                    className={classNames({
+                      'switch-buttons': true,
+                      'light-theme-switch-buttons': pageConfig?.theme === 'light',
+                      'dark-theme-switch-buttons': pageConfig?.theme === 'dark',
+                    })}
+                  >
+                    {activeButtons?.map(({ type, name }) => (
+                      <li
+                        key={type}
+                        className={classNames({
+                          active: type === pageStatus
+                        })}
+                        onClick={() => handleEditorStatusChange(type)}
+                      >
+                        {name}
+                      </li>
+                    ))}
+                    <li
+                      className={classNames({
+                        'switch-buttons-mark': true,
+                        'edit-buttons-mark': pageStatus === 'edit',
+                        'preview-buttons-mark': pageStatus === 'preview',
+                      })}
+                    />
+                  </ul>
+                  <Button
+                    className="dashboard-operator-save"
+                    type="primary"
+                    shape="round"
+                    loading={saveLoading}
+                    onClick={handleSaveConfig}
+                  >
+                    保存
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </Header>
+        <Content className="dashboard-content">
+          {renderRoutes(route?.routes)}
+        </Content>
+      </Layout>
+      {contextHolder}
+    </ThemeWrapper>
   );
 };
 

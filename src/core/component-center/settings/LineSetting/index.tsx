@@ -16,6 +16,7 @@ const settingDes = [
 
 const LineSetting: React.FC<LineSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -32,12 +33,12 @@ const LineSetting: React.FC<LineSettingProps> = (props) => {
     const legends = settings?.data?.legends || [];
 
     if (droppableId === 'dimensions' && dimensions?.length > 0) {
-      message.warning('折线图维度中最多存在一个字段');
+      message.warning({ className: theme, content: '折线图维度中最多存在一个字段' });
       return false;
     }
 
     if (droppableId === 'legends' && legends?.length > 0) {
-      message.warning('折线图图例中最多存在一个字段');
+      message.warning({ className: theme, content: '折线图图例中最多存在一个字段' });
       return false;
     }
 
@@ -53,6 +54,7 @@ const LineSetting: React.FC<LineSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -69,6 +71,7 @@ const LineSetting: React.FC<LineSettingProps> = (props) => {
         })}
       >
         <ComplexSettingForm
+          theme={theme}
           type={type}
           fields={settings?.data?.indicators}
           styleSetting={settings?.style}

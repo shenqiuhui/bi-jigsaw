@@ -20,6 +20,7 @@ const settingDes = [
 
 const PieSetting: React.FC<PieSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -38,12 +39,12 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
     const indicators = settings?.data?.indicators || [];
 
     if (droppableId === 'dimensions' && dimensions?.length > 0) {
-      message.warning('饼图维度中最多存在一个字段');
+      message.warning({ className: theme, content: '饼图维度中最多存在一个字段' });
       return false;
     }
 
     if (droppableId === 'indicators' && indicators?.length > 0) {
-      message.warning('饼图指标中最多存在一个字段');
+      message.warning({ className: theme, content: '饼图指标中最多存在一个字段' });
       return false;
     }
 
@@ -52,11 +53,11 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
 
   const handleChange = useCallback((filedName, value, styleSettings) => {
     if (value === '') {
-      return message.warn('饼图组件标题不能为空，保存后将保持原标题');
+      return message.warning({ className: theme, content: '饼图组件标题不能为空，保存后将保持原标题' });
     }
 
     if (value == null) {
-      return message.warn('半径占比不允许为空，保存将保持原设置');
+      return message.warning({ className: theme, content: '半径占比不允许为空，保存将保持原设置' });
     };
 
     onStyleSettingChange?.({ ...styleSettings, [filedName]: value });
@@ -79,6 +80,7 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -100,6 +102,7 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
           initialValues={settings?.style}
         >
           <ItemGroup
+            theme={theme}
             label={<LabelRender name="标题" />}
             padding={[15, 12, 12]}
           >
@@ -126,7 +129,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               </Checkbox>
             </Item>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="图例位置" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="图例位置" />}
+          >
             <Item name="legend">
               <Group
                 size="small"
@@ -141,7 +147,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               </Group>
             </Item>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="可视化类型" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="可视化类型" />}
+          >
             <Item name="showType" noStyle>
               <Radio.Group
                 size="small"
@@ -170,7 +179,10 @@ const PieSetting: React.FC<PieSettingProps> = (props) => {
               半径占比
             </span>
           </ItemGroup>
-          <ItemGroup label={<LabelRender name="显示标签" />}>
+          <ItemGroup
+            theme={theme}
+            label={<LabelRender name="显示标签" />}
+          >
             <Item name="labels">
               <Checkbox.Group onChange={(value) => {
                 handleChange('labels', value, settings?.style);

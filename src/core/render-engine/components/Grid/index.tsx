@@ -180,7 +180,11 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
     <AutoSizer disableHeight>
       {({ width }) => (
         <GridLayout
-          className="grid-container"
+          className={classNames({
+            'grid-container': true,
+            'light-theme-grid-container': pageConfig?.theme === 'light',
+            'dark-theme-grid-container': pageConfig?.theme === 'dark'
+          })}
           width={width}
           layout={layoutInfo}
           cols={COLS}
@@ -224,7 +228,8 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
                 className={classNames({
                   'selected-widget': currentClickId === widget?.id,
                   'active-widget': isEdit && selectedWidgetId === widget?.id,
-                  'hover-widget': isEdit && selectedWidgetId !== widget?.id,
+                  'light-theme-hover-widget': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'light',
+                  'dark-theme-hover-widget': isEdit && selectedWidgetId !== widget?.id && pageConfig?.theme === 'dark',
                   'inner-widget': widget?.parentId
                 })}
                 key={widget?.id}
@@ -234,6 +239,7 @@ const Gird = memo(forwardRef<GridRefType, GirdProps>((props, ref) => {
                   <div className="mask" />
                 )}
                 <WidgetContainer
+                  theme={pageConfig?.theme}
                   data={widget}
                   showHeader={otherProps?.showHeader as boolean}
                   useLoading={otherProps?.useLoading as boolean}

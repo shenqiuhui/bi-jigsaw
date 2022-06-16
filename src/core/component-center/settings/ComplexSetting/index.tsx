@@ -16,6 +16,7 @@ const settingDes = [
 
 const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
   const {
+    theme = 'light',
     type,
     activeTab,
     settings,
@@ -32,12 +33,12 @@ const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
     const legends = settings?.data?.legends || [];
 
     if (droppableId === 'dimensions' && dimensions?.length > 0) {
-      message.warning('组合图维度中最多存在一个字段');
+      message.warning({ className: theme, content: '组合图维度中最多存在一个字段' });
       return false;
     }
 
     if (droppableId === 'legends' && legends?.length > 0) {
-      message.warning('组合图图例中最多存在一个字段');
+      message.warning({ className: theme, content: '组合图图例中最多存在一个字段' });
       return false;
     }
 
@@ -53,6 +54,7 @@ const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
         })}
       >
         <DataSetting
+          theme={theme}
           type={type}
           pageId={pageId}
           widgetId={widgetId}
@@ -69,6 +71,7 @@ const ComplexSetting: React.FC<ComplexSettingProps> = (props) => {
         })}
       >
         <ComplexSettingForm
+          theme={theme}
           type={type}
           fields={settings?.data?.indicators}
           styleSetting={settings?.style}

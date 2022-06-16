@@ -2,6 +2,7 @@ import { memo, forwardRef, useState, useCallback } from 'react';
 import { useDeepCompareEffect } from 'ahooks';
 import { Empty } from 'antd';
 import { isEmpty } from 'lodash';
+import classNames from 'classnames';
 import Filter from '../Filter';
 import Gird from '../Grid';
 import { FilterFormType, RenderEngineType, GridRefType } from '../../types';
@@ -39,7 +40,14 @@ const Board = memo(forwardRef<BoardRefs, BoardProps>((props, ref) => {
   }, [config?.filters?.conditions]);
 
   return (
-    <div id="widgets-viewport" className="render-engine-container">
+    <div
+      id="widgets-viewport"
+      className={classNames({
+        'render-engine-container': true,
+        'light-theme-render-engine-container': config?.theme === 'light',
+        'dark-theme-render-engine-container': config?.theme === 'dark',
+      })}
+    >
       {!isEmpty(config?.filters?.conditions) || !isEmpty(config?.widgets) ? (
         <div className="board-container">
           {!(!isEdit && isEmpty(config?.filters?.conditions)) && (

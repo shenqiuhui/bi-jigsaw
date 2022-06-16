@@ -9,6 +9,7 @@ import ItemGroup from '../ItemGroup';
 import './index.less';
 
 interface ComplexSettingFormProps {
+  theme?: string;
   fields?: DataSettingType[];
   styleSetting: SettingType['style'];
   type?: string;
@@ -62,7 +63,7 @@ const widgetNames: WidgetNamesType = {
 };
 
 const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
-  const { type = '', fields = [], styleSetting, onStyleSettingChange } = props;
+  const { theme = 'light', type = '', fields = [], styleSetting, onStyleSettingChange } = props;
 
   const [form] = useForm();
 
@@ -87,7 +88,10 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
       };
     } else {
       if (value === '') {
-        return message.warn(`${widgetNames?.[type]}组件标题不能为空，保存后将保持原标题`);
+        return message.warning({
+          className: theme,
+          content: `${widgetNames?.[type]}组件标题不能为空，保存后将保持原标题`
+        });
       }
 
       form = {
@@ -112,6 +116,7 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
         initialValues={styleSetting}
       >
         <ItemGroup
+          theme={theme}
           label={<LabelRender name="标题" />}
           padding={[15, 12, 12]}
         >
@@ -138,7 +143,10 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
             </Checkbox>
           </Item>
         </ItemGroup>
-        <ItemGroup label={<LabelRender name="图例位置" />}>
+        <ItemGroup
+          theme={theme}
+          label={<LabelRender name="图例位置" />}
+        >
           <Item name="legend">
             <Group
               size="small"
@@ -156,6 +164,7 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
         {axisDes?.map((des) => (des?.always || styleSetting?.yAxisAll) && (
           <ItemGroup
             key={des?.key}
+            theme={theme}
             label={<LabelRender name={des?.label} />}
             padding={[15, 12]}
             extra={() => des?.extra && (
@@ -220,9 +229,12 @@ const ComplexSettingForm: React.FC<ComplexSettingFormProps> = (props) => {
                 labelAlign="left"
                 {...itemLayout}
               >
-                <RangeValues onChange={(value) => {
-                  handleChangeDebounce(des?.rangeName, value, styleSetting);
-                }} />
+                <RangeValues
+                  theme={theme}
+                  onChange={(value) => {
+                    handleChangeDebounce(des?.rangeName, value, styleSetting);
+                  }}
+                />
               </Item>
             )}
           </ItemGroup>
