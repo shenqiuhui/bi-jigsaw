@@ -4243,7 +4243,7 @@ a.dark-btn-sm {
   color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
   font-size: 16px;
-  background: transparent;
+  background: #1d1d1d;
   border-bottom: 1px solid #303030;
   border-radius: 2px 2px 0 0;
 }
@@ -5329,7 +5329,7 @@ a.dark-btn-sm {
   line-height: 1.5715;
   list-style: none;
   font-feature-settings: 'tnum';
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: #1d1d1d;
   border: 1px solid #434343;
   border-bottom: 0;
   border-radius: 2px;

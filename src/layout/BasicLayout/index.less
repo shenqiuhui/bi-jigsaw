@@ -7,28 +7,56 @@
     justify-content: space-between;
     align-items: center;
     height: @dashboard-header-height;
+    line-height: @dashboard-header-height;
     padding: 0 20px;
     background-color: #000000;
 
     h1 {
+      height: @dashboard-header-height;
+      line-height: @dashboard-header-height;
       margin: 0;
       color: #FFFFFF;
     }
 
-    .avatar {
+    .operate-wrapper {
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      color: #FFFFFF;
-      cursor: pointer;
 
-      .user-name {
-        font-size: 16px;
-        margin-left: 10px;
+      .setting-icon {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        color: #FFFFFF;
+        font-size: 26px;
+      }
+
+      .avatar {
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        margin-left: 24px;
+        cursor: pointer;
+
+        .user-name {
+          font-size: 16px;
+          margin-left: 10px;
+        }
       }
     }
   }
 
   .base-content {
     padding: 10px 20px;
+  }
+}
+
+.home-setting-content {
+  padding-top: 10px !important;
+
+  .form-item-horizontal {
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

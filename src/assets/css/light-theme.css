@@ -4244,7 +4244,7 @@ a.light-btn-sm {
   color: rgba(0, 0, 0, 0.85);
   font-weight: 500;
   font-size: 16px;
-  background: transparent;
+  background: #fafafa;
   border-bottom: 1px solid #f0f0f0;
   border-radius: 2px 2px 0 0;
 }

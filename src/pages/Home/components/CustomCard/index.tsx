@@ -33,7 +33,6 @@ const CustomCard: React.FC<CustomCardProps> = (props) => {
     <Item>
       <Card
         size="small"
-        headStyle={{ backgroundColor: '#FAFAFA' }}
         title={item?.createUser}
         extra={item?.createTime}
         actions={[
