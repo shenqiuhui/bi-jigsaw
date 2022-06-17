@@ -11,12 +11,6 @@ import './index.less';
 
 moment.locale('zh-cn');
 
-ConfigProvider.config({
-  theme: {
-    primaryColor: '#5677FC'
-  }
-});
-
 ReactDOM.render(
   <ConfigProvider locale={zhCN}>
     <Provider store={store}>
