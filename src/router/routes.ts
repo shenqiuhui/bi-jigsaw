@@ -1,10 +1,12 @@
+import { lazy } from 'react';
 import { RouteConfig } from 'react-router-config';
 import BasicLayout from '@/layout/BasicLayout';
 import DashboardLayout from '@/layout/DashboardLayout';
 import PreviewLayout from '@/layout/PreviewLayout';
-import Home from '@/pages/Home';
-import Preview from '@/pages/Preview';
-import Editor from '@/pages/Editor';
+
+const Home = lazy(() => import('@/pages/Home'));
+const Preview = lazy(() => import('@/pages/Preview'));
+const Editor = lazy(() => import('@/pages/Editor'));
 
 const routes: RouteConfig[] = [
   {

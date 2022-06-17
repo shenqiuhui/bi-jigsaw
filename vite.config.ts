@@ -31,8 +31,16 @@ export default defineConfig({
       input: {
         index: path.resolve(__dirname, 'index.html'),
         iframe: path.resolve(__dirname, 'example/iframe.html')
+      },
+      output: {
+        manualChunks: {
+          antd: ['antd'],
+          echarts: ['echarts'],
+          lodash: ['lodash'],
+          ahooks: ['ahooks']
+        }
       }
-    }
+    },
   },
   plugins: [
     react(),
