@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Empty, Button } from 'antd';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { isBoolean } from 'lodash';
 import { DashboardParamsType } from '../../types';
 
@@ -18,7 +18,6 @@ const authInfo = new Map([
 ]);
 
 const AuthHOC = <T extends {}>(Component: React.ComponentType<T>, fetchAPI: Function) => (props: T) => {
-  const history = useHistory();
   const { spaceId, pageId } = useParams<DashboardParamsType>();
   const [auth, setAuth] = useState<AuthInfo>();
 
@@ -36,7 +35,7 @@ const AuthHOC = <T extends {}>(Component: React.ComponentType<T>, fetchAPI: Func
   }
 
   const goHomePage = () => {
-    history.push('/');
+    window.open('/');
   }
 
   useEffect(() => {
@@ -50,7 +49,11 @@ const AuthHOC = <T extends {}>(Component: React.ComponentType<T>, fetchAPI: Func
       ) : (
         <div className="page-no-access">
           <Empty description={auth?.info}>
-            <Button type="link" onClick={goHomePage}>
+            <Button
+              className="go-home-btn"
+              type="link"
+              onClick={goHomePage}
+            >
               返回首页
             </Button>
           </Empty>
