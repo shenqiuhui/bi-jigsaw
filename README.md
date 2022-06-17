@@ -20,6 +20,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 App is ready to be deployed!
 
+### 访问链接
+
+[https://bi.overtaking.top](https://bi.overtaking.top)
+
 ## 系统架构设计
 
 ![架构图](https://static.overtaking.top/dashboard-bi.png)
