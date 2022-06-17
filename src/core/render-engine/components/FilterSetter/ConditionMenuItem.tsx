@@ -31,7 +31,7 @@ const ConditionMenuItem: React.FC<ConditionMenuItemProps> = memo((props) => {
     onDelete
   } = props;
 
-  const [, { hasComponent }] = useComponent('filters');
+  const [_, { hasComponent }] = useComponent('filters');
 
   const editRef = useRef<Input>(null);
 

@@ -22,7 +22,7 @@ interface FilterSetterProps {
 const FilterSetter: React.FC<FilterSetterProps> = memo((props) => {
   const { visible, pageConfig, onVisibleChange, onConditionSaved } = props;
 
-  const [, { hasComponent }] = useComponent('filters');
+  const [_, { hasComponent }] = useComponent('filters');
 
   const [data, setData] = useState<FilterConfigType>({} as FilterConfigType);
   const [activeId, setActiveId] = useState(data?.list?.[0]?.id);
