@@ -10,7 +10,7 @@ interface CustomCardProps {
   highlightRender?: (text: string) => React.ReactElement | string;
   themeTagRender?: (itemTheme: string) => React.ReactElement;
   onPreview?: (spaceId: string, pageId: string) => void;
-  onIframePreview?: (spaceId: string, pageId: string) => void;
+  onIframePreview?: (spaceId: string, pageId: string, theme: string) => void;
   onEdit?: (spaceId: string, pageId: string) => void;
 }
 
@@ -49,7 +49,7 @@ const CustomCard: React.FC<CustomCardProps> = (props) => {
             key="iframe"
             type="link"
             size="small"
-            onClick={() => onIframePreview?.(item?.spaceId, item?.id)}
+            onClick={() => onIframePreview?.(item?.spaceId, item?.id, item.theme)}
           >
             iframe
           </Button>,

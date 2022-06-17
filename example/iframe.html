@@ -13,25 +13,51 @@
         height: 100%;
       }
 
+      h1 {
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+        padding: 10px 20px;
+        margin: 0;
+      }
+
+      h1.light {
+        color: #000;
+        background-color: #fff;
+      }
+
+      h1.dark {
+        color: #fff;
+        background-color: #434343;
+      }
+
       #iframe-view {
         width: 100%;
-        height: 100vh;
+        height: calc(100% - 50px);
+        display: block;
       }
     </style>
   </head>
   <body>
     <div id="root">
+      <h1 id="title">这是一个 iframe 内嵌的案例</h1>
       <iframe id="iframe-view" frameborder="0" loading="lazy" scrolling="no"></iframe>
     </div>
     <script>
       window.onload = function () {
         const iframe = document.getElementById('iframe-view');
+        const title = document.getElementById('title');
+
         const query = {};
         const search = window.location.search.slice(1);
-        const origin = window.location.origin;
+
         search.replace(/([^=&]+)=([^=&]+)/g, function () {
           query[arguments[1]] = arguments[2];
         });
+
+        title.classList.add(query?.iframeTheme);
+
+        const origin = window.location.origin;
         iframe.src = origin + '/#/preview/' + query.spaceId + '/' + query.pageId + '?header=false';
       }
     </script>

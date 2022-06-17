@@ -106,9 +106,9 @@ const Home = () => {
     window.open(`${pathname}#/preview/${spaceId}/${pageId}`);
   }
 
-  const handleIframePreview = (spaceId: string, pageId: string) => {
+  const handleIframePreview = (spaceId: string, pageId: string, theme: string) => {
     const origin = window.location.origin;
-    window.open(`${origin}/example/iframe.html?spaceId=${spaceId}&pageId=${pageId}`);
+    window.open(`${origin}/example/iframe.html?spaceId=${spaceId}&pageId=${pageId}&iframeTheme=${theme}`);
   }
 
   const handleEdit = (spaceId: string, pageId: string) => {
@@ -174,9 +174,9 @@ const Home = () => {
         <br />
         <Button
           type="link"
-          onClick={() => handleIframePreview('20398', '1')}
+          onClick={() => handleIframePreview('20398', '1', 'light')}
         >
-          iframe嵌入 ~/example/iframe?spaceId={'{spaceId}'}&pageId={'{pageId}'}
+          iframe嵌入 ~/example/iframe?spaceId={'{spaceId}'}&pageId={'{pageId}'}&iframeTheme={'{iframeTheme}'}
         </Button>
         <br />
         <Button
