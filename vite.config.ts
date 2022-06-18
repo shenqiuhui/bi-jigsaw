@@ -34,7 +34,6 @@ export default defineConfig({
       },
       output: {
         manualChunks: {
-          antd: ['antd'],
           echarts: ['echarts'],
           lodash: ['lodash'],
           ahooks: ['ahooks']
