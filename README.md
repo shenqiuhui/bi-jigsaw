@@ -26,4 +26,4 @@ App is ready to be deployed!
 
 ## 系统架构设计
 
-![架构图](https://static.overtaking.top/architecture/dashboard-bi.png)
+![架构图](https://static.overtaking.top/architecture/bi.png)
