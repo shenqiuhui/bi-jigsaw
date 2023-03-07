@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Select, Input, Radio, message } from 'antd';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { findIndex, omit, cloneDeep } from 'lodash';
+import { findIndex, omit, cloneDeep } from 'lodash-es';
 import { SearchOutlined } from '@ant-design/icons';
 import { getFieldList, getPlanList } from '@/service/apis/dashboard';
 import { useConfig } from '@/core/register';

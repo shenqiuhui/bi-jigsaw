@@ -1,5 +1,5 @@
 {
-  "name": "fe-bi-dashboard",
+  "name": "bi-jigsaw",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -17,7 +17,7 @@
     "echarts": "5.3.2",
     "echarts-for-react": "3.0.1",
     "file-saver": "^2.0.5",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "moment": "2.29.1",
     "qs": "^6.10.5",
     "react": "^17.0.2",
@@ -30,17 +30,15 @@
     "react-resizable": "3.0.4",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
     "react-virtualized-auto-sizer": "^1.0.6",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.3",
     "@types/js-cookie": "^3.0.2",
-    "@types/lodash": "^4.14.172",
+    "@types/lodash-es": "^4.17.6",
     "@types/node": "^12.20.21",
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.33",

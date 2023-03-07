@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useUpdateEffect } from 'ahooks';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Card, Button, Select, Input, Collapse, Tag, Radio, RadioChangeEvent } from 'antd';

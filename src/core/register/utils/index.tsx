@@ -1,5 +1,5 @@
 import React from 'react';
-import { values } from 'lodash';
+import { values } from 'lodash-es';
 import { ComponentMapType, ConfigMapType, FieldSetType, PathOptionsType, RegisterOptionsType } from '../types';
 
 const componentMap: ComponentMapType = {};

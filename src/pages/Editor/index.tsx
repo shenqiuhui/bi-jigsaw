@@ -2,7 +2,7 @@ import { memo, useState, useEffect, useCallback, useRef } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { pick, cloneDeep, isEmpty } from 'lodash';
+import { pick, cloneDeep, isEmpty } from 'lodash-es';
 import classNames from 'classnames';
 import { getPageConfig } from '@/service/apis/dashboard';
 import { setDashboardConfig } from '@/store/slices/dashboard';

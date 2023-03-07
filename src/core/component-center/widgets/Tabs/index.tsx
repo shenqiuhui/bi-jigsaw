@@ -1,6 +1,6 @@
 import { memo, forwardRef, useState, useMemo } from 'react';
 import { Tabs } from 'antd';
-import { omitBy, isNil, find, cloneDeep } from 'lodash';
+import { omitBy, isNil, find, cloneDeep } from 'lodash-es';
 import classNames from 'classnames';
 import { PageConfigType, WidgetType, GridRefType } from '@/core/render-engine';
 import CustomTabs from './CustomTabs';

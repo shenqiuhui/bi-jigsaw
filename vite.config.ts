@@ -35,7 +35,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           echarts: ['echarts'],
-          lodash: ['lodash'],
           ahooks: ['ahooks']
         }
       }

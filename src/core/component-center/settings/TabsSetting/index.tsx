@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { Form, Input, Checkbox, Radio, message } from 'antd';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import { TabType } from '@/core/render-engine';
 import TabCollections from './TabCollections';
 import ItemGroup from '../../common/ItemGroup';

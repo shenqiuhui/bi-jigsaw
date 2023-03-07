@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import { Form, Input, Checkbox, Radio, Select, message } from 'antd';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import { SettingType, DataSettingType } from '@/core/render-engine';
 import RangeValues from './RangeValues';
 import LabelRender from '../LabelRender';

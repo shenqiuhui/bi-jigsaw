@@ -1,6 +1,6 @@
 import React, { memo, useState, useMemo, useCallback } from 'react';
 import { Button, Table, Form, Radio, Tooltip } from 'antd';
-import { find } from 'lodash'
+import { find } from 'lodash-es';
 import { useComponent } from '@/core/register';
 import Connective from './Connective';
 import FieldCell from './FieldCell';

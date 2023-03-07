@@ -1,7 +1,7 @@
 import { memo, forwardRef, useState, useMemo, useRef, useImperativeHandle } from 'react';
 import GridLayout, { Layout, ItemCallback } from 'react-grid-layout';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash'
+import { omit, pick, omitBy, isNil, cloneDeep, find } from 'lodash-es'
 import classNames from 'classnames';
 import { useComponent } from '@/core/register';
 import { COLS, ROW_HEIGHT } from '@/core/render-engine';

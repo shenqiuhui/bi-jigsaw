@@ -1,6 +1,6 @@
 import { memo, useState, useMemo } from 'react';
 import { Modal, Spin, Button, Space, Popconfirm, message } from 'antd';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { useUpdateEffect } from 'ahooks';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';

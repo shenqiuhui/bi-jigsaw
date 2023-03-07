@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 import { TabType } from '@/core/render-engine';
 import TabCollectionItem from './TabCollectionItem';

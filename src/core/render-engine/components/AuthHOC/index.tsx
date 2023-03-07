@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Empty, Button } from 'antd';
 import { useParams } from 'react-router-dom';
-import { isBoolean } from 'lodash';
+import { isBoolean } from 'lodash-es';
 import { DashboardParamsType } from '../../types';
 
 import './index.less';

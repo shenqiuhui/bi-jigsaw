@@ -2,7 +2,7 @@ import { memo, useState, useMemo, useEffect, useRef } from 'react';
 import { message } from 'antd';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import classNames from 'classnames';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { EChartsOption } from 'echarts-for-react';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Form, Input, Select, Row, Col } from 'antd';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';
 import ColorPicker from '../../common/ColorPicker';

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { isNil, isFunction } from 'lodash';
+import { isNil, isFunction } from 'lodash-es';
 import classNames from 'classnames';
 
 import './index.less';

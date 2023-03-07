@@ -1,6 +1,6 @@
 import { memo, forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
 import ReactECharts, { EChartsInstance, EChartsOption } from 'echarts-for-react';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 interface InnerChartProps {
   theme?: string;

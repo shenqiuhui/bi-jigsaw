@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Form, Input, Radio, message } from 'antd';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import { checkUniqueName } from '@/service/apis/dashboard';
 import LabelRender from '../../common/LabelRender';
 import ItemGroup from '../../common/ItemGroup';

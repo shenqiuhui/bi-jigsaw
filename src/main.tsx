@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import moment from 'moment';
 import Router from './router';
 import store from './store';
+import reportWebVitals from './reportWebVitals';
 import 'moment/dist/locale/zh-cn';
 
 import './index.less';
@@ -19,3 +20,5 @@ ReactDOM.render(
   </ConfigProvider>,
   document.getElementById('root')
 );
+
+reportWebVitals();

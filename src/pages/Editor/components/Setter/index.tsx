@@ -1,5 +1,5 @@
 import { memo, useState, useMemo, useRef, useEffect } from 'react';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { useComponent } from '@/core/register';
 import { SettingType, PageSettingType, WatchHandlersType } from '@/core/render-engine';
 import TabsContainer from './TabsContainer';

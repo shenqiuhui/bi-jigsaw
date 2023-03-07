@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import { useFullscreen, useUpdateEffect } from 'ahooks';
 import { useInView } from 'react-intersection-observer';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import classNames from 'classnames';
 import { useComponent } from '@/core/register';
 import Grid from '../Grid';

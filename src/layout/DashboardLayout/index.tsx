@@ -3,7 +3,7 @@ import { Layout, Button, Modal, Tooltip, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
-import { cloneDeep, isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import { IconFont } from '@/assets/iconfont';

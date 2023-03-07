@@ -1,7 +1,7 @@
 import { memo, forwardRef, useState, useCallback } from 'react';
 import { useDeepCompareEffect } from 'ahooks';
 import { Empty } from 'antd';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import classNames from 'classnames';
 import Filter from '../Filter';
 import Gird from '../Grid';
