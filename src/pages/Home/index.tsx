@@ -176,7 +176,7 @@ const Home = () => {
           type="link"
           onClick={() => handleIframePreview('20398', '1', 'light')}
         >
-          iframe嵌入 ~/example/iframe?spaceId={'{spaceId}'}&pageId={'{pageId}'}&iframeTheme={'{iframeTheme}'}
+          iframe嵌入 ~/example/iframe.html?spaceId={'{spaceId}'}&pageId={'{pageId}'}&iframeTheme={'{iframeTheme}'}
         </Button>
         <br />
         <Button
