@@ -1,5 +1,6 @@
 import path from 'path';
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
@@ -35,13 +36,15 @@ export default defineConfig({
       output: {
         manualChunks: {
           echarts: ['echarts'],
-          ahooks: ['ahooks']
+          ahooks: ['ahooks'],
+          moment: ['moment']
         }
       }
     },
   },
   plugins: [
     react(),
-    splitVendorChunkPlugin()
+    splitVendorChunkPlugin(),
+    visualizer()
   ]
 });

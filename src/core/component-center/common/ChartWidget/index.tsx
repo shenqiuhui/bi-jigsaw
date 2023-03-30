@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { isEmpty } from 'lodash-es';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { EChartsOption } from 'echarts-for-react';
+import { EChartsOption } from 'echarts-for-react/lib/types';
 import { getEchartData, exportData } from '@/service/apis/chart';
 import { base64ToBlob } from '@/utils';
 import { SettingType, WidgetDefaultProps, FilterFormType } from '@/core/render-engine';

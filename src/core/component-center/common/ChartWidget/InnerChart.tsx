@@ -1,6 +1,29 @@
 import { memo, forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
-import ReactECharts, { EChartsInstance, EChartsOption } from 'echarts-for-react';
 import { isEmpty } from 'lodash-es';
+import ReactECharts from 'echarts-for-react/lib/core';
+import { EChartsInstance, EChartsOption } from 'echarts-for-react/lib/types';
+import * as echarts from 'echarts/core';
+import { LineChart, BarChart, PieChart } from 'echarts/charts';
+import {
+  GridComponent,
+  TooltipComponent,
+  TitleComponent,
+  LegendComponent,
+  DatasetComponent
+} from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+
+echarts.use([
+  LineChart,
+  BarChart,
+  PieChart,
+  GridComponent,
+  TooltipComponent,
+  TitleComponent,
+  LegendComponent,
+  DatasetComponent,
+  CanvasRenderer
+]);
 
 interface InnerChartProps {
   theme?: string;
@@ -37,6 +60,7 @@ const InnerChart = memo(forwardRef<CharInstanceRefType, InnerChartProps>((props,
   return (
     <ReactECharts
       notMerge
+      echarts={echarts}
       option={option}
       theme={theme}
       ref={reactEchartRef}

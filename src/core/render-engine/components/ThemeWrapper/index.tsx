@@ -1,5 +1,5 @@
 import { ConfigProvider } from 'antd';
-import * as echarts from 'echarts';
+import * as echarts from 'echarts/core';
 import { lightTheme, darkTheme } from './config';
 
 interface ThemeWrapperProps {
