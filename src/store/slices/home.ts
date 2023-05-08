@@ -6,7 +6,7 @@ const initialState: HomeStateType = {
 };
 
 const homeSlice = createSlice({
-  name: 'user',
+  name: 'home',
   initialState,
   reducers: {
     setTheme: (_state: HomeStateType, action: PayloadAction<string>) => {
